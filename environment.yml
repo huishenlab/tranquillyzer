@@ -4,9 +4,9 @@ channels:
   - nvidia
   - bioconda
   - defaults
+
 dependencies:
   - python=3.10.12
-  - pip
   - pandas=2.3.1
   - polars=1.32.3
   - matplotlib=3.10.5
@@ -19,13 +19,21 @@ dependencies:
   - python-Levenshtein=0.27.1
   - minimap2=2.30
   - samtools=1.22.1
+  - pip
+
+  # pip-installed packages
   - pip:
-     - numpy==1.26.4
-     - biopython==1.85
-     - pysam==0.23.3
-     - bcbio-gff==0.7.1
-     - scikit-learn==1.7.1
-     - tf2crf==0.1.33
-     - psutil==7.0.0
-     - pytest==8.4.1
-     - pytest-cov==6.2.1
+      # use NVIDIA’s index for CUDA wheels
+      - --extra-index-url https://pypi.nvidia.com
+      # packages
+      - numpy==1.26.4
+      - biopython==1.85
+      - pysam==0.23.3
+      - bcbio-gff==0.7.1
+      - scikit-learn==1.7.1
+      - "tensorflow[and-cuda]==2.15.1"
+      - "tensorflow-addons==0.22.*"
+      - tf2crf==0.1.33
+      - psutil==7.0.0
+      - pytest==8.4.1
+      - pytest-cov==6.2.1
