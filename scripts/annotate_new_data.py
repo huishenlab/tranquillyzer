@@ -11,6 +11,7 @@ from typing import Optional
 from numba import njit
 
 from scripts.train_new_model import ont_read_annotator
+import scripts.available_gpus as available_gpus
 from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
 
@@ -25,10 +26,8 @@ NUCLEOTIDE_TO_ID[ord('T')] = 4
 NUCLEOTIDE_TO_ID[ord('N')] = 5  # Default encoding for unknown nucleotides
 
 # Enable memory growth to avoid pre-allocating all GPU memory
-# TODO: This may be able to be moved into the available GPUs/handles class
-gpus = tf.config.experimental.list_physical_devices('GPU')
-if len(gpus) > 0:
-    for gpu in gpus:
+if available_gpus.n_gpus() > 0:
+    for gpu in available_gpus.get_tensorflow_output():
         tf.config.experimental.set_memory_growth(gpu, True)
 
 tf.config.optimizer.set_jit(True)
@@ -72,12 +71,6 @@ def num_replicas(strategy=None):
     return getattr(strategy, "num_replicas_in_sync", 1) if strategy else 1
 
 
-# Returns logical GPU handles like 'GPU:0', 'GPU:1', ...
-# TODO: This may be able to be moved into the available GPUs/handles class
-def get_gpu_handles():
-    return [f"GPU:{i}" for i, _ in enumerate(tf.config.list_physical_devices("GPU"))]
-
-
 def bytes_from_gb(gb: float) -> int:
     return int(float(gb) * (1024 ** 3))
 
@@ -109,7 +102,7 @@ def usable_bytes_per_gpu(total_bytes_per_gpu: list[int], safety_margin: float = 
     usable ≈ (total - TF_current) * (1 - safety_margin), clamped to >= 0
     """
     out = []
-    handles = get_gpu_handles()
+    handles = available_gpus.get_gpu_names_clean()
     for i, total in enumerate(total_bytes_per_gpu):
         try:
             info = tf.config.experimental.get_memory_info(handles[i])  # {'current','peak'}
@@ -163,13 +156,13 @@ def choose_global_batch(L,
     'user_total_gb' is a string like "48" or "48,48,24".
     If None, default 12 GB/GPU.
     """
-    handles = get_gpu_handles()
-    if not handles:
+    n_gpus = available_gpus.n_gpus()
+    if n_gpus == 0:
         # CPU-only fallback: use token-based
         per_replica = pick_per_replica_batch_by_tokens(L, target_tokens_per_replica, min_b, max_b)
         return per_replica  # global==per_replica on CPU
 
-    totals = parse_gpu_total_gb(user_total_gb, num_gpus=len(handles))
+    totals = parse_gpu_total_gb(user_total_gb, num_gpus=n_gpus)
     usable = usable_bytes_per_gpu(totals, safety_margin=safety_margin)
 
     limit_conv = pick_per_replica_batch_by_conv(usable, L, conv_filters, 4, min_b, max_b)
@@ -199,10 +192,9 @@ def predict_with_backoff(model, build_dataset_fn,
             logger.warning(f"OOM at batch={bs}. Retrying with smaller batch...")
             K.clear_session()
             gc.collect()
-            # TODO: This may be able to be moved into the available GPUs/handles class
-            for dev in tf.config.list_physical_devices('GPU'):
+            for dev in available_gpus.get_gpu_names_raw():
                 try:
-                    tf.config.experimental.reset_memory_stats(dev.name)
+                    tf.config.experimental.reset_memory_stats(dev)
                 except Exception:
                     pass
             time.sleep(1.0)
@@ -223,7 +215,7 @@ def annotate_new_data_parallel(new_encoded_data, model, global_bs,
 
     os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
-    if not get_gpu_handles():
+    if available_gpus.n_gpus() == 0:
         cpu_bs = min(32, max(1, len(new_encoded_data)))  # small & predictable for tests/CI
         return model.predict(new_encoded_data, batch_size=cpu_bs, verbose=0)
 
@@ -299,10 +291,9 @@ def model_predictions(parquet_file, chunk_start, chunk_size,
     num_chunks = (total_rows // dynamic_chunk_size) + (1 if total_rows % dynamic_chunk_size > 0 else 0)
 
     # Build/load model once (CPU: no strategy; GPU: MirroredStrategy)
-    # TODO: This may be able to be moved into the available GPUs/handles class
-    gpus = tf.config.list_physical_devices("GPU")
-    min_batch = int(len(gpus)) if len(gpus) > 0 else min_batch
-    strategy = tf.distribute.MirroredStrategy() if gpus else None
+    n_gpus = available_gpus.n_gpus()
+    min_batch = int(n_gpus) if n_gpus > 0 else min_batch
+    strategy = tf.distribute.MirroredStrategy() if n_gpus > 0 else None
 
     conv_filters = 256  # default, will be overwritten if params present
 

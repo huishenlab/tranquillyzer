@@ -91,6 +91,24 @@ def availableModels():
     from scripts.trained_models import trained_models
     trained_models()
 
+# ======================================
+# available gpus as found by tensorflow
+# ======================================
+
+@app.command()
+def available_gpus():
+    """
+    Print GPUs available to tranquillyzer
+
+    Column descriptions:
+        Raw Names   - Names as pulled from TensorFlow
+        Clean Names - Cleaned names based on number of GPUs
+    """
+    print("Querying GPUs - this may take some time...")
+
+    import scripts.available_gpus as available_gpus
+    available_gpus.available_gpus()
+
 # ===========================================
 # extract reads, read_names from fasta file
 # ===========================================

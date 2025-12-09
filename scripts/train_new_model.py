@@ -18,8 +18,11 @@ import tensorflow_addons as tfa
 from tf2crf import CRF, ModelWithCRFLoss
 
 import os, tensorflow as tf
-# TODO: This may be able to be moved into the available GPUs/handles class
-os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(map(str, range(tf.config.list_physical_devices('GPU').__len__())))
+from scripts.available_gpus import gpus_to_visible_devices_string
+# TODO: Will need to think about how to handle this when users are able to pick
+#       which specific GPUs to use. This may need to be set elsewhere, or still
+#       set here, but using a different function
+os.environ["CUDA_VISIBLE_DEVICES"] = gpus_to_visible_devices_string()
 tf.config.experimental.enable_tensor_float_32_execution(False)
 
 logger = logging.getLogger(__name__)
