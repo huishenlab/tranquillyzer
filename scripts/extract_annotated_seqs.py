@@ -192,9 +192,18 @@ def process_full_len_reads(data, barcodes, label_binarizer, model_path_w_CRF):
     annotations['orientation'] = order
     annotations["reason"] = reasons
 
-    if annotations["architecture"] == "valid":
-        for barcode in barcodes:
-            annotations[barcode]["Sequences"] = [read[int(annotations[barcode]['Starts'][0]):int(annotations[barcode]['Ends'][0])]]
+    # Extract sequences for ALL segments in ALL reads (valid and invalid)
+    # This allows inspection of what the model detected, including segment lengths and edit distances
+    # Keep full sequences here for accurate edit distance calculation
+    # Truncation for display will happen later in the export process
+    # Yes, this is extra overhead, but is necessary for now. Can disable in the future.
+    for segment in seq_order:
+        if segment in annotations and annotations[segment].get('Starts') and annotations[segment].get('Ends'):
+            if annotations[segment]['Starts']:  # Check if list is not empty
+                start_pos = int(annotations[segment]['Starts'][0])
+                end_pos = int(annotations[segment]['Ends'][0])
+                full_seq = read[start_pos:end_pos]
+                annotations[segment]["Sequences"] = [full_seq]
 
     return annotations
 

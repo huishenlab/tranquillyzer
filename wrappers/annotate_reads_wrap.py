@@ -21,7 +21,9 @@ def load_libs():
 
     from filelock import FileLock
 
-    from scripts.export_annotations import (
+    # Switch to new export file to test integration with calculating
+    # edit distances to all segments (e.g. cbc, i5, i7, p5, p7, etc.)
+    from scripts.export_annotations_with_edit_distances import (
         post_process_reads,
         plot_read_n_cDNA_lengths,
     )
@@ -109,7 +111,10 @@ def annotate_reads_wrap(output_dir, whitelist_file, output_fmt,
                         model_name, model_type, seq_order_file,
                         chunk_size, gpu_mem, target_tokens,
                         vram_headroom, min_batch_size, max_batch_size,
-                        bc_lv_threshold, threads, max_queue_size):
+                        bc_lv_threshold, threads, max_queue_size,
+                        include_edit_distances=False,
+                        include_sequences_in_valid_output=False,
+                        whitelist_paths=None):
     (os, gc, sys, resource, pickle, mp, Manager,
      defaultdict, psutil, pl, FileLock, pd,
      model_predictions, post_process_reads,
@@ -248,6 +253,8 @@ def annotate_reads_wrap(output_dir, whitelist_file, output_fmt,
                 # -- ambiguous_fasta
                 # -- ambiguous_fasta_lock
                 # -- threads
+                # -- seq_order_file (for edit distances)
+                # -- model_name (for edit distances)
                 result = post_process_reads(
                     reads, read_names, strand, output_fmt,
                     base_qualities, model_type,
@@ -265,7 +272,12 @@ def annotate_reads_wrap(output_dir, whitelist_file, output_fmt,
                     local_cell_counter, demuxed_fasta,
                     demuxed_fasta_lock,
                     ambiguous_fasta,
-                    ambiguous_fasta_lock, threads
+                    ambiguous_fasta_lock, threads,
+                    seq_orders_path=seq_order_file,
+                    model_name=model_name,
+                    include_edit_distances=include_edit_distances,
+                    include_sequences_in_valid_output=include_sequences_in_valid_output,
+                    whitelist_paths=whitelist_paths
                 )
 
                 if result:
@@ -426,6 +438,8 @@ def annotate_reads_wrap(output_dir, whitelist_file, output_fmt,
 
     if model_type == "CRF":
         # process all the reads with CNN-LSTM-CRF model
+        # Fixme: should not assume specific suffixes - dynamically check
+        # and provide messages to the user about if it exits or not.
         model_path_w_CRF = f"{models_dir}/{model_name}_w_CRF.h5"
 
         with open(f"{models_dir}/{model_name}_w_CRF_lbl_bin.pkl", "rb") as f:
