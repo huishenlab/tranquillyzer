@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Usage – Tranquillyzer Documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c70d880e88d09672f81c164feab79f78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-39ac84c59068386811d4df66a4da17d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Tranquillyzer Documentation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../webpages/install.html"> 
+<span class="menu-text">Install</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../webpages/quick_start.html"> 
+<span class="menu-text">Quick Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../webpages/model_training.html"> 
+<span class="menu-text">Model Training</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../webpages/usage.html" aria-current="page"> 
+<span class="menu-text">Usage</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/huishenlab/tranquillyzer"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#input-output" id="toc-input-output" class="nav-link active" data-scroll-target="#input-output">Input / Output</a>
+  <ul class="collapse">
+  <li><a href="#input" id="toc-input" class="nav-link" data-scroll-target="#input">Input</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  </ul></li>
+  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#command-line-arguments" id="toc-command-line-arguments" class="nav-link" data-scroll-target="#command-line-arguments">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#read-length-distribution" id="toc-read-length-distribution" class="nav-link" data-scroll-target="#read-length-distribution">Read Length Distribution</a>
+  <ul class="collapse">
+  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1">Overview</a></li>
+  <li><a href="#usage-1" id="toc-usage-1" class="nav-link" data-scroll-target="#usage-1">Usage</a></li>
+  <li><a href="#command-line-arguments-1" id="toc-command-line-arguments-1" class="nav-link" data-scroll-target="#command-line-arguments-1">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#available-models" id="toc-available-models" class="nav-link" data-scroll-target="#available-models">Available Models</a>
+  <ul class="collapse">
+  <li><a href="#overview-2" id="toc-overview-2" class="nav-link" data-scroll-target="#overview-2">Overview</a></li>
+  <li><a href="#usage-2" id="toc-usage-2" class="nav-link" data-scroll-target="#usage-2">Usage</a></li>
+  <li><a href="#command-line-arguments-2" id="toc-command-line-arguments-2" class="nav-link" data-scroll-target="#command-line-arguments-2">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#available-gpus" id="toc-available-gpus" class="nav-link" data-scroll-target="#available-gpus">Available GPUs</a>
+  <ul class="collapse">
+  <li><a href="#overview-3" id="toc-overview-3" class="nav-link" data-scroll-target="#overview-3">Overview</a></li>
+  <li><a href="#usage-3" id="toc-usage-3" class="nav-link" data-scroll-target="#usage-3">Usage</a></li>
+  <li><a href="#command-line-arguments-3" id="toc-command-line-arguments-3" class="nav-link" data-scroll-target="#command-line-arguments-3">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#annotation-barcode-correction-and-demultiplexing" id="toc-annotation-barcode-correction-and-demultiplexing" class="nav-link" data-scroll-target="#annotation-barcode-correction-and-demultiplexing">Annotation, Barcode Correction, and Demultiplexing</a>
+  <ul class="collapse">
+  <li><a href="#overview-4" id="toc-overview-4" class="nav-link" data-scroll-target="#overview-4">Overview</a></li>
+  <li><a href="#usage-4" id="toc-usage-4" class="nav-link" data-scroll-target="#usage-4">Usage</a></li>
+  <li><a href="#command-line-arguments-4" id="toc-command-line-arguments-4" class="nav-link" data-scroll-target="#command-line-arguments-4">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#alignment" id="toc-alignment" class="nav-link" data-scroll-target="#alignment">Alignment</a>
+  <ul class="collapse">
+  <li><a href="#overview-5" id="toc-overview-5" class="nav-link" data-scroll-target="#overview-5">Overview</a></li>
+  <li><a href="#usage-5" id="toc-usage-5" class="nav-link" data-scroll-target="#usage-5">Usage</a></li>
+  <li><a href="#command-line-arguments-5" id="toc-command-line-arguments-5" class="nav-link" data-scroll-target="#command-line-arguments-5">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#duplicate-marking" id="toc-duplicate-marking" class="nav-link" data-scroll-target="#duplicate-marking">Duplicate Marking</a>
+  <ul class="collapse">
+  <li><a href="#overview-6" id="toc-overview-6" class="nav-link" data-scroll-target="#overview-6">Overview</a></li>
+  <li><a href="#usage-6" id="toc-usage-6" class="nav-link" data-scroll-target="#usage-6">Usage</a></li>
+  <li><a href="#command-line-arguments-6" id="toc-command-line-arguments-6" class="nav-link" data-scroll-target="#command-line-arguments-6">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#read-visualization" id="toc-read-visualization" class="nav-link" data-scroll-target="#read-visualization">Read Visualization</a>
+  <ul class="collapse">
+  <li><a href="#overview-7" id="toc-overview-7" class="nav-link" data-scroll-target="#overview-7">Overview</a></li>
+  <li><a href="#usage-7" id="toc-usage-7" class="nav-link" data-scroll-target="#usage-7">Usage</a></li>
+  <li><a href="#command-line-arguments-7" id="toc-command-line-arguments-7" class="nav-link" data-scroll-target="#command-line-arguments-7">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#simulate-training-data" id="toc-simulate-training-data" class="nav-link" data-scroll-target="#simulate-training-data">Simulate Training Data</a>
+  <ul class="collapse">
+  <li><a href="#overview-8" id="toc-overview-8" class="nav-link" data-scroll-target="#overview-8">Overview</a></li>
+  <li><a href="#usage-8" id="toc-usage-8" class="nav-link" data-scroll-target="#usage-8">Usage</a></li>
+  <li><a href="#command-line-arguments-8" id="toc-command-line-arguments-8" class="nav-link" data-scroll-target="#command-line-arguments-8">Command Line Arguments</a></li>
+  </ul></li>
+  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training">Model Training</a>
+  <ul class="collapse">
+  <li><a href="#overview-9" id="toc-overview-9" class="nav-link" data-scroll-target="#overview-9">Overview</a></li>
+  <li><a href="#usage-9" id="toc-usage-9" class="nav-link" data-scroll-target="#usage-9">Usage</a></li>
+  <li><a href="#command-line-arguments-9" id="toc-command-line-arguments-9" class="nav-link" data-scroll-target="#command-line-arguments-9">Command Line Arguments</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Usage</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This page gives a detailed description of each component/subcommand of Tranquillyzer. For a quick overview of how to run Tranquillyzer, see the <a href="../webpages/quick_start.html">Quick Start</a> guide.</p>
+<section id="input-output" class="level1">
+<h1>Input / Output</h1>
+<section id="input" class="level2">
+<h2 class="anchored" data-anchor-id="input">Input</h2>
+<p>The raw input to Tranquillyzer is an absolute or relative path to the directory containing your raw FASTA or FASTQ files for your data. The expected file extensions are <code>.fasta/.fa/.fasta.gz/.fa.gz</code> for FASTA files or <code>.fastq/.fq/.fastq.gz/.fq.gz</code> for FASTQ files.</p>
+</section>
+<section id="output" class="level2">
+<h2 class="anchored" data-anchor-id="output">Output</h2>
+<p>Tranquillyzer produces a variety of output files from its various subcommands. A few outputs to be particularly aware of are:</p>
+<ul>
+<li>Demultiplexed FASTA files from <code>annotate-reads</code></li>
+<li><code>.parquet</code> files with valid and invalid annotations from <code>annotate-reads</code></li>
+<li><code>.pdf</code> files containing QC plots from <code>readlengthdist</code> and <code>visualize</code></li>
+<li>A coordinate-sorted BAM from <code>align</code></li>
+<li>A deduplicated, coordinate-sorted BAM from <code>dedup</code></li>
+</ul>
+</section>
+</section>
+<section id="preprocessing" class="level1">
+<h1>Preprocessing</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>To enhance the efficiency of the annotation process, Tranquillyzer organizes raw reads into separate <code>.parquet</code> files, grouped based on their lengths. This approach optimizes data compression within each bin, accelerates the annotation of the entire dataset, and facilitates the visualization of user-specified annotated reads without dependence on the annotation status of the complete dataset. Tranquillyzer parallelizes the preprocessing step by distributing each input file to its own CPU thread. Therefore, to maximize the benefits of parallelization, it is best to provide many small input files rather than one large input file. Typically, this is how ONT provides the basecalled FASTA/FASTQ files from its sequencing runs, so it is highly suggested to leave this structure as is.</p>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> preprocess <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">FASTA_DIR</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>FASTA_DIR</code>: Path to your RAW DATA directory</li>
+<li><code>OUTPUT_DIR</code>: Path to your OUTPUT directory</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--output-base-qual</code> / <code>--no-output-base-qual</code>: Whether to output base quality scores from the FASTQ file (default: <code>--no-output-base-qual</code>)</li>
+<li><code>--chunk-size INTEGER</code>: Starting chunk size for processing, dynamically adjusted based on increasing read length (default: 100000)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads (default: 12)</li>
+<li><code>--help</code>: Print help message and exit</li>
+</ul>
+</section>
+</section>
+<section id="read-length-distribution" class="level1">
+<h1>Read Length Distribution</h1>
+<section id="overview-1" class="level2">
+<h2 class="anchored" data-anchor-id="overview-1">Overview</h2>
+<p>As an initial quality control metric, users may wish to visualize the read length distribution. The <code>readlengthdist</code> subcommand generates a plot with log<sub>10</sub>-transformed read lengths on the x-axis and their corresponding frequencies on the y-axis. The output is provided as a <code>.png</code> file in the <code>plots/</code> subdirectory of the provided <code>OUTPUT_DIR</code> path.</p>
+</section>
+<section id="usage-1" class="level2">
+<h2 class="anchored" data-anchor-id="usage-1">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> readlengthdist <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">OUTPUT_DIR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-1" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-1">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>OUTPUT_DIR</code>: Path to your OUTPUT directory, should be the same <code>OUTPUT_DIR</code> from <code>preprocess</code></li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--help</code>: Print help message and exit</li>
+</ul>
+</section>
+</section>
+<section id="available-models" class="level1">
+<h1>Available Models</h1>
+<section id="overview-2" class="level2">
+<h2 class="anchored" data-anchor-id="overview-2">Overview</h2>
+<p>Tranquillyzer provides a subcommand for viewing the available models (found within the <code>models/</code> directory) and the corresponding read architecture and exact sequences (e.g., adapters, primers, etc.) used to train the model.</p>
+</section>
+<section id="usage-2" class="level2">
+<h2 class="anchored" data-anchor-id="usage-2">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> availablemodels <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-2" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-2">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li>None</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--help</code>: Print help message and exit</li>
+</ul>
+</section>
+</section>
+<section id="available-gpus" class="level1">
+<h1>Available GPUs</h1>
+<section id="overview-3" class="level2">
+<h2 class="anchored" data-anchor-id="overview-3">Overview</h2>
+<p>A utility subcommand to query the GPU. Allows the user to see the names of the available GPUs. If no GPUs can be found, the user is alerted that Tranquillyzer will run in CPU-only mode.</p>
+</section>
+<section id="usage-3" class="level2">
+<h2 class="anchored" data-anchor-id="usage-3">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> available-gpus <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-3" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-3">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li>None</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--help</code>: Print help message and exit</li>
+</ul>
+</section>
+</section>
+<section id="annotation-barcode-correction-and-demultiplexing" class="level1">
+<h1>Annotation, Barcode Correction, and Demultiplexing</h1>
+<section id="overview-4" class="level2">
+<h2 class="anchored" data-anchor-id="overview-4">Overview</h2>
+<p>The <code>annotate-reads</code> subcommand annotates the reads, extracts barcode sequences, corrects the barcodes, and assigns reads to their respective cells (i.e., demultiplexes) in a single step. It produces the following outputs:</p>
+<ul>
+<li>Demultiplexed FASTA files located at <code>OUTPUT_DIR/demuxed_fasta/</code></li>
+<li>Annotation metadata:
+<ul>
+<li>Valid reads can be found at <code>OUTPUT_DIR/annotations_valid.parquet</code></li>
+<li>Invalid reads can be found at <code>OUTPUT_DIR/annotations_invalid.parquet</code></li>
+</ul></li>
+<li>Quality control (QC) plots
+<ul>
+<li><code>OUTPUT_DIR/plots/barcode_plots.pdf</code></li>
+<li><code>OUTPUT_DIR/plots/demux_plots.pdf</code></li>
+<li><code>OUTPUT_DIR/plots/full_read_annots.pdf</code></li>
+</ul></li>
+</ul>
+<p><strong>Note:</strong> Before running the <code>annotate-reads</code> subcommand, ensure you select the appropriate model and model type for your dataset. Tranquillyzer supports multiple model types:</p>
+<ul>
+<li>REG (the base model, a standard CNN-LSTM model)</li>
+<li>CRF (CNN-LSTM model with an added CRF layer for improved label consistency)</li>
+<li>HYB (hybrid mode which runs REG first and reprocesses invalid reads with CRF)</li>
+</ul>
+<p>The conventions for naming models are as follows:</p>
+<ul>
+<li>The REG model uses the base name (e.g., <code>10x3p_sc_ont_011.h5</code>)</li>
+<li>The CRF model (and the HYB model when it runs the CRF model) is the base name followed by <code>_w_CRF</code> (e.g. <code>10x3p_sc_ont_011_w_CRF.h5</code>)</li>
+</ul>
+<p>To select a model type (REG, CRF, or HYB), simply specify the base model name. Tranquillyzer will automatically detect the presence of the corresponding <code>_w_CRF</code> model file for the CRF or HYB types.</p>
+<p>If only one version (REG or CRF) is available for a model, the user must select the corresponding model type explicitly. We recommend verifying which model versions are present (via <code>availablemodels</code>) before running <code>annotate-reads</code>.</p>
+<p>Currently available trained models can be downloaded from <a href="https://www.dropbox.com/scl/fo/3lms8n97bnufzqa4ausv9/AGkO3EVrL1ZgctwEwTK1mEA?rlkey=47m69a6smwsisdznbwu3jvjpu&amp;st=253al7s3&amp;dl=0">this Dropbox link</a> and should be placed in the <code>models/</code> directory within the cloned Tranquillyzer repository.</p>
+<p>If <code>--include-barcode-quals</code> is set with FASTQ output, headers gain a <code>|BQ:</code> tag containing <code>segment:quality</code> pairs for the barcode segments listed in the fourth column of <code>seq_orders.tsv</code>, plus UMI qualities when present (e.g., <code>|BQ:i7:&lt;quals&gt;;i5:&lt;quals&gt;;CBC:&lt;quals&gt;;UMI:&lt;quals&gt;</code>).</p>
+</section>
+<section id="usage-4" class="level2">
+<h2 class="anchored" data-anchor-id="usage-4">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    WHITELIST_FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-4" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-4">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>OUTPUT_DIR</code>: Path to your OUTPUT directory, should be the same <code>OUTPUT_DIR</code> as <code>preprocess</code></li>
+<li><code>WHITELIST_FILE</code>: TSV file containing the sequences that define each sample (e.g., the cell barcode (CBC) and/or dual index sequences). <strong>Note</strong>, the column names for these sequences must match the name used for that element in the model training. For example, if the model uses CBC to denote the cell barcode, the <code>WHITELIST_FILE</code> must have a column named “CBC” (not “barcode” or “cell_barcode”), though the order of the columns within the file does not matter.</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--output-fmt TEXT</code>: Output format for demultiplexed reads: <code>fasta</code> or <code>fastq</code> (default: <code>fasta</code>)</li>
+<li><code>--model-name TEXT:</code> Base model name (the name of the model without any file suffixes). For <code>--model-type CRF</code>, <code>_w_CRF</code> will be appended to the base model name. (default: <code>10x3p_sc_ont_011</code>)</li>
+<li><code>--model-type TEXT</code>: The type of model to run (see above for descriptions of each type): <code>REG</code>, <code>CRF</code>, or <code>HYB</code> (default: <code>HYB</code>)</li>
+<li><code>--seq-order-file TEXT</code>: Path to the sequence orders file. If not provided, uses the default: <code>utils/seq_orders.tsv</code> (default: None)</li>
+<li><code>--chunk-size INTEGER</code>: Base chunk size for processing, dynamically adjusts based on read length (default: 100000)</li>
+<li><code>--gpu-mem TEXT</code>: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., <code>8,16,32</code>). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)</li>
+<li><code>--target-tokens INTEGER</code>: Approximate token budget <em>per GPU</em> - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately <code>batch   size * padded sequence length</code>. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)</li>
+<li><code>--vram-headroom FLOAT</code>: Fraction of GPU memory to reserve as headroom (default: 0.35)</li>
+<li><code>--min-batch-size INTEGER</code>: Minimum batch size for model inference (default: 1)</li>
+<li><code>--max-batch-size INTEGER</code>: Maximum batch size for model inference (default: 8192)</li>
+<li><code>--bc-lv-threshold INTEGER</code>: Levenshtein distance threshold for barcode correction (default: 2)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads for barcode correction and demultiplexing (default: 12)</li>
+<li><code>--max-queue-size INTEGER</code>: Max number of Parquet files to queue for post-processing (default: 3)</li>
+<li><code>--include-barcode-quals</code>: When writing FASTQ, append base qualities for barcode segments (from <code>seq_orders.tsv</code>) into the FASTQ header</li>
+<li><code>--include-polya</code>: Append detected polyA tails to the emitted read sequence (and qualities in FASTQ)</li>
+<li><code>--help</code>: Print help message and exit</li>
+</ul>
+</section>
+</section>
+<section id="alignment" class="level1">
+<h1>Alignment</h1>
+<section id="overview-5" class="level2">
+<h2 class="anchored" data-anchor-id="overview-5">Overview</h2>
+<p>Tranquillyzer calls <code>minimap2</code> to align the demultiplexed reads. It outputs a coordinate-sorted BAM and associated BAM index file in <code>OUTPUT_DIR/aligned_files/</code>.</p>
+</section>
+<section id="usage-5" class="level2">
+<h2 class="anchored" data-anchor-id="usage-5">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyer</span> align <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    REFERENCE <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-5" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-5">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>INPUT_DIR</code>: Path to annotated read output. In practice, this is the same directory given as the <code>OUTPUT_DIR</code> in the <code>annotate-reads</code> call. Looks for a file called <code>INPUT_DIR/demuxed_fasta/demuxed.fasta</code>.</li>
+<li><code>REFERENCE</code>: Reference FASTA used for <code>minimap2</code></li>
+<li><code>OUTPUT_DIR</code>: Path to write OUTPUT directory</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--preset TEXT</code>: <code>minimap2</code> preset (i.e., <code>minimap2 -ax &lt;preset&gt; ...</code>) (default: <code>splice</code>)</li>
+<li><code>--filt-flag INT</code>: Flag for filtering reads via <code>samtools view -F &lt;INT&gt; ...</code>. Default is to filter out secondary alignments and unmapped reads (default: 260)</li>
+<li><code>--mapq INTEGER</code>: Minimum MAPQ for the alignments to be included for the downstream analysis (default: 0)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads (default: 12)</li>
+<li><code>--add-minimap-args TEXT</code>: Additional <code>minimap2</code> arguments (<code>-t</code> and <code>-ax &lt;preset&gt;</code> already included)</li>
+<li><code>--help</code>: Show this message and exit</li>
+</ul>
+</section>
+</section>
+<section id="duplicate-marking" class="level1">
+<h1>Duplicate Marking</h1>
+<section id="overview-6" class="level2">
+<h2 class="anchored" data-anchor-id="overview-6">Overview</h2>
+<p>Duplicate marking is performed on the coordinate-sorted BAM that is output from <code>tranquillyzer align</code>. A set of reads are determined to be PCR duplicates if the following conditions are met:</p>
+<ol type="1">
+<li>The start and end positions of each read fall within a user-defined window of each other</li>
+<li>The reads have identical strand orientation</li>
+<li>The reads have identical (corrected) cell barcodes</li>
+<li>The reads have UMIs that match within a user-defined threshold for Levenshtein edit distance</li>
+</ol>
+<p>If a set of reads meet these four criteria, one read is set as the “original” read and the others are marked as PCR duplicates via standard SAM auxiliary tags and application of the “read is PCR or optical duplicate” SAM flag.</p>
+</section>
+<section id="usage-6" class="level2">
+<h2 class="anchored" data-anchor-id="usage-6">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> dedup <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-6" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-6">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>INPUT_DIR</code>: Path to coordinate-sorted BAM output. In practice, this is the same directory given as the <code>OUTPUT_DIR</code> in the <code>align</code> call. Looks for a file called <code>INPUT_DIR/aligned_files/demuxed_aligned.bam</code>.</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--lv-threshold INTEGER</code>: Levenshtein distance threshold for UMI similarity (default: 2)</li>
+<li><code>--stranded</code> / <code>--no-stranded</code>: Directional (<code>--stranded</code>) or non-directional (<code>--no-stranded</code>) library (default: stranded)</li>
+<li><code>--per-cell</code> / <code>--no-per-cell</code>: Whether to correct UMIs on a per cell basis (default: per-cell)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads (default: 12)</li>
+<li><code>--help</code>: Show this message and exit</li>
+</ul>
+</section>
+</section>
+<section id="read-visualization" class="level1">
+<h1>Read Visualization</h1>
+<section id="overview-7" class="level2">
+<h2 class="anchored" data-anchor-id="overview-7">Overview</h2>
+<p>Tranquillyzer produces color-coded visualizations of annotations generated by the specified model. These plots color the bases and distinctly label each run of bases for the type of annotated structural element such as the primer sequences, polyA/T tails, cDNA, as well as any other specified elements contained in the model. Visualization can occur before or after running <code>tranquillyzer annotate-reads</code> as the <code>visualize</code> command is independent of the annotations generated in <code>annotate-reads</code>. The resulting output is saved as a <code>.pdf</code> file in the <code>OUTPUT_DIR/plots</code> directory.</p>
+</section>
+<section id="usage-7" class="level2">
+<h2 class="anchored" data-anchor-id="usage-7">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># N random reads</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> visualize <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--num-reads</span> N <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify read names</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> visualize <span class="dt">\</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--read-names</span> read1,read2,read3</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">OUTPUT_DIR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-7" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-7">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>OUTPUT_DIR</code>: Where to write the <code>plots/</code> directory and any created PDF files</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--output-file TEXT</code>: Prefix for output file name. <code>.pdf</code> will be added automatically (default: <code>full_read_annots</code>)</li>
+<li><code>--model-name TEXT:</code> Base model name (the name of the model without any file suffixes). For <code>--model-type CRF</code>, <code>_w_CRF</code> will be appended to the base model name. (default: <code>10x3p_sc_ont_011</code>)</li>
+<li><code>--model-type TEXT</code>: The type of model to run (see <code>annotate-reads</code> usage for descriptions of each type): REG, CRF, or HYB (default: CRF)</li>
+<li><code>--seq-order-file TEXT</code>: Path to the sequence orders file. If not provided, uses the default: <code>utils/seq_orders.tsv</code> (default: None)</li>
+<li><code>--gpu-mem TEXT</code>: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., <code>8,16,32</code>). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)</li>
+<li><code>--target-tokens INTEGER</code>: Approximate token budget <em>per GPU</em> - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately <code>batch   size * padded sequence length</code>. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)</li>
+<li><code>--vram-headroom FLOAT</code>: Fraction of GPU memory to reserve as headroom (default: 0.35)</li>
+<li><code>--min-batch-size INTEGER</code>: Minimum batch size for model inference (default: 1)</li>
+<li><code>--max-batch-size INTEGER</code>: Maximum batch size for model inference (default: 8192)</li>
+<li><code>--num-reads INTEGER</code>: Number of reads to randomly visualize from each Parquet file. (default: None)</li>
+<li><code>--read-names TEXT</code>: Comma-separated list of read names to visualize (default: None)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads (default: 2)</li>
+<li><code>--help</code>: Show this message and exit</li>
+</ul>
+<p><strong>Note</strong>, either <code>--num-reads</code> or <code>--read-names</code> must be set for <code>visualize</code> to run.</p>
+</section>
+</section>
+<section id="simulate-training-data" class="level1">
+<h1>Simulate Training Data</h1>
+<section id="overview-8" class="level2">
+<h2 class="anchored" data-anchor-id="overview-8">Overview</h2>
+<p>In order to train a new model, simulated training data that mimics the sequencing library structure needs to be generated. This is accomplished using the <code>simulate-data</code> command, which creates synthetic reads based on a user-defined label schema and error profile. The schema is defined in a tab-delimited file that specifies the order and sequences of structural elements (e.g., adapters, barcodes, UMIs, polyA/T tails, cDNA regions). An example schema file can be found on <a href="https://github.com/huishenlab/tranquillyzer/blob/main/utils/training_seq_orders.tsv">GitHub</a>. There are six columns that need to be specified within this file:</p>
+<ol type="1">
+<li>The model name. This should match the <code>MODEL_NAME</code> that you will call from the command line.</li>
+<li>Comma-separated list of sequence label names in the order they occur in a read. These names are used to annotate the various elements in the read. Examples include <code>i5</code>, <code>i7</code>, <code>p5</code>, <code>cDNA</code>, <code>polyA</code>, and so on. When creating a new model, you are free to name these as you wish. <strong>However, when using an already trained model, do not change these names.</strong> For example, one model may call the polyA tail <code>polyA</code>, while another may call it <code>poly_a</code>. This difference is reasonable as long as the name is consistent within each model.</li>
+<li>Comma-separated list of sequences corresponding to each sequence label name. For fixed sequences like adapters or primers, provide the entire known sequence. For elements with an unknown length and/or sequence, select one of the following options:
+<ul>
+<li><code>NX</code>: An unknown sequence of fixed length <code>X</code> (e.g., <code>N8</code> or <code>N16</code>). This would be how you input elements that are selected from a fixed set of sequences like cell barcodes, UMIs, or unique dual indexes (UDIs).</li>
+<li><code>NN</code>: An unknown sequence of unknown length. This is how you would input a cDNA element.</li>
+<li><code>T</code>: Given for a polyT tail element (i.e., a sequence of <code>T</code>’s of unknown length)</li>
+<li><code>A</code>: Given for a polyA tail element (i.e., a sequence of <code>A</code>’s of unknown length)</li>
+</ul></li>
+<li>Comma-separated list of sequence label names that are used to define a single cell. For example, 10x Genomics protocols are uniquely defined by the CBC, so this column would be <code>CBC</code> to match the element <code>CBC</code> in column 2. Note, this name must match the column name of your TSV file that defines that barcodes and any other elements included in defining a cell.</li>
+<li>Comma-separated list of sequence label names that are used to define a single molecule (e.g., <code>UMI</code>).</li>
+<li>Whether the given sequence order in column 2 gives expected orientation of the cDNA in the read (<code>fwd</code> or <code>rev</code>). <code>fwd</code> matches the expected orientation and <code>rev</code> is the reverse complement. Used to ensure cDNA properly aligns with its correct orientation.</li>
+</ol>
+</section>
+<section id="usage-8" class="level2">
+<h2 class="anchored" data-anchor-id="usage-8">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> simulate-data <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    MODEL_NAME <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-8" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-8">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>MODEL_NAME</code>: Name of model to generate reads for (follows library structure matching <code>MODEL_NAME</code> in <code>--training-seq-orders-files</code></li>
+<li><code>OUTPUT_DIR</code>: Where to write the output FASTA file(s) to</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--training-seq-orders-files TEXT</code>: Path to the sequence order file used for training. If not provided, uses the default: <code>utils/training_seq_orders.tsv</code> (default: None)</li>
+<li><code>--num-reads INTEGER</code>: Number of reads to simulate (default: 50000)</li>
+<li><code>--mismatch-rate FLOAT</code>: Mismatch rate (default: 0.05)</li>
+<li><code>--insertion-rate FLOAT</code>: Insertion rate (default: 0.05)</li>
+<li><code>--deletion-rate FLOAT</code>: Deletion rate (default: 0.06)</li>
+<li><code>--min-cdna INTEGER</code>: Minimum cDNA length (default: 100)</li>
+<li><code>--max-cdna INTEGER</code>: Maximum cDNA length (default: 500)</li>
+<li><code>--polyt-error-rate FLOAT</code>: Error rate within polyT or polyA segments (default: 0.02)</li>
+<li><code>--max-insertions FLOAT</code>: Maximum number of allowed insertions after a base (default: 1)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads (default: 2)</li>
+<li><code>--rc</code> / <code>--no-rc</code>: Whether to include reverse complements of the reads in the training data. If <code>rc</code>, final dataset will contain twice the number of user-specified reads (default: <code>rc</code>)</li>
+<li><code>--transcriptome TEXT</code>: Transcriptome FASTA file. Used to generate cDNA if provided (default: None)</li>
+<li><code>--invalid-fraction FLOAT</code>: Fraction of invalid reads to generate (default: 0.3)</li>
+<li><code>--help</code>: Show this message and exit</li>
+</ul>
+</section>
+</section>
+<section id="model-training" class="level1">
+<h1>Model Training</h1>
+<section id="overview-9" class="level2">
+<h2 class="anchored" data-anchor-id="overview-9">Overview</h2>
+<p>There are several reasons you may need to train your own model. You may be developing a new long read RNA-seq library preparation and need to extract specific elements from the sequenced reads. Or, you may be using an existing protocol that has an existing model that does not quite meet your needs, whether you need to adjust parameters from the existing model or incorporate newly discovered artifacts that the model needs to learn. The <code>train-model</code> subcommand allows the user to develop their own model and tune it to their specific needs. The following information is output:</p>
+<ul>
+<li>Model weights / SavedModel (<code>&lt;model_name&gt;_&lt;idx&gt;.h5</code> or <code>SavedModel</code>)</li>
+<li>Fitted label binarizer (<code>&lt;model_name&gt;_&lt;idx&gt;_lbl_bin.pkl</code>)</li>
+<li>Training history (<code>&lt;model_name&gt;_&lt;idx&gt;_history.tsv</code>)</li>
+<li>Validation visualization on a small synthetic set (<code>&lt;model_name&gt;_&lt;idx&gt;_val_viz.pdf</code>)</li>
+</ul>
+<p>The <code>&lt;idx&gt;</code> value is determined based on the combinations of parameters that are used from the <code>param-file</code> input. For more details on the nuances of training a model, see the <a href="../webpages/model_training.html">Model Training page</a>.</p>
+</section>
+<section id="usage-9" class="level2">
+<h2 class="anchored" data-anchor-id="usage-9">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> train-model <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    MODEL_NAME <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-line-arguments-9" class="level2">
+<h2 class="anchored" data-anchor-id="command-line-arguments-9">Command Line Arguments</h2>
+<p>Required Arguments</p>
+<ul>
+<li><code>MODEL_NAME</code>: Name of the model to select from the <code>param-file</code> input file</li>
+<li><code>OUTPUT_DIR</code>: Directory to write output directories and files to</li>
+</ul>
+<p>Optional Arguments</p>
+<ul>
+<li><code>--param-file TEXT</code>: Path to training parameters file. If not provided, uses the default: <code>utils/training_params.tsv</code> (default: None)</li>
+<li><code>--training-seq-orders-file TEXT</code>: Path to the sequence order file. If not provided, uses the default: <code>utils/training_seq_orders.tsv</code> (default: None)</li>
+<li><code>--num-val-reads INTEGER</code>: Number of reads to simulate (default: 20)</li>
+<li><code>--mismatch-rate FLOAT</code>: Mismatch rate (default: 0.05)</li>
+<li><code>--insertion-rate FLOAT</code>: Insertion rate (default: 0.05)</li>
+<li><code>--deletion-rate FLOAT</code>: Deletion rate (default: 0.06)</li>
+<li><code>--min-cdna INTEGER</code>: Minimum cDNA length (default: 100)</li>
+<li><code>--max-cdna INTEGER</code>: Maximum cDNA length (default: 500)</li>
+<li><code>--polyt-error-rate FLOAT</code>: Error rate within polyT or polyA segments (default: 0.02)</li>
+<li><code>--max-insertions FLOAT</code>: Maximum number of allowed insertions after a base (default: 2)</li>
+<li><code>--threads INTEGER</code>: Number of CPU threads (default: 2)</li>
+<li><code>--rc</code> / <code>--no-rc</code>: Whether to include reverse complements of the reads in the training data. If <code>rc</code>, final dataset will contain twice the number of user-specified reads (default: <code>rc</code>)</li>
+<li><code>--transcriptome TEXT</code>: Transcriptome FASTA file. Used to generate cDNA if provided (default: None)</li>
+<li><code>--invalid-fraction FLOAT</code>: Fraction of invalid reads to generate (default: 0.3)</li>
+<li><code>--gpu-mem TEXT</code>: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., <code>8,16,32</code>). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)</li>
+<li><code>--target-tokens INTEGER</code>: Approximate token budget <em>per GPU</em> - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately <code>batch   size * padded sequence length</code>. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)</li>
+<li><code>--vram-headroom FLOAT</code>: Fraction of GPU memory to reserve as headroom (default: 0.35)</li>
+<li><code>--min-batch-size INTEGER</code>: Minimum batch size for model inference (default: 1)</li>
+<li><code>--max-batch-size INTEGER</code>: Maximum batch size for model inference (default: 2000)</li>
+<li><code>--help</code>: Print help message and exit</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/huishenlab\.github\.io\/tranquillyzer\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2025, The Shen Lab at Van Andel Institute</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/huishenlab/tranquillyzer">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

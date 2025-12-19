@@ -1,0 +1,366 @@
+[
+  {
+    "objectID": "webpages/install.html",
+    "href": "webpages/install.html",
+    "title": "Installation",
+    "section": "",
+    "text": "Tranquillyzer is available through one of two methods - either through a Docker image (the suggested method) or building yourself from the GitHub repository."
+  },
+  {
+    "objectID": "webpages/install.html#important-notes-for-containers",
+    "href": "webpages/install.html#important-notes-for-containers",
+    "title": "Installation",
+    "section": "Important Notes for Containers",
+    "text": "Important Notes for Containers\n\nWhen running a container and trying to access the GPUs, you may need to bind the path to the CUDA toolkit you are using to the run or exec command.\nContainers access GPU resources in different ways. Please ensure your containerization tool of choice is properly set up to access GPUs.\nSome model files may be already included in the image file. To test which models, if any, are available, run tranquillyzer availablemodels with your containerization tool of choice. If no models are available or the model you want is not available, bind the directory containing your models to the run/exec command and then copy the model files into the models/ directory of Tranquillyzer."
+  },
+  {
+    "objectID": "webpages/install.html#pre-built-tranquillyzer-image",
+    "href": "webpages/install.html#pre-built-tranquillyzer-image",
+    "title": "Installation",
+    "section": "Pre-Built Tranquillyzer Image",
+    "text": "Pre-Built Tranquillyzer Image\nTranquillyzer is available on DockerHub. It can be pulled and run from Docker, Singularity, and Apptainer.\n\n\n\n\n\n\nNote\n\n\n\nIn the following pull commands, replace TAG with the specific version you are downloading. The specific version names can be found in the tags tab of DockerHub.\n\n\n\nDocker\n# Pull from DockerHub\ndocker pull varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container\ndocker run -it --gpus all varishenlab:tranquillyzer /bin/bash\n\n# Run specific Tranquillyzer subcommand via the image file\n# Note, this can only access GPUs if the varishenlab:tranquillyzer is running\n#     and initialized with GPU support\ndocker exec varishenlab:tranquillyzer tranquillyzer available-gpus\n\n\nSingularity\n# Pull from DockerHub\nsingularity pull \\\n    tranquillyzer.sif \\\n    docker://varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container\nsingularity shell --nv tranquillyzer.sif\n\n# Run specific Tranquillyzer subcommand via the image file\nsingularity exec --nv tranquillyzer.sif tranquillyzer available-gpus\n\n\nApptainer\n# Pull from DockerHub\napptainer pull \\\n    tranquillyzer.sif \\\n    docker://varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container (--nv needed for NVIDIA support)\napptainer run --nv tranquillyzer.sif\n\n# Run specific Tranquillyzer subcommand via the image file (--nv needed for\n#     NVIDIA support)\napptainer exec --nv tranquillyzer.sif tranquillyzer available-gpus"
+  },
+  {
+    "objectID": "webpages/install.html#build-your-own",
+    "href": "webpages/install.html#build-your-own",
+    "title": "Installation",
+    "section": "Build Your Own",
+    "text": "Build Your Own\nThe Dockerfile used to generate the image available on DockerHub is available within the Tranquillyzer GitHub repository. It can be used to build your own image of Tranquillyzer to run.\n# Clone repository\ngit clone git@github.com:huishenlab/tranquillyzer.git\ncd tranquillyzer\n\n# IMPORTANT: Copy model files to models/ directory\n# (See Step 2 of the GitHub installation instructions below)\n# This saves having to bind and copy the model files later\n\n# Build new image\ndocker build --no-cache --tag tranquillyzer --file Dockerfile .\n\n# Run container\ndocker run -it --gpus all tranquillyzer /bin/bash"
+  },
+  {
+    "objectID": "webpages/install.html#installation-prerequisites",
+    "href": "webpages/install.html#installation-prerequisites",
+    "title": "Installation",
+    "section": "Installation Prerequisites",
+    "text": "Installation Prerequisites\nTranquillyzer is currently only available on GitHub and requires the following tools to perform the installation:\ngit\nmamba\npip is also required; however, this will be installed when creating the virtual environment and does not need to be installed ahead of time."
+  },
+  {
+    "objectID": "webpages/install.html#clone-the-repository",
+    "href": "webpages/install.html#clone-the-repository",
+    "title": "Installation",
+    "section": "1. Clone the Repository",
+    "text": "1. Clone the Repository\ngit clone https://github.com/huishenlab/tranquillyzer.git\ncd tranquillyzer"
+  },
+  {
+    "objectID": "webpages/install.html#add-model-files",
+    "href": "webpages/install.html#add-model-files",
+    "title": "Installation",
+    "section": "2. Add Model Files",
+    "text": "2. Add Model Files\nBefore proceeding with the installation, download the model files this Dropbox link and manually place the required model files inside the models/ directory.\nFor the REG model (i.e., the base model), the following files are required:\n&lt;model_name&gt;.h5\n&lt;model_name&gt;_lbl_bin.pkl\nThe CRF model, on the other hand, requires the following files:\n&lt;model_name&gt;_w_CRF.h5\n&lt;model_name&gt;_w_CRF_lbl_bin.pkl\n&lt;model_name&gt;_w_CRF_params.json\nThese files are needed for the annotation and visualization functionality."
+  },
+  {
+    "objectID": "webpages/install.html#create-and-activate-virtual-environment",
+    "href": "webpages/install.html#create-and-activate-virtual-environment",
+    "title": "Installation",
+    "section": "3. Create and Activate Virtual Environment",
+    "text": "3. Create and Activate Virtual Environment\nmamba env create -f environment.yml\nmamba activate tranquillyzer\nNote, this step could be run with conda instead of mamba."
+  },
+  {
+    "objectID": "webpages/install.html#install-gpu-enabled-tensorflow-and-add-ons",
+    "href": "webpages/install.html#install-gpu-enabled-tensorflow-and-add-ons",
+    "title": "Installation",
+    "section": "4. Install GPU-enabled TensorFlow and Add-ons",
+    "text": "4. Install GPU-enabled TensorFlow and Add-ons\nNote, this step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.\nTo ensure compatibility with Tranquillyzer, be sure to specify version 2.15.1 for TensorFlow. Further, specify tensorflow[and-cuda] and NOT tensorflow to avoid system-wide CUDA requirements.\n# TensorFlow with CUDA support\npip install \\\n    \"tensorflow[and-cuda]==2.15.1\" \\\n    --extra-index-url https://pypi.nvidia.com\n\n# TensorFlow Add-ons\npip install \"tensorflow-addons==0.22.*\"\n\nFix Any Missing Dependencies\nIf you see errors or warnings after installing TensorFlow, especially related to bx-python or scikit-learn, one possible solution is to run:\npip install bx-python scikit-learn\nThen, try rerunning the TensorFlow installation."
+  },
+  {
+    "objectID": "webpages/install.html#install-tranquillyzer",
+    "href": "webpages/install.html#install-tranquillyzer",
+    "title": "Installation",
+    "section": "5. Install Tranquillyzer",
+    "text": "5. Install Tranquillyzer\nFrom the root directory of the Tranquillyzer repository, run:\npip install -e ."
+  },
+  {
+    "objectID": "webpages/install.html#verify-installation",
+    "href": "webpages/install.html#verify-installation",
+    "title": "Installation",
+    "section": "6. Verify Installation",
+    "text": "6. Verify Installation\nTo verify that Tranquillyzer is installed correctly, run:\ntranquillyzer --help\nYou should see the CLI help message with the available sub-commands including (but not limited to):\navailablemodels\npreprocessfasta\nannotate-reads\nvisualize"
+  },
+  {
+    "objectID": "webpages/usage.html",
+    "href": "webpages/usage.html",
+    "title": "Usage",
+    "section": "",
+    "text": "This page gives a detailed description of each component/subcommand of Tranquillyzer. For a quick overview of how to run Tranquillyzer, see the Quick Start guide."
+  },
+  {
+    "objectID": "webpages/usage.html#input",
+    "href": "webpages/usage.html#input",
+    "title": "Usage",
+    "section": "Input",
+    "text": "Input\nThe raw input to Tranquillyzer is an absolute or relative path to the directory containing your raw FASTA or FASTQ files for your data. The expected file extensions are .fasta/.fa/.fasta.gz/.fa.gz for FASTA files or .fastq/.fq/.fastq.gz/.fq.gz for FASTQ files."
+  },
+  {
+    "objectID": "webpages/usage.html#output",
+    "href": "webpages/usage.html#output",
+    "title": "Usage",
+    "section": "Output",
+    "text": "Output\nTranquillyzer produces a variety of output files from its various subcommands. A few outputs to be particularly aware of are:\n\nDemultiplexed FASTA files from annotate-reads\n.parquet files with valid and invalid annotations from annotate-reads\n.pdf files containing QC plots from readlengthdist and visualize\nA coordinate-sorted BAM from align\nA deduplicated, coordinate-sorted BAM from dedup"
+  },
+  {
+    "objectID": "webpages/usage.html#overview",
+    "href": "webpages/usage.html#overview",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nTo enhance the efficiency of the annotation process, Tranquillyzer organizes raw reads into separate .parquet files, grouped based on their lengths. This approach optimizes data compression within each bin, accelerates the annotation of the entire dataset, and facilitates the visualization of user-specified annotated reads without dependence on the annotation status of the complete dataset. Tranquillyzer parallelizes the preprocessing step by distributing each input file to its own CPU thread. Therefore, to maximize the benefits of parallelization, it is best to provide many small input files rather than one large input file. Typically, this is how ONT provides the basecalled FASTA/FASTQ files from its sequencing runs, so it is highly suggested to leave this structure as is."
+  },
+  {
+    "objectID": "webpages/usage.html#usage",
+    "href": "webpages/usage.html#usage",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer preprocess \\\n    [OPTIONS]\n    FASTA_DIR \\\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments",
+    "href": "webpages/usage.html#command-line-arguments",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nFASTA_DIR: Path to your RAW DATA directory\nOUTPUT_DIR: Path to your OUTPUT directory\n\nOptional Arguments\n\n--output-base-qual / --no-output-base-qual: Whether to output base quality scores from the FASTQ file (default: --no-output-base-qual)\n--chunk-size INTEGER: Starting chunk size for processing, dynamically adjusted based on increasing read length (default: 100000)\n--threads INTEGER: Number of CPU threads (default: 12)\n--help: Print help message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-1",
+    "href": "webpages/usage.html#overview-1",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nAs an initial quality control metric, users may wish to visualize the read length distribution. The readlengthdist subcommand generates a plot with log10-transformed read lengths on the x-axis and their corresponding frequencies on the y-axis. The output is provided as a .png file in the plots/ subdirectory of the provided OUTPUT_DIR path."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-1",
+    "href": "webpages/usage.html#usage-1",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer readlengthdist \\\n    [OPTIONS]\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-1",
+    "href": "webpages/usage.html#command-line-arguments-1",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nOUTPUT_DIR: Path to your OUTPUT directory, should be the same OUTPUT_DIR from preprocess\n\nOptional Arguments\n\n--help: Print help message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-2",
+    "href": "webpages/usage.html#overview-2",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nTranquillyzer provides a subcommand for viewing the available models (found within the models/ directory) and the corresponding read architecture and exact sequences (e.g., adapters, primers, etc.) used to train the model."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-2",
+    "href": "webpages/usage.html#usage-2",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer availablemodels \\\n    [OPTIONS]"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-2",
+    "href": "webpages/usage.html#command-line-arguments-2",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nNone\n\nOptional Arguments\n\n--help: Print help message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-3",
+    "href": "webpages/usage.html#overview-3",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nA utility subcommand to query the GPU. Allows the user to see the names of the available GPUs. If no GPUs can be found, the user is alerted that Tranquillyzer will run in CPU-only mode."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-3",
+    "href": "webpages/usage.html#usage-3",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer available-gpus \\\n    [OPTIONS]"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-3",
+    "href": "webpages/usage.html#command-line-arguments-3",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nNone\n\nOptional Arguments\n\n--help: Print help message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-4",
+    "href": "webpages/usage.html#overview-4",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nThe annotate-reads subcommand annotates the reads, extracts barcode sequences, corrects the barcodes, and assigns reads to their respective cells (i.e., demultiplexes) in a single step. It produces the following outputs:\n\nDemultiplexed FASTA files located at OUTPUT_DIR/demuxed_fasta/\nAnnotation metadata:\n\nValid reads can be found at OUTPUT_DIR/annotations_valid.parquet\nInvalid reads can be found at OUTPUT_DIR/annotations_invalid.parquet\n\nQuality control (QC) plots\n\nOUTPUT_DIR/plots/barcode_plots.pdf\nOUTPUT_DIR/plots/demux_plots.pdf\nOUTPUT_DIR/plots/full_read_annots.pdf\n\n\nNote: Before running the annotate-reads subcommand, ensure you select the appropriate model and model type for your dataset. Tranquillyzer supports multiple model types:\n\nREG (the base model, a standard CNN-LSTM model)\nCRF (CNN-LSTM model with an added CRF layer for improved label consistency)\nHYB (hybrid mode which runs REG first and reprocesses invalid reads with CRF)\n\nThe conventions for naming models are as follows:\n\nThe REG model uses the base name (e.g., 10x3p_sc_ont_011.h5)\nThe CRF model (and the HYB model when it runs the CRF model) is the base name followed by _w_CRF (e.g. 10x3p_sc_ont_011_w_CRF.h5)\n\nTo select a model type (REG, CRF, or HYB), simply specify the base model name. Tranquillyzer will automatically detect the presence of the corresponding _w_CRF model file for the CRF or HYB types.\nIf only one version (REG or CRF) is available for a model, the user must select the corresponding model type explicitly. We recommend verifying which model versions are present (via availablemodels) before running annotate-reads.\nCurrently available trained models can be downloaded from this Dropbox link and should be placed in the models/ directory within the cloned Tranquillyzer repository.\nIf --include-barcode-quals is set with FASTQ output, headers gain a |BQ: tag containing segment:quality pairs for the barcode segments listed in the fourth column of seq_orders.tsv, plus UMI qualities when present (e.g., |BQ:i7:&lt;quals&gt;;i5:&lt;quals&gt;;CBC:&lt;quals&gt;;UMI:&lt;quals&gt;)."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-4",
+    "href": "webpages/usage.html#usage-4",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer annotate-reads \\\n    [OPTIONS] \\\n    OUTPUT_DIR \\\n    WHITELIST_FILE"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-4",
+    "href": "webpages/usage.html#command-line-arguments-4",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nOUTPUT_DIR: Path to your OUTPUT directory, should be the same OUTPUT_DIR as preprocess\nWHITELIST_FILE: TSV file containing the sequences that define each sample (e.g., the cell barcode (CBC) and/or dual index sequences). Note, the column names for these sequences must match the name used for that element in the model training. For example, if the model uses CBC to denote the cell barcode, the WHITELIST_FILE must have a column named “CBC” (not “barcode” or “cell_barcode”), though the order of the columns within the file does not matter.\n\nOptional Arguments\n\n--output-fmt TEXT: Output format for demultiplexed reads: fasta or fastq (default: fasta)\n--model-name TEXT: Base model name (the name of the model without any file suffixes). For --model-type CRF, _w_CRF will be appended to the base model name. (default: 10x3p_sc_ont_011)\n--model-type TEXT: The type of model to run (see above for descriptions of each type): REG, CRF, or HYB (default: HYB)\n--seq-order-file TEXT: Path to the sequence orders file. If not provided, uses the default: utils/seq_orders.tsv (default: None)\n--chunk-size INTEGER: Base chunk size for processing, dynamically adjusts based on read length (default: 100000)\n--gpu-mem TEXT: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., 8,16,32). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)\n--target-tokens INTEGER: Approximate token budget per GPU - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately batch   size * padded sequence length. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)\n--vram-headroom FLOAT: Fraction of GPU memory to reserve as headroom (default: 0.35)\n--min-batch-size INTEGER: Minimum batch size for model inference (default: 1)\n--max-batch-size INTEGER: Maximum batch size for model inference (default: 8192)\n--bc-lv-threshold INTEGER: Levenshtein distance threshold for barcode correction (default: 2)\n--threads INTEGER: Number of CPU threads for barcode correction and demultiplexing (default: 12)\n--max-queue-size INTEGER: Max number of Parquet files to queue for post-processing (default: 3)\n--include-barcode-quals: When writing FASTQ, append base qualities for barcode segments (from seq_orders.tsv) into the FASTQ header\n--include-polya: Append detected polyA tails to the emitted read sequence (and qualities in FASTQ)\n--help: Print help message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-5",
+    "href": "webpages/usage.html#overview-5",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nTranquillyzer calls minimap2 to align the demultiplexed reads. It outputs a coordinate-sorted BAM and associated BAM index file in OUTPUT_DIR/aligned_files/."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-5",
+    "href": "webpages/usage.html#usage-5",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyer align \\\n    [OPTIONS] \\\n    INPUT_DIR \\\n    REFERENCE \\\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-5",
+    "href": "webpages/usage.html#command-line-arguments-5",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nINPUT_DIR: Path to annotated read output. In practice, this is the same directory given as the OUTPUT_DIR in the annotate-reads call. Looks for a file called INPUT_DIR/demuxed_fasta/demuxed.fasta.\nREFERENCE: Reference FASTA used for minimap2\nOUTPUT_DIR: Path to write OUTPUT directory\n\nOptional Arguments\n\n--preset TEXT: minimap2 preset (i.e., minimap2 -ax &lt;preset&gt; ...) (default: splice)\n--filt-flag INT: Flag for filtering reads via samtools view -F &lt;INT&gt; .... Default is to filter out secondary alignments and unmapped reads (default: 260)\n--mapq INTEGER: Minimum MAPQ for the alignments to be included for the downstream analysis (default: 0)\n--threads INTEGER: Number of CPU threads (default: 12)\n--add-minimap-args TEXT: Additional minimap2 arguments (-t and -ax &lt;preset&gt; already included)\n--help: Show this message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-6",
+    "href": "webpages/usage.html#overview-6",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nDuplicate marking is performed on the coordinate-sorted BAM that is output from tranquillyzer align. A set of reads are determined to be PCR duplicates if the following conditions are met:\n\nThe start and end positions of each read fall within a user-defined window of each other\nThe reads have identical strand orientation\nThe reads have identical (corrected) cell barcodes\nThe reads have UMIs that match within a user-defined threshold for Levenshtein edit distance\n\nIf a set of reads meet these four criteria, one read is set as the “original” read and the others are marked as PCR duplicates via standard SAM auxiliary tags and application of the “read is PCR or optical duplicate” SAM flag."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-6",
+    "href": "webpages/usage.html#usage-6",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer dedup \\\n    [OPTIONS] \\\n    INPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-6",
+    "href": "webpages/usage.html#command-line-arguments-6",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nINPUT_DIR: Path to coordinate-sorted BAM output. In practice, this is the same directory given as the OUTPUT_DIR in the align call. Looks for a file called INPUT_DIR/aligned_files/demuxed_aligned.bam.\n\nOptional Arguments\n\n--lv-threshold INTEGER: Levenshtein distance threshold for UMI similarity (default: 2)\n--stranded / --no-stranded: Directional (--stranded) or non-directional (--no-stranded) library (default: stranded)\n--per-cell / --no-per-cell: Whether to correct UMIs on a per cell basis (default: per-cell)\n--threads INTEGER: Number of CPU threads (default: 12)\n--help: Show this message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-7",
+    "href": "webpages/usage.html#overview-7",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nTranquillyzer produces color-coded visualizations of annotations generated by the specified model. These plots color the bases and distinctly label each run of bases for the type of annotated structural element such as the primer sequences, polyA/T tails, cDNA, as well as any other specified elements contained in the model. Visualization can occur before or after running tranquillyzer annotate-reads as the visualize command is independent of the annotations generated in annotate-reads. The resulting output is saved as a .pdf file in the OUTPUT_DIR/plots directory."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-7",
+    "href": "webpages/usage.html#usage-7",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\n# N random reads\ntranquillyzer visualize \\\n    [OPTIONS] \\\n    --num-reads N \\\n    OUTPUT_DIR\n\n# Specify read names\ntranquillyzer visualize \\\n    [OPTIONS] \\\n    --read-names read1,read2,read3\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-7",
+    "href": "webpages/usage.html#command-line-arguments-7",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nOUTPUT_DIR: Where to write the plots/ directory and any created PDF files\n\nOptional Arguments\n\n--output-file TEXT: Prefix for output file name. .pdf will be added automatically (default: full_read_annots)\n--model-name TEXT: Base model name (the name of the model without any file suffixes). For --model-type CRF, _w_CRF will be appended to the base model name. (default: 10x3p_sc_ont_011)\n--model-type TEXT: The type of model to run (see annotate-reads usage for descriptions of each type): REG, CRF, or HYB (default: CRF)\n--seq-order-file TEXT: Path to the sequence orders file. If not provided, uses the default: utils/seq_orders.tsv (default: None)\n--gpu-mem TEXT: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., 8,16,32). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)\n--target-tokens INTEGER: Approximate token budget per GPU - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately batch   size * padded sequence length. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)\n--vram-headroom FLOAT: Fraction of GPU memory to reserve as headroom (default: 0.35)\n--min-batch-size INTEGER: Minimum batch size for model inference (default: 1)\n--max-batch-size INTEGER: Maximum batch size for model inference (default: 8192)\n--num-reads INTEGER: Number of reads to randomly visualize from each Parquet file. (default: None)\n--read-names TEXT: Comma-separated list of read names to visualize (default: None)\n--threads INTEGER: Number of CPU threads (default: 2)\n--help: Show this message and exit\n\nNote, either --num-reads or --read-names must be set for visualize to run."
+  },
+  {
+    "objectID": "webpages/usage.html#overview-8",
+    "href": "webpages/usage.html#overview-8",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nIn order to train a new model, simulated training data that mimics the sequencing library structure needs to be generated. This is accomplished using the simulate-data command, which creates synthetic reads based on a user-defined label schema and error profile. The schema is defined in a tab-delimited file that specifies the order and sequences of structural elements (e.g., adapters, barcodes, UMIs, polyA/T tails, cDNA regions). An example schema file can be found on GitHub. There are six columns that need to be specified within this file:\n\nThe model name. This should match the MODEL_NAME that you will call from the command line.\nComma-separated list of sequence label names in the order they occur in a read. These names are used to annotate the various elements in the read. Examples include i5, i7, p5, cDNA, polyA, and so on. When creating a new model, you are free to name these as you wish. However, when using an already trained model, do not change these names. For example, one model may call the polyA tail polyA, while another may call it poly_a. This difference is reasonable as long as the name is consistent within each model.\nComma-separated list of sequences corresponding to each sequence label name. For fixed sequences like adapters or primers, provide the entire known sequence. For elements with an unknown length and/or sequence, select one of the following options:\n\nNX: An unknown sequence of fixed length X (e.g., N8 or N16). This would be how you input elements that are selected from a fixed set of sequences like cell barcodes, UMIs, or unique dual indexes (UDIs).\nNN: An unknown sequence of unknown length. This is how you would input a cDNA element.\nT: Given for a polyT tail element (i.e., a sequence of T’s of unknown length)\nA: Given for a polyA tail element (i.e., a sequence of A’s of unknown length)\n\nComma-separated list of sequence label names that are used to define a single cell. For example, 10x Genomics protocols are uniquely defined by the CBC, so this column would be CBC to match the element CBC in column 2. Note, this name must match the column name of your TSV file that defines that barcodes and any other elements included in defining a cell.\nComma-separated list of sequence label names that are used to define a single molecule (e.g., UMI).\nWhether the given sequence order in column 2 gives expected orientation of the cDNA in the read (fwd or rev). fwd matches the expected orientation and rev is the reverse complement. Used to ensure cDNA properly aligns with its correct orientation."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-8",
+    "href": "webpages/usage.html#usage-8",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer simulate-data \\\n    [OPTIONS] \\\n    MODEL_NAME \\\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-8",
+    "href": "webpages/usage.html#command-line-arguments-8",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nMODEL_NAME: Name of model to generate reads for (follows library structure matching MODEL_NAME in --training-seq-orders-files\nOUTPUT_DIR: Where to write the output FASTA file(s) to\n\nOptional Arguments\n\n--training-seq-orders-files TEXT: Path to the sequence order file used for training. If not provided, uses the default: utils/training_seq_orders.tsv (default: None)\n--num-reads INTEGER: Number of reads to simulate (default: 50000)\n--mismatch-rate FLOAT: Mismatch rate (default: 0.05)\n--insertion-rate FLOAT: Insertion rate (default: 0.05)\n--deletion-rate FLOAT: Deletion rate (default: 0.06)\n--min-cdna INTEGER: Minimum cDNA length (default: 100)\n--max-cdna INTEGER: Maximum cDNA length (default: 500)\n--polyt-error-rate FLOAT: Error rate within polyT or polyA segments (default: 0.02)\n--max-insertions FLOAT: Maximum number of allowed insertions after a base (default: 1)\n--threads INTEGER: Number of CPU threads (default: 2)\n--rc / --no-rc: Whether to include reverse complements of the reads in the training data. If rc, final dataset will contain twice the number of user-specified reads (default: rc)\n--transcriptome TEXT: Transcriptome FASTA file. Used to generate cDNA if provided (default: None)\n--invalid-fraction FLOAT: Fraction of invalid reads to generate (default: 0.3)\n--help: Show this message and exit"
+  },
+  {
+    "objectID": "webpages/usage.html#overview-9",
+    "href": "webpages/usage.html#overview-9",
+    "title": "Usage",
+    "section": "Overview",
+    "text": "Overview\nThere are several reasons you may need to train your own model. You may be developing a new long read RNA-seq library preparation and need to extract specific elements from the sequenced reads. Or, you may be using an existing protocol that has an existing model that does not quite meet your needs, whether you need to adjust parameters from the existing model or incorporate newly discovered artifacts that the model needs to learn. The train-model subcommand allows the user to develop their own model and tune it to their specific needs. The following information is output:\n\nModel weights / SavedModel (&lt;model_name&gt;_&lt;idx&gt;.h5 or SavedModel)\nFitted label binarizer (&lt;model_name&gt;_&lt;idx&gt;_lbl_bin.pkl)\nTraining history (&lt;model_name&gt;_&lt;idx&gt;_history.tsv)\nValidation visualization on a small synthetic set (&lt;model_name&gt;_&lt;idx&gt;_val_viz.pdf)\n\nThe &lt;idx&gt; value is determined based on the combinations of parameters that are used from the param-file input. For more details on the nuances of training a model, see the Model Training page."
+  },
+  {
+    "objectID": "webpages/usage.html#usage-9",
+    "href": "webpages/usage.html#usage-9",
+    "title": "Usage",
+    "section": "Usage",
+    "text": "Usage\ntranquillyzer train-model \\\n    [OPTIONS] \\\n    MODEL_NAME \\\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/usage.html#command-line-arguments-9",
+    "href": "webpages/usage.html#command-line-arguments-9",
+    "title": "Usage",
+    "section": "Command Line Arguments",
+    "text": "Command Line Arguments\nRequired Arguments\n\nMODEL_NAME: Name of the model to select from the param-file input file\nOUTPUT_DIR: Directory to write output directories and files to\n\nOptional Arguments\n\n--param-file TEXT: Path to training parameters file. If not provided, uses the default: utils/training_params.tsv (default: None)\n--training-seq-orders-file TEXT: Path to the sequence order file. If not provided, uses the default: utils/training_seq_orders.tsv (default: None)\n--num-val-reads INTEGER: Number of reads to simulate (default: 20)\n--mismatch-rate FLOAT: Mismatch rate (default: 0.05)\n--insertion-rate FLOAT: Insertion rate (default: 0.05)\n--deletion-rate FLOAT: Deletion rate (default: 0.06)\n--min-cdna INTEGER: Minimum cDNA length (default: 100)\n--max-cdna INTEGER: Maximum cDNA length (default: 500)\n--polyt-error-rate FLOAT: Error rate within polyT or polyA segments (default: 0.02)\n--max-insertions FLOAT: Maximum number of allowed insertions after a base (default: 2)\n--threads INTEGER: Number of CPU threads (default: 2)\n--rc / --no-rc: Whether to include reverse complements of the reads in the training data. If rc, final dataset will contain twice the number of user-specified reads (default: rc)\n--transcriptome TEXT: Transcriptome FASTA file. Used to generate cDNA if provided (default: None)\n--invalid-fraction FLOAT: Fraction of invalid reads to generate (default: 0.3)\n--gpu-mem TEXT: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., 8,16,32). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)\n--target-tokens INTEGER: Approximate token budget per GPU - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately batch   size * padded sequence length. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)\n--vram-headroom FLOAT: Fraction of GPU memory to reserve as headroom (default: 0.35)\n--min-batch-size INTEGER: Minimum batch size for model inference (default: 1)\n--max-batch-size INTEGER: Maximum batch size for model inference (default: 2000)\n--help: Print help message and exit"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "webpages/quick_start.html",
+    "href": "webpages/quick_start.html",
+    "title": "Quick Start",
+    "section": "",
+    "text": "Available Models\n\n\n\nParameter \\ Model Name\n10x5p_sc_ont\n10x3p_sc_ont\n\n\n\n\nBatch Size\n128\n128\n\n\nTraining Fraction\n0.8\n0.8\n\n\nVocab Size\n5\n5\n\n\nEmbedding Dimension\n128\n128\n\n\nConvolutional Layers\n4\n3\n\n\nConvolutional Filters\n128\n128\n\n\nConvolutional Kernel Size\n25\n25\n\n\nLSTM Layers\n1\n1\n\n\nLSTM Units\n96\n96\n\n\nBidirectional\nTrue\nTrue\n\n\nCRF Layer\nTrue\nTrue\n\n\nAttention Heads\n0\n0\n\n\nDropout Rate\n0.35\n0.35\n\n\nRegularization\n0.01\n0.01\n\n\nLearning Rate\n0.001\n0.001\n\n\n# Epochs\n5\n1\n\n\n\n\n\nSoftware Dependencies\n\nIt is suggested to use Docker (or another containerization tool like Singularity or Apptainer). This handles all dependencies for you and provides easier portability across systems.\nIf you are building Tranquillyzer yourself, you will need either mamba or conda. pip is also used during the installation process, though this will be installed via mamba/conda and does not need to be installed on its own.\nRequired dependencies for Tranquillyzer are provided in the environment.yml file at the top level of the Tranquillyzer repository.\nTensorFlow has its own requirements to run. Those can be found on TensorFlow’s documentation site.\n\n\n\nImportant Notes for Running Tranquillyzer\nWill be added as useful notes on running Tranquillyzer are come by\n\n\nBasic Pipeline for Running Tranquillyzer\nMore details about each of the commands can be found on Usage page.\n# Preprocessing raw FASTQs\n# Notes:\n#     Can be run on CPU-only computer\n#     Best to run with &gt;1 thread, though only 1 thread will be used if 1 file is\n#         input\n# User-defined elements:\n#     N_THREADS  - number of threads to use when processing\n#     DATA_DIR   - path to your raw FASTAs or FASTQs\n#     OUTPUT_DIR - path to where the preprocessing output will be written\ntranquillyzer preprocess \\\n    --threads N_THREADS \\\n    DATA_DIR \\\n    OUTPUT_DIR\n\n# Create read length distribution plot\n# Notes:\n#     Can be run on a CPU-only computer\n#     Only one (1) thread is needed\n# User-defined elements:\n#     OUTPUT_DIR - same OUTPUT_DIR directory from preprocessing step\ntranquillyzer readlengthdist \\\n    OUTPUT_DIR\n\n# Annotate reads\n# Notes:\n#     Best run on a GPU-enabled computer\n#     Also utilizes CPU multiprocessing, so run with &gt;1 threads\n# User-defined elements:\n#     MODEL_NAME     - base name of neural net model to use\n#     MODEL_TYPE     - type of model to use\n#     GPU_MEM        - amount of vRAM in your GPU(s)\n#     OUTPUT_FORMAT  - whether to output data as FASTA or FASTQ\n#     SEQ_ORDER_FILE - path to the sequence order file used to define valid\n#                      reads\n#     OUTPUT_DIR     - same OUTPUT_DIR from preprocessing\n#     WHITELIST_FILE - TSV file with sequences that define each cell (see\n#                      [Usage](usage.qmd) for more details)\ntranquillyzer annotate-reads \\\n        --model-name MODEL_NAME \\\n        --model-type MODEL_TYPE \\\n        --gpu-mem GPU_MEM \\\n        --output-fmt OUTPUT_FORMAT \\\n        --seq-order-file SEQ_ORDER_FILE \\\n        --threads N_THREADS \\\n        OUTPUT_DIR \\\n        WHITELIST_FILE\n\n# Align annotated reads\n# Notes:\n#    Needs samtools and minimap2 to run (should be installed with tranquillyzer)\n#    Can be run on a CPU-only computer\n#    Best to run with &gt;1 threads\n# User-defined elements:\n#     N_THREADS  - number of CPU threads to use\n#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing (NOTE: use the same\n#                  directory twice as shown)\n#     REFERENCE  - reference FASTA for minimap2\ntranquillyzer align \\\n    --threads N_THREADS \\\n    OUTPUT_DIR \\\n    REFERENCE \\\n    OUTPUT_DIR\n\n# Deduplicate aligned BAM\n# Notes:\n#     Uses samtools\n#     Can be run on a CPU-only computer\n#     Best to run with &gt;1 threads\n# User-defined elements:\n#     N_THREADS  - number of CPU threads to use\n#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing\ntranquillyzer dedup \\\n    --threads N_THREADS \\\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/model_training.html",
+    "href": "webpages/model_training.html",
+    "title": "How to Train Your Model",
+    "section": "",
+    "text": "Work in progress - coming soon!"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Tranquillyzer Overview",
+    "section": "",
+    "text": "PLEASE BE AWARE THAT THIS WEBSITE IS UNDER ACTIVE DEVELOPMENT AND MAY CHANGE DRASTICALLY FROM DAY TO DAY. IF YOU NEED A MORE STABLE VERSION PLEASE CHECK BACK IN A MONTH.\nTranquillyzer (TRANscript QUantification In Long reads-anaLYZER) is a flexible, architecture-aware deep learning framework for processing long-read single-cell RNA-seq (scRNA-seq) data. It employs a hybrid neural network architecture and a global, context-aware design that enables the precise identification of structural elements. In addition to supporting established single-cell protocols (e.g., the 10x Chromium Single Cell 3’ Gene Expression protocol), Tranquillyzer accommodates custom library formats through rapid, one-time model training on user-defined label schemas. Model training for both established and custom protocols can be typically completed within a few hours on standard GPUs.\nFor a detailed description of the framework, benchmarking results, and application to real datasets, please refer to the preprint."
+  },
+  {
+    "objectID": "index.html#preprocessing",
+    "href": "index.html#preprocessing",
+    "title": "Tranquillyzer Overview",
+    "section": "Preprocessing",
+    "text": "Preprocessing\nTranquillyzer implements a parallelized binning strategy that sorts reads into discrete bins based on their length (e.g., 0-499 bp, 500-999 bp, and so on) and then writes each bin to its own Parquet file. This strategy ensures that reads of similar lengths are group together, minimizing unnecessary padding and optimizing GPU memory consumption. In parallel, Tranquillyzer generates a lightweight index that maps each read to its corresponding bin. This index enables rapid retrieval of individual reads for targeted visualization or debugging via the visualize subcommand and eliminates reloading the full dataset."
+  },
+  {
+    "objectID": "index.html#read-annotation-and-demultiplexing",
+    "href": "index.html#read-annotation-and-demultiplexing",
+    "title": "Tranquillyzer Overview",
+    "section": "Read Annotation and Demultiplexing",
+    "text": "Read Annotation and Demultiplexing\nReads are annotated in batches pulled from the Parquet files of similarly-sized reads generated during preprocessing. For each file, the batch size is dynamically scaled based on the average read length to balance memory usage and throughput. Once batched and encoded (i.e., converting A/C/G/T/N bases into numeric values), reads are passed through the trained model to infer base-wise label sequences to enable the identification of key structural components such as adapters, cell barcodes (CBCs), unique molecular identifiers (UMIs), cDNA regions, and polyA/T tails.\nModel inference is distributed across all available GPU cores to process batches concurrently across devices. As each batch completes the inference phase, its predictions are offloaded to a pool of CPU threads, configured via a user-defined threads parameter, for postprocessing. This stage includes label decoding, structural validation, barcode correction, and demultiplexing. From the per-base annotations, continguous regions are aggregated to identify structural components within each read (e.g., adapters, CBCs/UMIs, or RNA inserts). The structural validity of each read is assessed by comparing the predicted order against a protocol-specific label sequence defined in a tab-delimited text file. Reads that conform to the expected structure are marked as valid; those that do not are flagged as invalid.\nFor structurally valid reads, annotated barcodes are compared against a provided whitelist using the Levenshtein edit distance (ED). Reads with a unique match within a user-defined threshold (default: ED &lt;= 2) are assigned the corresponding barcode, while those that fail to match or yield multiple equally close matches are labeled as ambiguous. In parallel, RNA insert sequences from structurally valid reads with successfully assigned barcodes are written demuxed.fasta file, with the corrected CBC embedded in the FASTA header for compatibility with downstream alignment and quantification pipelines. Reads with a valid structural layout but no confidently assigned barcode are instead saved to ambiguous.fasta for further inspection and/or potential rescue."
+  },
+  {
+    "objectID": "index.html#duplicate-marking",
+    "href": "index.html#duplicate-marking",
+    "title": "Tranquillyzer Overview",
+    "section": "Duplicate Marking",
+    "text": "Duplicate Marking\nThe successfully demultiplexed reads (i.e., those in demuxed.fasta) are next aligned to a user-specified reference genome using minimap2 with spliced alignment settings. Mapped reads are coordinate-sorted into an output BAM file, while unmapped reads are discarded. To perform duplicate marking, reads with similar start and end genomic positions and identical strand orientation and cell barcode are compared for UMI similarity. Reads with similar UMIs (have an ED &lt;= a user-defined threshold) are defined as duplicates. One read is retained as the “original” read, and the other reads are marked as duplicate reads by setting standard SAM auxiliary tags and applying the “read is PCR or optical duplicate” flag. The filters used to define duplicates are configurable so users may relax or tighten these constraints depending on their experimental design or tolerance for false positives.\nDeduplication is done in parallel across genomic regions. Temporary BAM files are generated for each genomic region and then merged into final duplicate-marked output BAM once each region has been processed. The output file can then be post-processed using tools such as samtools for downstream filtering and analysis."
+  },
+  {
+    "objectID": "index.html#visualization",
+    "href": "index.html#visualization",
+    "title": "Tranquillyzer Overview",
+    "section": "Visualization",
+    "text": "Visualization\nTranquillyzer produces detailed, color-coded visualizations of read annotations. These figures label individual structural elements such as adapter sequences, polyA/T tails, cell barcodes, UMIs, and cDNA regions to quickly explore a read’s architecture."
+  }
+]
