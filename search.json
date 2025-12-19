@@ -1,80 +1,10 @@
 [
   {
-    "objectID": "webpages/install.html",
-    "href": "webpages/install.html",
-    "title": "Installation",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "Tranquillyzer is available through one of two methods - either through a Docker image (the suggested method) or building yourself from the GitHub repository."
-  },
-  {
-    "objectID": "webpages/install.html#important-notes-for-containers",
-    "href": "webpages/install.html#important-notes-for-containers",
-    "title": "Installation",
-    "section": "Important Notes for Containers",
-    "text": "Important Notes for Containers\n\nWhen running a container and trying to access the GPUs, you may need to bind the path to the CUDA toolkit you are using to the run or exec command.\nContainers access GPU resources in different ways. Please ensure your containerization tool of choice is properly set up to access GPUs.\nSome model files may be already included in the image file. To test which models, if any, are available, run tranquillyzer availablemodels with your containerization tool of choice. If no models are available or the model you want is not available, bind the directory containing your models to the run/exec command and then copy the model files into the models/ directory of Tranquillyzer."
-  },
-  {
-    "objectID": "webpages/install.html#pre-built-tranquillyzer-image",
-    "href": "webpages/install.html#pre-built-tranquillyzer-image",
-    "title": "Installation",
-    "section": "Pre-Built Tranquillyzer Image",
-    "text": "Pre-Built Tranquillyzer Image\nTranquillyzer is available on DockerHub. It can be pulled and run from Docker, Singularity, and Apptainer.\n\n\n\n\n\n\nNote\n\n\n\nIn the following pull commands, replace TAG with the specific version you are downloading. The specific version names can be found in the tags tab of DockerHub.\n\n\n\nDocker\n# Pull from DockerHub\ndocker pull varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container\ndocker run -it --gpus all varishenlab:tranquillyzer /bin/bash\n\n# Run specific Tranquillyzer subcommand via the image file\n# Note, this can only access GPUs if the varishenlab:tranquillyzer is running\n#     and initialized with GPU support\ndocker exec varishenlab:tranquillyzer tranquillyzer available-gpus\n\n\nSingularity\n# Pull from DockerHub\nsingularity pull \\\n    tranquillyzer.sif \\\n    docker://varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container\nsingularity shell --nv tranquillyzer.sif\n\n# Run specific Tranquillyzer subcommand via the image file\nsingularity exec --nv tranquillyzer.sif tranquillyzer available-gpus\n\n\nApptainer\n# Pull from DockerHub\napptainer pull \\\n    tranquillyzer.sif \\\n    docker://varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container (--nv needed for NVIDIA support)\napptainer run --nv tranquillyzer.sif\n\n# Run specific Tranquillyzer subcommand via the image file (--nv needed for\n#     NVIDIA support)\napptainer exec --nv tranquillyzer.sif tranquillyzer available-gpus"
-  },
-  {
-    "objectID": "webpages/install.html#build-your-own",
-    "href": "webpages/install.html#build-your-own",
-    "title": "Installation",
-    "section": "Build Your Own",
-    "text": "Build Your Own\nThe Dockerfile used to generate the image available on DockerHub is available within the Tranquillyzer GitHub repository. It can be used to build your own image of Tranquillyzer to run.\n# Clone repository\ngit clone git@github.com:huishenlab/tranquillyzer.git\ncd tranquillyzer\n\n# IMPORTANT: Copy model files to models/ directory\n# (See Step 2 of the GitHub installation instructions below)\n# This saves having to bind and copy the model files later\n\n# Build new image\ndocker build --no-cache --tag tranquillyzer --file Dockerfile .\n\n# Run container\ndocker run -it --gpus all tranquillyzer /bin/bash"
-  },
-  {
-    "objectID": "webpages/install.html#installation-prerequisites",
-    "href": "webpages/install.html#installation-prerequisites",
-    "title": "Installation",
-    "section": "Installation Prerequisites",
-    "text": "Installation Prerequisites\nTranquillyzer is currently only available on GitHub and requires the following tools to perform the installation:\ngit\nmamba\npip is also required; however, this will be installed when creating the virtual environment and does not need to be installed ahead of time."
-  },
-  {
-    "objectID": "webpages/install.html#clone-the-repository",
-    "href": "webpages/install.html#clone-the-repository",
-    "title": "Installation",
-    "section": "1. Clone the Repository",
-    "text": "1. Clone the Repository\ngit clone https://github.com/huishenlab/tranquillyzer.git\ncd tranquillyzer"
-  },
-  {
-    "objectID": "webpages/install.html#add-model-files",
-    "href": "webpages/install.html#add-model-files",
-    "title": "Installation",
-    "section": "2. Add Model Files",
-    "text": "2. Add Model Files\nBefore proceeding with the installation, download the model files this Dropbox link and manually place the required model files inside the models/ directory.\nFor the REG model (i.e., the base model), the following files are required:\n&lt;model_name&gt;.h5\n&lt;model_name&gt;_lbl_bin.pkl\nThe CRF model, on the other hand, requires the following files:\n&lt;model_name&gt;_w_CRF.h5\n&lt;model_name&gt;_w_CRF_lbl_bin.pkl\n&lt;model_name&gt;_w_CRF_params.json\nThese files are needed for the annotation and visualization functionality."
-  },
-  {
-    "objectID": "webpages/install.html#create-and-activate-virtual-environment",
-    "href": "webpages/install.html#create-and-activate-virtual-environment",
-    "title": "Installation",
-    "section": "3. Create and Activate Virtual Environment",
-    "text": "3. Create and Activate Virtual Environment\nmamba env create -f environment.yml\nmamba activate tranquillyzer\nNote, this step could be run with conda instead of mamba."
-  },
-  {
-    "objectID": "webpages/install.html#install-gpu-enabled-tensorflow-and-add-ons",
-    "href": "webpages/install.html#install-gpu-enabled-tensorflow-and-add-ons",
-    "title": "Installation",
-    "section": "4. Install GPU-enabled TensorFlow and Add-ons",
-    "text": "4. Install GPU-enabled TensorFlow and Add-ons\nNote, this step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.\nTo ensure compatibility with Tranquillyzer, be sure to specify version 2.15.1 for TensorFlow. Further, specify tensorflow[and-cuda] and NOT tensorflow to avoid system-wide CUDA requirements.\n# TensorFlow with CUDA support\npip install \\\n    \"tensorflow[and-cuda]==2.15.1\" \\\n    --extra-index-url https://pypi.nvidia.com\n\n# TensorFlow Add-ons\npip install \"tensorflow-addons==0.22.*\"\n\nFix Any Missing Dependencies\nIf you see errors or warnings after installing TensorFlow, especially related to bx-python or scikit-learn, one possible solution is to run:\npip install bx-python scikit-learn\nThen, try rerunning the TensorFlow installation."
-  },
-  {
-    "objectID": "webpages/install.html#install-tranquillyzer",
-    "href": "webpages/install.html#install-tranquillyzer",
-    "title": "Installation",
-    "section": "5. Install Tranquillyzer",
-    "text": "5. Install Tranquillyzer\nFrom the root directory of the Tranquillyzer repository, run:\npip install -e ."
-  },
-  {
-    "objectID": "webpages/install.html#verify-installation",
-    "href": "webpages/install.html#verify-installation",
-    "title": "Installation",
-    "section": "6. Verify Installation",
-    "text": "6. Verify Installation\nTo verify that Tranquillyzer is installed correctly, run:\ntranquillyzer --help\nYou should see the CLI help message with the available sub-commands including (but not limited to):\navailablemodels\npreprocessfasta\nannotate-reads\nvisualize"
+    "text": "About this site"
   },
   {
     "objectID": "webpages/usage.html",
@@ -308,18 +238,88 @@
     "text": "Command Line Arguments\nRequired Arguments\n\nMODEL_NAME: Name of the model to select from the param-file input file\nOUTPUT_DIR: Directory to write output directories and files to\n\nOptional Arguments\n\n--param-file TEXT: Path to training parameters file. If not provided, uses the default: utils/training_params.tsv (default: None)\n--training-seq-orders-file TEXT: Path to the sequence order file. If not provided, uses the default: utils/training_seq_orders.tsv (default: None)\n--num-val-reads INTEGER: Number of reads to simulate (default: 20)\n--mismatch-rate FLOAT: Mismatch rate (default: 0.05)\n--insertion-rate FLOAT: Insertion rate (default: 0.05)\n--deletion-rate FLOAT: Deletion rate (default: 0.06)\n--min-cdna INTEGER: Minimum cDNA length (default: 100)\n--max-cdna INTEGER: Maximum cDNA length (default: 500)\n--polyt-error-rate FLOAT: Error rate within polyT or polyA segments (default: 0.02)\n--max-insertions FLOAT: Maximum number of allowed insertions after a base (default: 2)\n--threads INTEGER: Number of CPU threads (default: 2)\n--rc / --no-rc: Whether to include reverse complements of the reads in the training data. If rc, final dataset will contain twice the number of user-specified reads (default: rc)\n--transcriptome TEXT: Transcriptome FASTA file. Used to generate cDNA if provided (default: None)\n--invalid-fraction FLOAT: Fraction of invalid reads to generate (default: 0.3)\n--gpu-mem TEXT: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., 8,16,32). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)\n--target-tokens INTEGER: Approximate token budget per GPU - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately batch   size * padded sequence length. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)\n--vram-headroom FLOAT: Fraction of GPU memory to reserve as headroom (default: 0.35)\n--min-batch-size INTEGER: Minimum batch size for model inference (default: 1)\n--max-batch-size INTEGER: Maximum batch size for model inference (default: 2000)\n--help: Print help message and exit"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
     "objectID": "webpages/quick_start.html",
     "href": "webpages/quick_start.html",
     "title": "Quick Start",
     "section": "",
     "text": "Available Models\n\n\n\nParameter \\ Model Name\n10x5p_sc_ont\n10x3p_sc_ont\n\n\n\n\nBatch Size\n128\n128\n\n\nTraining Fraction\n0.8\n0.8\n\n\nVocab Size\n5\n5\n\n\nEmbedding Dimension\n128\n128\n\n\nConvolutional Layers\n4\n3\n\n\nConvolutional Filters\n128\n128\n\n\nConvolutional Kernel Size\n25\n25\n\n\nLSTM Layers\n1\n1\n\n\nLSTM Units\n96\n96\n\n\nBidirectional\nTrue\nTrue\n\n\nCRF Layer\nTrue\nTrue\n\n\nAttention Heads\n0\n0\n\n\nDropout Rate\n0.35\n0.35\n\n\nRegularization\n0.01\n0.01\n\n\nLearning Rate\n0.001\n0.001\n\n\n# Epochs\n5\n1\n\n\n\n\n\nSoftware Dependencies\n\nIt is suggested to use Docker (or another containerization tool like Singularity or Apptainer). This handles all dependencies for you and provides easier portability across systems.\nIf you are building Tranquillyzer yourself, you will need either mamba or conda. pip is also used during the installation process, though this will be installed via mamba/conda and does not need to be installed on its own.\nRequired dependencies for Tranquillyzer are provided in the environment.yml file at the top level of the Tranquillyzer repository.\nTensorFlow has its own requirements to run. Those can be found on TensorFlow’s documentation site.\n\n\n\nImportant Notes for Running Tranquillyzer\nWill be added as useful notes on running Tranquillyzer are come by\n\n\nBasic Pipeline for Running Tranquillyzer\nMore details about each of the commands can be found on Usage page.\n# Preprocessing raw FASTQs\n# Notes:\n#     Can be run on CPU-only computer\n#     Best to run with &gt;1 thread, though only 1 thread will be used if 1 file is\n#         input\n# User-defined elements:\n#     N_THREADS  - number of threads to use when processing\n#     DATA_DIR   - path to your raw FASTAs or FASTQs\n#     OUTPUT_DIR - path to where the preprocessing output will be written\ntranquillyzer preprocess \\\n    --threads N_THREADS \\\n    DATA_DIR \\\n    OUTPUT_DIR\n\n# Create read length distribution plot\n# Notes:\n#     Can be run on a CPU-only computer\n#     Only one (1) thread is needed\n# User-defined elements:\n#     OUTPUT_DIR - same OUTPUT_DIR directory from preprocessing step\ntranquillyzer readlengthdist \\\n    OUTPUT_DIR\n\n# Annotate reads\n# Notes:\n#     Best run on a GPU-enabled computer\n#     Also utilizes CPU multiprocessing, so run with &gt;1 threads\n# User-defined elements:\n#     MODEL_NAME     - base name of neural net model to use\n#     MODEL_TYPE     - type of model to use\n#     GPU_MEM        - amount of vRAM in your GPU(s)\n#     OUTPUT_FORMAT  - whether to output data as FASTA or FASTQ\n#     SEQ_ORDER_FILE - path to the sequence order file used to define valid\n#                      reads\n#     OUTPUT_DIR     - same OUTPUT_DIR from preprocessing\n#     WHITELIST_FILE - TSV file with sequences that define each cell (see\n#                      [Usage](usage.qmd) for more details)\ntranquillyzer annotate-reads \\\n        --model-name MODEL_NAME \\\n        --model-type MODEL_TYPE \\\n        --gpu-mem GPU_MEM \\\n        --output-fmt OUTPUT_FORMAT \\\n        --seq-order-file SEQ_ORDER_FILE \\\n        --threads N_THREADS \\\n        OUTPUT_DIR \\\n        WHITELIST_FILE\n\n# Align annotated reads\n# Notes:\n#    Needs samtools and minimap2 to run (should be installed with tranquillyzer)\n#    Can be run on a CPU-only computer\n#    Best to run with &gt;1 threads\n# User-defined elements:\n#     N_THREADS  - number of CPU threads to use\n#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing (NOTE: use the same\n#                  directory twice as shown)\n#     REFERENCE  - reference FASTA for minimap2\ntranquillyzer align \\\n    --threads N_THREADS \\\n    OUTPUT_DIR \\\n    REFERENCE \\\n    OUTPUT_DIR\n\n# Deduplicate aligned BAM\n# Notes:\n#     Uses samtools\n#     Can be run on a CPU-only computer\n#     Best to run with &gt;1 threads\n# User-defined elements:\n#     N_THREADS  - number of CPU threads to use\n#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing\ntranquillyzer dedup \\\n    --threads N_THREADS \\\n    OUTPUT_DIR"
+  },
+  {
+    "objectID": "webpages/install.html",
+    "href": "webpages/install.html",
+    "title": "Installation",
+    "section": "",
+    "text": "Tranquillyzer is available through one of two methods - either through a Docker image (the suggested method) or building yourself from the GitHub repository."
+  },
+  {
+    "objectID": "webpages/install.html#important-notes-for-containers",
+    "href": "webpages/install.html#important-notes-for-containers",
+    "title": "Installation",
+    "section": "Important Notes for Containers",
+    "text": "Important Notes for Containers\n\nWhen running a container and trying to access the GPUs, you may need to bind the path to the CUDA toolkit you are using to the run or exec command.\nContainers access GPU resources in different ways. Please ensure your containerization tool of choice is properly set up to access GPUs.\nSome model files may be already included in the image file. To test which models, if any, are available, run tranquillyzer availablemodels with your containerization tool of choice. If no models are available or the model you want is not available, bind the directory containing your models to the run/exec command and then copy the model files into the models/ directory of Tranquillyzer."
+  },
+  {
+    "objectID": "webpages/install.html#pre-built-tranquillyzer-image",
+    "href": "webpages/install.html#pre-built-tranquillyzer-image",
+    "title": "Installation",
+    "section": "Pre-Built Tranquillyzer Image",
+    "text": "Pre-Built Tranquillyzer Image\nTranquillyzer is available on DockerHub. It can be pulled and run from Docker, Singularity, and Apptainer.\n\n\n\n\n\n\nNote\n\n\n\nIn the following pull commands, replace TAG with the specific version you are downloading. The specific version names can be found in the tags tab of DockerHub.\n\n\n\nDocker\n# Pull from DockerHub\ndocker pull varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container\ndocker run -it --gpus all varishenlab:tranquillyzer /bin/bash\n\n# Run specific Tranquillyzer subcommand via the image file\n# Note, this can only access GPUs if the varishenlab:tranquillyzer is running\n#     and initialized with GPU support\ndocker exec varishenlab:tranquillyzer tranquillyzer available-gpus\n\n\nSingularity\n# Pull from DockerHub\nsingularity pull \\\n    tranquillyzer.sif \\\n    docker://varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container\nsingularity shell --nv tranquillyzer.sif\n\n# Run specific Tranquillyzer subcommand via the image file\nsingularity exec --nv tranquillyzer.sif tranquillyzer available-gpus\n\n\nApptainer\n# Pull from DockerHub\napptainer pull \\\n    tranquillyzer.sif \\\n    docker://varishenlab/tranquillyzer:tranquillyzer_TAG\n\n# Run container (--nv needed for NVIDIA support)\napptainer run --nv tranquillyzer.sif\n\n# Run specific Tranquillyzer subcommand via the image file (--nv needed for\n#     NVIDIA support)\napptainer exec --nv tranquillyzer.sif tranquillyzer available-gpus"
+  },
+  {
+    "objectID": "webpages/install.html#build-your-own",
+    "href": "webpages/install.html#build-your-own",
+    "title": "Installation",
+    "section": "Build Your Own",
+    "text": "Build Your Own\nThe Dockerfile used to generate the image available on DockerHub is available within the Tranquillyzer GitHub repository. It can be used to build your own image of Tranquillyzer to run.\n# Clone repository\ngit clone git@github.com:huishenlab/tranquillyzer.git\ncd tranquillyzer\n\n# IMPORTANT: Copy model files to models/ directory\n# (See Step 2 of the GitHub installation instructions below)\n# This saves having to bind and copy the model files later\n\n# Build new image\ndocker build --no-cache --tag tranquillyzer --file Dockerfile .\n\n# Run container\ndocker run -it --gpus all tranquillyzer /bin/bash"
+  },
+  {
+    "objectID": "webpages/install.html#installation-prerequisites",
+    "href": "webpages/install.html#installation-prerequisites",
+    "title": "Installation",
+    "section": "Installation Prerequisites",
+    "text": "Installation Prerequisites\nTranquillyzer is currently only available on GitHub and requires the following tools to perform the installation:\ngit\nmamba\npip is also required; however, this will be installed when creating the virtual environment and does not need to be installed ahead of time."
+  },
+  {
+    "objectID": "webpages/install.html#clone-the-repository",
+    "href": "webpages/install.html#clone-the-repository",
+    "title": "Installation",
+    "section": "1. Clone the Repository",
+    "text": "1. Clone the Repository\ngit clone https://github.com/huishenlab/tranquillyzer.git\ncd tranquillyzer"
+  },
+  {
+    "objectID": "webpages/install.html#add-model-files",
+    "href": "webpages/install.html#add-model-files",
+    "title": "Installation",
+    "section": "2. Add Model Files",
+    "text": "2. Add Model Files\nBefore proceeding with the installation, download the model files this Dropbox link and manually place the required model files inside the models/ directory.\nFor the REG model (i.e., the base model), the following files are required:\n&lt;model_name&gt;.h5\n&lt;model_name&gt;_lbl_bin.pkl\nThe CRF model, on the other hand, requires the following files:\n&lt;model_name&gt;_w_CRF.h5\n&lt;model_name&gt;_w_CRF_lbl_bin.pkl\n&lt;model_name&gt;_w_CRF_params.json\nThese files are needed for the annotation and visualization functionality."
+  },
+  {
+    "objectID": "webpages/install.html#create-and-activate-virtual-environment",
+    "href": "webpages/install.html#create-and-activate-virtual-environment",
+    "title": "Installation",
+    "section": "3. Create and Activate Virtual Environment",
+    "text": "3. Create and Activate Virtual Environment\nmamba env create -f environment.yml\nmamba activate tranquillyzer\nNote, this step could be run with conda instead of mamba."
+  },
+  {
+    "objectID": "webpages/install.html#install-gpu-enabled-tensorflow-and-add-ons",
+    "href": "webpages/install.html#install-gpu-enabled-tensorflow-and-add-ons",
+    "title": "Installation",
+    "section": "4. Install GPU-enabled TensorFlow and Add-ons",
+    "text": "4. Install GPU-enabled TensorFlow and Add-ons\nNote, this step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.\nTo ensure compatibility with Tranquillyzer, be sure to specify version 2.15.1 for TensorFlow. Further, specify tensorflow[and-cuda] and NOT tensorflow to avoid system-wide CUDA requirements.\n# TensorFlow with CUDA support\npip install \\\n    \"tensorflow[and-cuda]==2.15.1\" \\\n    --extra-index-url https://pypi.nvidia.com\n\n# TensorFlow Add-ons\npip install \"tensorflow-addons==0.22.*\"\n\nFix Any Missing Dependencies\nIf you see errors or warnings after installing TensorFlow, especially related to bx-python or scikit-learn, one possible solution is to run:\npip install bx-python scikit-learn\nThen, try rerunning the TensorFlow installation."
+  },
+  {
+    "objectID": "webpages/install.html#install-tranquillyzer",
+    "href": "webpages/install.html#install-tranquillyzer",
+    "title": "Installation",
+    "section": "5. Install Tranquillyzer",
+    "text": "5. Install Tranquillyzer\nFrom the root directory of the Tranquillyzer repository, run:\npip install -e ."
+  },
+  {
+    "objectID": "webpages/install.html#verify-installation",
+    "href": "webpages/install.html#verify-installation",
+    "title": "Installation",
+    "section": "6. Verify Installation",
+    "text": "6. Verify Installation\nTo verify that Tranquillyzer is installed correctly, run:\ntranquillyzer --help\nYou should see the CLI help message with the available sub-commands including (but not limited to):\navailablemodels\npreprocessfasta\nannotate-reads\nvisualize"
   },
   {
     "objectID": "webpages/model_training.html",
