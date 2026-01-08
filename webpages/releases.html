@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quick Start – Tranquillyzer Documentation</title>
+<title>Releases – Tranquillyzer Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -133,7 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../webpages/quick_start.html" aria-current="page"> 
+    <a class="nav-link" href="../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
@@ -145,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Usage</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/releases.html"> 
+    <a class="nav-link active" href="../webpages/releases.html" aria-current="page"> 
 <span class="menu-text">Releases</span></a>
   </li>  
 </ul>
@@ -171,10 +136,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#available-models" id="toc-available-models" class="nav-link active" data-scroll-target="#available-models">Available Models</a></li>
-  <li><a href="#software-dependencies" id="toc-software-dependencies" class="nav-link" data-scroll-target="#software-dependencies">Software Dependencies</a></li>
-  <li><a href="#important-notes-for-running-tranquillyzer" id="toc-important-notes-for-running-tranquillyzer" class="nav-link" data-scroll-target="#important-notes-for-running-tranquillyzer">Important Notes for Running Tranquillyzer</a></li>
-  <li><a href="#basic-pipeline-for-running-tranquillyzer" id="toc-basic-pipeline-for-running-tranquillyzer" class="nav-link" data-scroll-target="#basic-pipeline-for-running-tranquillyzer">Basic Pipeline for Running Tranquillyzer</a></li>
+  <li><a href="#version-0.2.0" id="toc-version-0.2.0" class="nav-link active" data-scroll-target="#version-0.2.0">Version 0.2.0</a></li>
+  <li><a href="#version-0.1.1" id="toc-version-0.1.1" class="nav-link" data-scroll-target="#version-0.1.1">Version 0.1.1</a></li>
+  <li><a href="#version-0.1.0" id="toc-version-0.1.0" class="nav-link" data-scroll-target="#version-0.1.0">Version 0.1.0</a></li>
   </ul>
 </nav>
     </div>
@@ -183,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quick Start</h1>
+<h1 class="title">Releases</h1>
 </div>
 
 
@@ -200,190 +164,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="available-models" class="level1">
-<h1>Available Models</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Parameter \ Model Name</th>
-<th style="text-align: center;"><code>10x5p_sc_ont</code></th>
-<th style="text-align: center;"><code>10x3p_sc_ont</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Batch Size</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Training Fraction</td>
-<td style="text-align: center;">0.8</td>
-<td style="text-align: center;">0.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Vocab Size</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Embedding Dimension</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Convolutional Layers</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Convolutional Filters</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Convolutional Kernel Size</td>
-<td style="text-align: center;">25</td>
-<td style="text-align: center;">25</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LSTM Layers</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LSTM Units</td>
-<td style="text-align: center;">96</td>
-<td style="text-align: center;">96</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Bidirectional</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CRF Layer</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Attention Heads</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Dropout Rate</td>
-<td style="text-align: center;">0.35</td>
-<td style="text-align: center;">0.35</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Regularization</td>
-<td style="text-align: center;">0.01</td>
-<td style="text-align: center;">0.01</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Learning Rate</td>
-<td style="text-align: center;">0.001</td>
-<td style="text-align: center;">0.001</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Epochs</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">1</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="software-dependencies" class="level1">
-<h1>Software Dependencies</h1>
+<p>Releases of Tranquillyzer can be found on GitHub under the <a href="https://github.com/huishenlab/tranquillyzer/releases">Releases page</a>. For more details on each release listed below, follow the “Find it on GitHub” link to be directed to the corresponding release page.</p>
+<section id="version-0.2.0" class="level3">
+<h3 class="anchored" data-anchor-id="version-0.2.0">Version 0.2.0</h3>
 <ul>
-<li>It is suggested to use Docker (or another containerization tool like Singularity or Apptainer). This handles all dependencies for you and provides easier portability across systems.</li>
-<li>If you are building Tranquillyzer yourself, you will need either <code>mamba</code> or <code>conda</code>. <code>pip</code> is also used during the installation process, though this will be installed via <code>mamba</code>/<code>conda</code> and does not need to be installed on its own.</li>
-<li>Required dependencies for Tranquillyzer are provided in the <code>environment.yml</code> file at the top level of the Tranquillyzer repository.</li>
-<li>TensorFlow has its own requirements to run. Those can be found on <a href="https://www.tensorflow.org/install/source#gpu">TensorFlow’s documentation site</a>.</li>
+<li><em>Latest Release</em></li>
+<li>Release Date: 31 December 2025</li>
+<li><a href="https://github.com/huishenlab/tranquillyzer/releases/tag/v0.2.0_tf_2.15.1">Find it on GitHub</a></li>
+<li><strong>Important Note:</strong> This release suffers from stability issues. It is not recommended that you use this release.</li>
 </ul>
 </section>
-<section id="important-notes-for-running-tranquillyzer" class="level1">
-<h1>Important Notes for Running Tranquillyzer</h1>
-<p>Will be added as useful notes on running Tranquillyzer are come by</p>
+<section id="version-0.1.1" class="level3">
+<h3 class="anchored" data-anchor-id="version-0.1.1">Version 0.1.1</h3>
+<ul>
+<li>Release Date: 3 December 2025</li>
+<li><a href="https://github.com/huishenlab/tranquillyzer/releases/tag/v0.1.1_tf2.15.1">Find it on GitHub</a></li>
+</ul>
 </section>
-<section id="basic-pipeline-for-running-tranquillyzer" class="level1">
-<h1>Basic Pipeline for Running Tranquillyzer</h1>
-<p>More details about each of the commands can be found on <a href="../webpages/usage.html">Usage page</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing raw FASTQs</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on CPU-only computer</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best to run with &gt;1 thread, though only 1 thread will be used if 1 file is</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         input</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of threads to use when processing</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     DATA_DIR   - path to your raw FASTAs or FASTQs</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - path to where the preprocessing output will be written</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> preprocess <span class="dt">\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    DATA_DIR <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create read length distribution plot</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on a CPU-only computer</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     Only one (1) thread is needed</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR directory from preprocessing step</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> readlengthdist <span class="dt">\</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate reads</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best run on a GPU-enabled computer</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     Also utilizes CPU multiprocessing, so run with &gt;1 threads</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#     MODEL_NAME     - base name of neural net model to use</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#     MODEL_TYPE     - type of model to use</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#     GPU_MEM        - amount of vRAM in your GPU(s)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_FORMAT  - whether to output data as FASTA or FASTQ</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#     SEQ_ORDER_FILE - path to the sequence order file used to define valid</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#                      reads</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR     - same OUTPUT_DIR from preprocessing</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#     WHITELIST_FILE - TSV file with sequences that define each cell (see</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#                      [Usage](usage.qmd) for more details)</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">--model-name</span> MODEL_NAME <span class="dt">\</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">--model-type</span> MODEL_TYPE <span class="dt">\</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">--gpu-mem</span> GPU_MEM <span class="dt">\</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">--output-fmt</span> OUTPUT_FORMAT <span class="dt">\</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">--seq-order-file</span> SEQ_ORDER_FILE <span class="dt">\</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        OUTPUT_DIR <span class="dt">\</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        WHITELIST_FILE</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Align annotated reads</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#    Needs samtools and minimap2 to run (should be installed with tranquillyzer)</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">#    Can be run on a CPU-only computer</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">#    Best to run with &gt;1 threads</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of CPU threads to use</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing (</span><span class="al">NOTE</span><span class="co">: use the same</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">#                  directory twice as shown)</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">#     REFERENCE  - reference FASTA for minimap2</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> align <span class="dt">\</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    REFERENCE <span class="dt">\</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Deduplicate aligned BAM</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">#     Uses samtools</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on a CPU-only computer</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best to run with &gt;1 threads</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of CPU threads to use</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> dedup <span class="dt">\</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="version-0.1.0" class="level3">
+<h3 class="anchored" data-anchor-id="version-0.1.0">Version 0.1.0</h3>
+<ul>
+<li>Release Date: 22 August 2025</li>
+<li><a href="https://github.com/huishenlab/tranquillyzer/releases/tag/tf2.15.1">Find it on GitHub</a></li>
+</ul>
 
 
 </section>

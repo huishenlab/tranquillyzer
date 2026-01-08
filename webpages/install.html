@@ -144,6 +144,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../webpages/usage.html"> 
 <span class="menu-text">Usage</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../webpages/releases.html"> 
+<span class="menu-text">Releases</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -338,7 +342,19 @@ Note
 </section>
 <section id="install-gpu-enabled-tensorflow-and-add-ons" class="level2">
 <h2 class="anchored" data-anchor-id="install-gpu-enabled-tensorflow-and-add-ons">4. Install GPU-enabled TensorFlow and Add-ons</h2>
-<p>Note, this step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.</p>
+</div>
+</div>
 <p>To ensure compatibility with Tranquillyzer, be sure to specify version 2.15.1 for TensorFlow. Further, specify <code>tensorflow[and-cuda]</code> and NOT <code>tensorflow</code> to avoid system-wide CUDA requirements.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TensorFlow with CUDA support</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="dt">\</span></span>
