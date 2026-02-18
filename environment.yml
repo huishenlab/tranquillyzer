@@ -31,7 +31,7 @@ dependencies:
       - pysam==0.23.3
       - bcbio-gff==0.7.1
       - scikit-learn==1.7.1
-      - "tensorflow[and-cuda]==2.15.1"
+      - "tensorflow[and-cuda]==2.15.0"
       - "tensorflow-addons==0.22.*"
       - tf2crf==0.1.33
       - psutil==7.0.0

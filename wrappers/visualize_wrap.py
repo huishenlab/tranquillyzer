@@ -195,16 +195,19 @@ def visualize_wrap(
     if not selected_reads:
         logger.warning("No reads were selected. Skipping inference.")
         return
+    if selected_read_lengths:
+        max_read_len = int(max(selected_read_lengths))
+    else:
+        max_read_len = int(max(len(r) for r in selected_reads))
 
     # Perform annotation and plotting
-    encoded_data = preprocess_sequences(selected_reads)
+    encoded_data = preprocess_sequences(selected_reads, max_read_len + 10)
     try:
         predictions = annotate_new_data_parallel(
             encoded_data,
             model,
             max_batch_size,
-            min_batch=min_batch_size,
-            strategy=None,
+            min_batch=min_batch_size
         )
     except Exception as e:
         logger.error(f"Encountered an error during annotation: {e}")

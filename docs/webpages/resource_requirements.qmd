@@ -1,0 +1,188 @@
+---
+title: Resource Requirements
+tbl-cap-location: bottom
+---
+
+# GPU Feasibility
+
+To provide transparent and hardware-agnostic guidance, we characterize GPU feasibility in terms of the **maximum read
+length supportable at a per-GPU (per-replica) batch size = 1**. This criterion reflects strict feasibility (i.e.,
+whether the inference can run without out-of-memory errors), rather than throughput or performance.
+
+All reported limits correspond to **single-replica inference** and are therefore governed by **per-GPU memory
+capacity**. Multi-GPU execution increases global throughput via data parallelism but does **not** increase the maximum
+feasible read length per replica.
+
+# Model Configuration Used for All Estimates
+
+All estimates correspond to the default **_Tranquillyzer_ CNN-BiLSTM-CRF** annotation model with the following fixed
+architecture:
+
+- `embedding_dim = 128`  
+- `conv_layers = 3`  
+- `conv_filters = 128`  
+- `conv_kernel_size = 25`  
+- `lstm_layers = 1`  
+- `lstm_units = 96`  
+- `bidirectional = TRUE`  
+- `CRF = TRUE`  
+- `attention_heads = 0`  
+
+Unless otherwise stated, all estimates assume a **VRAM headroom of 0.35**, meaning _Tranquillyzer_ intentionally targets
+only ~65% of available GPU memory to ensure inference safety.
+
+# Empirical versus Theoretical Feasibility
+
+- **Empirical**: The model was directly observed to run successfully at per-replica batch size = 1 for the stated read
+  length.
+- **Theoretical**: Values are extrapolated from empirical measurements using a linear memory-scaling approximation.
+  Real-world feasibility may be lower due to TensorFlow/XLA workspace buffers, allocator fragmentation, driver/runtime
+  differences, or changes to the model architecture.
+
+# Computation of Theoretical Feasibility Limits
+
+All theoretical estimates are anchored to the following empirical observation:
+
+> On a system with **4× NVIDIA L40S GPUs (48 GB VRAM each)**, _Tranquillyzer_ successfully processed reads of
+approximately **400 kb** at a global batch size ≤ 4, corresponding to **per-replica batch size = 1**.
+
+With `VRAM headroom = 0.35`, usable memory per GPU is approximated as:
+
+$$
+U \approx V \times (1 - H)
+$$
+
+where $U$ is the size of the usable memory in bytes, $V$ is the size of VRAM in bytes, and $H$ is the VRAM headroom
+fraction.
+
+For an NVIDIA L40S GPU with VRAM = 48 GB, the usable memory is:
+
+$$
+\begin{aligned}
+U &\approx 48~GB \times (1 - 0.35) \\
+&\approx 48~GB \times 0.65 \\
+&\approx 31.2~GB
+\end{aligned}
+$$
+We estimate an effective memory cost per base as:
+
+$$
+k \approx \frac{U}{L_{\max,\text{empirical}}}
+$$
+
+Substituting the NVIDIA L40S values:
+
+$$
+k \approx \frac{31.2~GB}{400{,}000~\text{bp}}
+\approx 78~\text{KB per base}
+$$
+
+For any other GPU, the maximum feasible read length is approximated as:
+
+$$
+L_{\max,\text{theoretical}} \approx \frac{\text{V} \times (1 - \text{H})}{k}
+$$
+
+This simplified scaling is intended as a **rough feasibility estimate**, not a guaranteed bound.
+
+# Rationale behind Empirical Scaling Use
+
+Memory usage for CNN-BiLSTM-CRF models in TensorFlow/XLA is not dominated by a single activation tensor. Instead, it
+is a combination of:
+
+- recurrent activations and LSTM state,
+- CRF decoding buffers,
+- XLA compilation workspaces,
+- allocator fragmentation and padding overhead, and/or
+- temporary tensors created during graph execution.
+
+Empirical anchoring, therefore, provides more realistic bounds than analytical token-count-based estimates, which tend
+to overestimate feasibility for ultra-long reads.
+
+# Maximum Supportable Read-Length
+
+| GPU | VRAM (GB) | Max Read-Length (bp) | Status |
+|---|:--:|:--:|:-:|
+| NVIDIA T4 | 16 | ~133,000 | Theoretical |
+| NVIDIA L4 | 24 | ~200,000 | Theoretical |
+| NVIDIA A10 | 24 | ~200,000 | Theoretical |
+| RTX 3090 | 24 | ~200,000 | Theoretical |
+| RTX 4090 | 24 | ~200,000 | Theoretical |
+| NVIDIA A100 | 40 | ~333,000 | Theoretical |
+| **NVIDIA L40S** | **48** | **~400,000** | **Empirically tested** |
+| NVIDIA A100 | 80 | ~666,000 | Theoretical |
+| NVIDIA H100 | 80 | ~666,000 | Theoretical |
+
+: All calculations assume a headroom of 0.35 and an effective memory cost per base of 78 KB / bp.
+
+## Interpretation Notes
+
+- These limits indicate **feasibility**, not optimal performance; ultra-long reads near these bounds may run correctly
+  but slowly.
+- Increasing the number of GPUs improves throughput but does **not** increase the per-replica maximum read length.
+- Architectural changes (e.g., additional LSTM layers, attention heads, or larger embeddings) will reduce these limits.
+
+# Dynamic Batch Size Selection in _Tranquillyzer_
+
+_Tranquillyzer_ employs a **dynamic, memory-aware batching strategy** designed to be safe by default and robust across
+datasets.
+
+## Step 1: Length Binning and Padding
+
+Reads are processed in predefined length bins (e.g., 0-499 bp, 500-999 bp, ...). For each bin, reads are padded to:
+
+$$
+L \approx B + 10
+$$
+
+where $L$ is the padded length and $B$ is the upper bound of the bin. Ultimately, the padded length, rather than the raw
+read length, determines memory usage.
+
+## Step 2: Per-Replica Batch Size Estimation
+
+For each bin, _Tranquillyzer_ computes the per-replica batch size as the lesser of a heuristic based on the number of
+processed tokens and a proxy for the memory needed for the CNN:
+
+$$
+B_{\text{per-replica}} = \min(B_{\text{tokens}}, B_{\text{mem}})
+$$
+
+**(A) Token-budget heuristic**
+
+$$
+B_{\text{tokens}} = \left\lfloor \frac{\text{T}}{L} \right\rfloor
+$$
+
+where $T$ is the target number of tokens to process per replicate. $T$ is controlled by the `target_tokens_per_replica`
+parameter and has a default value of 1,200,000.
+
+**(B) Memory-based activation proxy**
+
+$$
+B_{\text{mem}} \approx \left\lfloor \frac{\text{U}}{C \times L \times b} \right\rfloor
+$$
+
+where $U$ is still the number of usable bytes, $C$ is the number of convolutional filters (`conv_filters = 128`), $L$ is
+the padded length, and $b$ is the number of bytes per element (`bytes_per_element = 4`).
+
+## Step 3: Global Batch Size
+
+The TensorFlow Mirrored Strategy replicates the per-replica batch size across each replica/GPU. Therefore, for $R$
+replicas, the global batch size is:
+
+$$
+B_{\text{global}} = B_{\text{per-replica}} \times R
+$$
+
+## Step 4: Automatic Out-of-Memory (OOM) Backoff
+
+Inference is wrapped in a fail-safe loop:
+
+1. Attempt inference at the selected batch size.
+2. If OOM or internal runtime error:
+   - clear TensorFlow session,
+   - trigger garbage collection,
+   - halve the batch size.
+3. Retry until success (down to batch size = 1).
+
+This mechanism ensures robust execution even when theoretical estimates prove inaccurate.

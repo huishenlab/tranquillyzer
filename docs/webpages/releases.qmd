@@ -1,0 +1,29 @@
+---
+title: Releases
+---
+
+Releases of Tranquillyzer can be found on GitHub under the
+[Releases page](https://github.com/huishenlab/tranquillyzer/releases). For more details on each release listed below,
+follow the "Find it on GitHub" link to be directed to the corresponding release page.
+
+### Version 0.2.1
+
+- *Latest Release*
+- Release Date: 13 January 2026
+- [Find it on GitHub](https://github.com/huishenlab/tranquillyzer/releases/tag/v0.2.1_tf2.15.0)
+
+### Version 0.2.0
+
+- Release Date: 31 December 2025
+- [Find it on GitHub](https://github.com/huishenlab/tranquillyzer/releases/tag/v0.2.0_tf_2.15.1)
+- **Important Note:** This release suffers from stability issues. It is not recommended that you use this release.
+
+### Version 0.1.1
+
+- Release Date: 3 December 2025
+- [Find it on GitHub](https://github.com/huishenlab/tranquillyzer/releases/tag/v0.1.1_tf2.15.1)
+
+### Version 0.1.0
+
+- Release Date: 22 August 2025
+- [Find it on GitHub](https://github.com/huishenlab/tranquillyzer/releases/tag/tf2.15.1)

@@ -1,5 +1,6 @@
 import logging
 
+import tensorflow as tf
 from tensorflow.keras.layers import (
     Input,
     Embedding,
@@ -23,15 +24,8 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tf2crf import CRF, ModelWithCRFLoss
 
-import os
-import tensorflow as tf
-from scripts.available_gpus import gpus_to_visible_devices_string
-
-# TODO: Will need to think about how to handle this when users are able to pick
-#       which specific GPUs to use. This may need to be set elsewhere, or still
-#       set here, but using a different function
-os.environ["CUDA_VISIBLE_DEVICES"] = gpus_to_visible_devices_string()
-tf.config.experimental.enable_tensor_float_32_execution(False)
+tf.keras.utils.set_random_seed(1)
+tf.config.experimental.enable_op_determinism()
 
 logger = logging.getLogger(__name__)
 

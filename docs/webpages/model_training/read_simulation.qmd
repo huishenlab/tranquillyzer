@@ -1,0 +1,33 @@
+---
+title: "Stage 1: Read Structure Simulation"
+page-navigation: true
+---
+
+# Segment-based Read Construction
+
+Synthetic reads are generated as ordered concatenations of library-specific segments (e.g., random bases, ONT adapters,
+protocol adapters, barcodes, UMIs, cDNA, polyA/polyT). The segment order and any fixed sequence motifs are specified for
+each `model_name` input in the library definition file: `seq_orders.tsv`. During concatenation, the simulator emits both
+the nucleotide sequence and a per-base label vector identifying the originating segment.
+
+# cDNA Generation and Transcriptome Conditioning
+
+The cDNA segment is generated either by sampling fragments from a user-provided transcriptome FASTA (`--transcriptome`)
+or, if unspecified, by generating synthetic transcripts of random bases. It is recommended to provide a transcriptome
+FASTA because it exposes the model to realistic intra-transcript sequence properties, including internal polyA/polyT
+runs and low-complexity regions. This is important because internal homopolymers can be confused with polyA/polyT tails
+introduced by the protocol. Training with transcriptome-derived cDNA teaches the model to resolve polyA/polyT
+contextually using segment boundaries rather than homopolymer presence alone.
+
+# cDNA Length as a Controlled Trade-off
+
+cDNA length is sampled uniformly within `[min_cDNA, max_cDNA]`. This range is a deliberate balance:
+
+- Shorter cDNA increases the relative proportion of fixed motifs (i.e., adapters/barcodes/UMIs), making boundary
+  learning easier but reducing exposure to long-range sequence context.
+- Longer cDNA increases length variability and generalization, but can dilute boundary signal during optimization (i.e.,
+  the model spends more capacity modeling cDNA interior), which may reduce accuracy at segment boundaries if the lengths
+  become excessively long relative to fixed segments.
+
+Therefore, cDNA length parameters should be tuned accordingly to match expected read structures while preserving
+sufficient emphasis on boundary regions.

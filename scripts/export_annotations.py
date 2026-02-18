@@ -7,9 +7,7 @@ import pandas as pd
 import polars as pl
 import tensorflow as tf
 from filelock import FileLock
-import matplotlib.pyplot as plt
 
-from matplotlib.backends.backend_pdf import PdfPages
 from scripts.correct_barcodes import bc_n_demultiplex
 from scripts.extract_annotated_seqs import extract_annotated_full_length_seqs
 
@@ -69,14 +67,11 @@ def process_full_length_reads_in_chunks_and_save(
 
     logger.info(f"Post-processing {bin_name} chunk - {chunk_idx}: number of reads = {reads_in_chunk}")
 
-    # n_jobs = min(n_jobs, reads_in_chunk)
     n_jobs_extract = min(16, reads_in_chunk)
-    # lengths = actual_lengths
     chunk_contiguous_annotated_sequences = extract_annotated_full_length_seqs(
         reads, predictions, model_path_w_CRF, actual_lengths, label_binarizer, seq_order, barcodes, n_jobs_extract
     )
 
-    # logger.info("Preparing predictions for barcode correction and demultiplexing")
     chunk_df = pd.DataFrame.from_records(
         (
             {
@@ -113,14 +108,16 @@ def process_full_length_reads_in_chunks_and_save(
     if model_type == "HYB" and pass_num == 1:
         tmp_invalid_dir = os.path.join(output_dir, "tmp_invalid_reads")
         os.makedirs(tmp_invalid_dir, exist_ok=True)
-
-        tmp_invalid_df = pl.DataFrame(
-            {
-                "ReadName": invalid_reads_df["ReadName"],
-                "read": invalid_reads_df["read"],
-                "read_length": invalid_reads_df["read_length"],
-            }
-        )
+        
+        tmp_invalid_payload = {
+            "ReadName": invalid_reads_df["ReadName"],
+            "read": invalid_reads_df["read"],
+            "read_length": invalid_reads_df["read_length"],
+        }
+        if output_fmt == "fastq":
+            tmp_invalid_payload["base_qualities"] = invalid_reads_df["base_qualities"]
+        
+        tmp_invalid_df = pl.DataFrame(tmp_invalid_payload)
 
         tmp_path = f"{tmp_invalid_dir}/{bin_name}.tsv"
         lock_path = f"{tmp_path}.lock"
@@ -136,19 +133,13 @@ def process_full_length_reads_in_chunks_and_save(
                 if write_header:
                     writer.writerow(tmp_invalid_df.columns)
                 writer.writerows(tmp_invalid_df.rows())
-        # del tmp_invalid_df
 
     else:
-        # Save invalid reads to a separate file
-        # logger.info(f"Saving {len(invalid_reads_df)} invalid reads to {invalid_output_file}")
         if not invalid_reads_df.empty:
             with invalid_file_lock:
                 add_header = not os.path.exists(invalid_output_file) or os.path.getsize(invalid_output_file) == 0
                 invalid_reads_df.to_csv(invalid_output_file, sep="\t", index=False, mode="a", header=add_header)
-            # print(f"Saved {len(invalid_reads_df)} invalid reads to {invalid_output_file}")
         # del invalid_reads_df
-
-    # logger.info("Prepared predictions for barcode correction and demultiplexing")
 
     # Process valid reads for barcodes
     column_mapping = {}
@@ -176,9 +167,7 @@ def process_full_length_reads_in_chunks_and_save(
             include_barcode_quals,
             include_polya,
         )
-        # logging.info("Corrected barcodes and demuliplexed valid reads")
 
-        # logger.info("Computing barcode stats")
         for barcode in list(column_mapping.keys()):
             count_column = f"corrected_{barcode}_counts_with_min_dist"
             min_dist_column = f"corrected_{barcode}_min_dist"
@@ -196,13 +185,10 @@ def process_full_length_reads_in_chunks_and_save(
                 cumulative_barcodes_stats[barcode]["min_dist_data"][key] = (
                     cumulative_barcodes_stats[barcode]["min_dist_data"].get(key, 0) + value
                 )
-        # logger.info("Computed barcode stats")
 
-        # logger.info(f"Processing and saving {len(corrected_df)} valid reads to {valid_output_file}")
         with valid_file_lock:  # FileLock ensures only one process writes at a time
             add_header = not os.path.exists(valid_output_file) or os.path.getsize(valid_output_file) == 0
             corrected_df.to_csv(valid_output_file, sep="\t", index=False, mode="a", header=add_header)
-        # logger.info(f"Processed and saved {len(corrected_df)} valid reads to {valid_output_file}")
 
         logger.info(f"Post-processed {bin_name} chunk - {chunk_idx}: number of reads = {reads_in_chunk}")
 
@@ -325,6 +311,10 @@ def filtering_reason_stats(reason_counter_by_bin, output_dir):
 
 
 def plot_read_n_cDNA_lengths(output_dir):
+    
+    import matplotlib.pyplot as plt
+    from matplotlib.backends.backend_pdf import PdfPages
+
     df = pl.read_parquet(f"{output_dir}/annotations_valid.parquet", columns=["read_length", "cDNA_length"])
     read_lengths = []
     cDNA_lengths = []

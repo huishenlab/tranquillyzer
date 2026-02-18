@@ -1,0 +1,32 @@
+---
+title: "Stage 2: Sequencing Error Modeling"
+page-navigation: true
+---
+
+# Context-aware Noise Introduction
+
+After generating a clean read and label vector, the simulator introduces base-level errors to approximate ONT/PacBio
+characteristics. Error operators include:
+
+- mismatches (`--mismatch-rate`)
+- insertions (`--insertion-rate`, bounded by `--max-insertions`)
+- deletions (`--deletion-rate`)
+
+Error rates are applied in a label-dependent manner. In the default implementation, polyA/polyT segments use a distinct
+error rate (`--polyt-error-rate`) that reflects homopolymer instability, while other segments use the provided global
+rates. This allows protocol-induced homopolymers to exhibit distinct noise properties without corrupting structured
+motifs beyond what is intended by the simulation.
+
+# Orientation Augmentation
+
+Optionally, the reverse complement of each read can be generated (`--rc`), with labels reversed accordingly. This
+augmentation improves robustness to strand orientation and is particularly useful for datasets with mixed orientation or
+uncertain strand assignment.
+
+# Artifact Simulation
+
+To increase robustness to real-world failure modes, a user-controlled fraction of reads (`--invalid-fraction`) are
+simulated as structurally invalid or artifactual. Supported artifact modes include read concatenation, repeated adapter
+blocks at the 5′ (or 3′) end, and truncations from either end. Optionally, strand inversions or reverse complements
+may be included during concatenation. Invalid reads in the simulated dataset reduces overconfident labeling of malformed
+inputs and improves downstream filtering and diagnostics.

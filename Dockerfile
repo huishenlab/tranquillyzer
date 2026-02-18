@@ -1,8 +1,19 @@
+# ------------------------------------------------------------
+# Stage 1: builder (micromamba)
+# ------------------------------------------------------------
 FROM mambaorg/micromamba:1.5.5 AS builder
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ENV MAMBA_ROOT_PREFIX=/opt/conda
 ENV PATH=${MAMBA_ROOT_PREFIX}/bin:$PATH
+
+# tensorrt (pulled by tensorflow[and-cuda]) calls `ps` during build;
+# `ps` is provided by the procps package (missing in micromamba base image)
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    procps \
+ && rm -rf /var/lib/apt/lists/*
+USER $MAMBA_USER
 
 WORKDIR /build
 COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /build/environment.yml
@@ -11,14 +22,19 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /build/environment.yml
 RUN micromamba install -y -n base -f /build/environment.yml && \
     micromamba clean --all --yes
 
-# GPU TF + addons into base
-RUN micromamba run -n base \
-      pip install "tensorflow[and-cuda]==2.15.1" --extra-index-url https://pypi.nvidia.com && \
-    micromamba run -n base pip install "tensorflow-addons==0.22.*"
 
+# ------------------------------------------------------------
 # Stage 2: runtime image
+# ------------------------------------------------------------
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
+
+# You use curl + unzip below for optional model download; install them.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    unzip \
+ && rm -rf /var/lib/apt/lists/*
 
 # Copy conda env from builder
 COPY --from=builder /opt/conda /opt/conda
@@ -30,6 +46,8 @@ ENV LD_LIBRARY_PATH=/opt/conda/lib
 WORKDIR /app
 COPY . .
 
+# Optional model download (expects MODEL_ZIP_URL at build time)
+ARG MODEL_ZIP_URL
 RUN if [ -n "$MODEL_ZIP_URL" ]; then \
         echo "Downloading model bundle from $MODEL_ZIP_URL"; \
         mkdir -p models && \

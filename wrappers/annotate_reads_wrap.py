@@ -535,7 +535,15 @@ def annotate_reads_wrap(
                 for invalid_parquet_file in invalid_parquet_files:
                     if calculate_total_rows(invalid_parquet_file) >= 100:
                         for item in model_predictions(
-                            invalid_parquet_file, 1, chunk_size, model_path, model_path_w_CRF, model_type, num_labels
+                            invalid_parquet_file, 1, 
+                            chunk_size, model_path,
+                            model_path_w_CRF, model_type, 
+                            num_labels,
+                            user_total_gb=gpu_mem,
+                            target_tokens_per_replica=target_tokens,
+                            safety_margin=vram_headroom,
+                            min_batch=min_batch_size,
+                            max_batch=max_batch_size,
                         ):
                             task_queue.put(item)
                             with header_track.get_lock():
@@ -605,7 +613,15 @@ def annotate_reads_wrap(
         try:
             for parquet_file in parquet_files:
                 for item in model_predictions(
-                    parquet_file, 1, chunk_size, None, model_path_w_CRF, model_type, num_labels
+                    parquet_file, 1, chunk_size, None,
+                    model_path_w_CRF, model_type,
+                    num_labels,
+                    user_total_gb=gpu_mem,
+                    target_tokens_per_replica=target_tokens,
+                    safety_margin=vram_headroom,
+                    min_batch=min_batch_size,
+                    max_batch=max_batch_size,
+
                 ):
                     task_queue.put(item)
                     with header_track.get_lock():

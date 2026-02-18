@@ -333,9 +333,11 @@ def train_model_wrap(
         history_df = pd.DataFrame(history.history)
         history_df.to_csv(f"{output_dir}/{model_name}_{idx}/{model_name}_{idx}_history.tsv", sep="\t", index=False)
 
-        encoded_data = preprocess_sequences(validation_reads)
+        max_read_len = int(max(validation_read_lengths)) + 10
+
+        encoded_data = preprocess_sequences(validation_reads, max_read_len)
         predictions = annotate_new_data_parallel(
-            encoded_data, model, max_batch_size, min_batch=min_batch_size, strategy=None
+            encoded_data, model, max_batch_size, min_batch=min_batch_size
         )
         annotated_reads = extract_annotated_full_length_seqs(
             validation_reads,

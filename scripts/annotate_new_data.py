@@ -1,25 +1,41 @@
 import os
+
+os.environ["TF_DETERMINISTIC_OPS"] = "1"
+os.environ["TF_CUDNN_DETERMINISTIC"] = "1"
+os.environ["NVIDIA_TF32_OVERRIDE"] = "0"
+
 import gc
 import time
 import json
 import logging
 import contextlib
 import numpy as np
+from typing import Optional
+from numba import njit
 import polars as pl
 import tensorflow as tf
-from typing import Optional
-
-from numba import njit
 
 from scripts.train_new_model import ont_read_annotator
 import scripts.available_gpus as available_gpus
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
+
+# TODO: Will need to think about how to handle this when users are able to pick
+#       which specific GPUs to use. This may need to be set elsewhere, or still
+#       set here, but using a different function
+
+from scripts.available_gpus import gpus_to_visible_devices_string
+os.environ["CUDA_VISIBLE_DEVICES"] = gpus_to_visible_devices_string()
+
+tf.config.experimental.enable_tensor_float_32_execution(False)
+tf.keras.utils.set_random_seed(1)
+tf.config.experimental.enable_op_determinism()
 
 logger = logging.getLogger(__name__)
 
 # Create a NumPy lookup array (256 elements to handle all ASCII characters)
-NUCLEOTIDE_TO_ID = np.zeros(256, dtype=np.int8)
+NUCLEOTIDE_TO_ID = np.zeros(256, dtype=np.int32)
 NUCLEOTIDE_TO_ID[ord("A")] = 1
 NUCLEOTIDE_TO_ID[ord("C")] = 2
 NUCLEOTIDE_TO_ID[ord("G")] = 3
@@ -42,10 +58,10 @@ def encode_sequence_numba(read, encoded_seq):
     return encoded_seq
 
 
-def preprocess_sequences(sequences):
+def preprocess_sequences(sequences, max_len):
     """Converts DNA sequences into NumPy integer arrays."""
-    max_len = max(len(seq) for seq in sequences)  # Get max sequence length
-    encoded_array = np.zeros((len(sequences), max_len), dtype=np.int8)  # Pre-allocate array
+    # max_len = max(len(seq) for seq in sequences)  # Get max sequence length
+    encoded_array = np.zeros((len(sequences), max_len), dtype=np.int32)  # Pre-allocate array
 
     for i, seq in enumerate(sequences):
         encoded_array[i, : len(seq)] = encode_sequence_numba(seq, encoded_array[i, : len(seq)])
@@ -211,7 +227,7 @@ def _log_batch_once(bin_name: str, bs: int):
         _batch_log_once.add(bin_name)
 
 
-def annotate_new_data_parallel(new_encoded_data, model, global_bs, min_batch=1, strategy=None):
+def annotate_new_data_parallel(new_encoded_data, model, global_bs, min_batch=1):
     os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
     if available_gpus.n_gpus() == 0:
@@ -266,9 +282,11 @@ def build_model(model_path_w_CRF, model_path, conv_filters, num_labels, strategy
                 learning_rate=params["learning_rate"],
                 crf_layer=True,
             )
-        _ = model(tf.zeros((1, 512), dtype=tf.int32))
+        _ = model(tf.zeros((1, 512), dtype=tf.int32), 
+                  training=False)
         model.load_weights(model_path_w_CRF)
     else:
+        scope = strategy.scope() if strategy else contextlib.nullcontext()
         with scope:
             model = load_model(model_path)
     return model
@@ -302,13 +320,22 @@ def model_predictions(
     # Build/load model once (CPU: no strategy; GPU: MirroredStrategy)
     n_gpus = available_gpus.n_gpus()
     min_batch = int(n_gpus) if n_gpus > 0 else min_batch
-    strategy = tf.distribute.MirroredStrategy() if n_gpus > 0 else None
+    strategy = tf.distribute.MirroredStrategy() if n_gpus > 1 else None
 
-    conv_filters = 256  # default, will be overwritten if params present
+    conv_filters = 256  # default, will be overwritten if params present    
 
+    max_len = int(int(bin_name.replace("bp", "").split("_")[1]) + 10)
+    global_bs = choose_global_batch(
+        max_len,
+        conv_filters=conv_filters,
+        strategy=strategy,
+        target_tokens_per_replica=target_tokens_per_replica,
+        min_b=min_batch,
+        max_b=max_batch,
+        user_total_gb=user_total_gb,
+        safety_margin=safety_margin,
+    )
     model = build_model(model_path_w_CRF, model_path, conv_filters, num_labels, strategy=strategy)
-
-    conv_filters = 256  # default, will be overwritten if params present
 
     for chunk_idx in range(chunk_start, num_chunks + 1):
         logger.info(f"Inferring labels for {bin_name}: chunk {chunk_idx}")
@@ -319,20 +346,8 @@ def model_predictions(
         read_lengths = df_chunk["read_length"].to_list()
         base_qualities = df_chunk["base_qualities"].to_list() if "base_qualities" in df_chunk.columns else None
 
-        # encoded_data = preprocess_sequences(reads)
-        X_new_padded = preprocess_sequences(reads)
-
-        L = int(X_new_padded.shape[1])
-        global_bs = choose_global_batch(
-            L,
-            conv_filters=conv_filters,
-            strategy=strategy,
-            target_tokens_per_replica=target_tokens_per_replica,
-            min_b=min_batch,
-            max_b=max_batch,
-            user_total_gb=user_total_gb,
-            safety_margin=safety_margin,
-        )
+        encoded_data = preprocess_sequences(reads, max_len)
+        X_new_padded = pad_sequences(encoded_data, padding='post', dtype='int32', maxlen=max_len)
 
         if global_bs >= 100 and len(reads) >= 100:
             _log_batch_once(bin_name or "", int(global_bs))
@@ -341,29 +356,17 @@ def model_predictions(
                 X_new_padded,
                 model,
                 global_bs,
-                min_batch=min_batch,
-                strategy=strategy,
+                min_batch=min_batch
             )
         else:
             model = build_model(model_path_w_CRF, model_path, conv_filters, num_labels, strategy=None)
-            global_bs = choose_global_batch(
-                L,
-                conv_filters=conv_filters,
-                strategy=None,
-                target_tokens_per_replica=target_tokens_per_replica,
-                min_b=min_batch,
-                max_b=max_batch,
-                user_total_gb=user_total_gb,
-                safety_margin=safety_margin,
-            )
             _log_batch_once(bin_name or "", int(global_bs))
 
             chunk_predictions = annotate_new_data_parallel(
                 X_new_padded,
                 model,
                 global_bs,
-                min_batch=min_batch,
-                strategy=None,
+                min_batch=min_batch
             )
 
         del df_chunk, X_new_padded

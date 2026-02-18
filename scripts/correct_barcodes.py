@@ -1,10 +1,8 @@
 import logging
 import gc
 import tensorflow as tf
-import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from numba import njit
 from rapidfuzz import process
 import matplotlib.pyplot as plt
 from multiprocessing import Pool
@@ -139,13 +137,11 @@ def process_row(
         corrected_barcode_seqs.append(corrected_seq)
 
     corrected_barcodes_str = ";".join(corrected_barcodes)
-    # corrected_barcode_seqs_str = "-".join(corrected_barcode_seqs)
 
     orientation = row["orientation"]
 
     result["architecture"] = row["architecture"]
     result["reason"] = row["reason"]
-    # result['orientation'] = row['orientation']
     result["orientation"] = orientation
 
     cell_id, local_match_counts, local_cell_counts = assign_cell_id(result, whitelist_df, barcode_columns)

@@ -155,7 +155,9 @@ Note, this step could be run with `conda` instead of `mamba`.
 
 ## 4. Install GPU-enabled TensorFlow and Add-ons
 
-Note, this step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.
+::: {.callout-note}
+This step only needs to be run for version 0.1.*. For those installing version 0.2.0 or greater, skip to Step 5.
+:::
 
 To ensure compatibility with Tranquillyzer, be sure to specify version 2.15.1 for TensorFlow. Further, specify
 `tensorflow[and-cuda]` and NOT `tensorflow` to avoid system-wide CUDA requirements.

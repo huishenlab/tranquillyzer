@@ -21,13 +21,34 @@ website:
         text: Quick Start
       - href: webpages/model_training.qmd
         text: Model Training
+      - href: webpages/resource_requirements.qmd
+        text: Resource Requirements
       - href: webpages/usage.qmd
         text: Usage
+      - href: webpages/releases.qmd
+        text: Releases
       - href: webpages/contributing.qmd
         text: Contributing
+
     right:
       - icon: github
         href: https://github.com/huishenlab/tranquillyzer
+  sidebar:
+    - title: "Model Training"
+      style: "docked"
+      contents:
+        - text: "Overview"
+          href: webpages/model_training.qmd
+        - text: "1. Read Simulation"
+          href: webpages/model_training/read_simulation.qmd
+        - text: "2. Introduce Errors"
+          href: webpages/model_training/intro_errors.qmd
+        - text: "simulate-data CLI"
+          href: webpages/model_training/simulate_data_cli.qmd
+        - text: "3./4. Model Training"
+          href: webpages/model_training/train_model.qmd
+        - text: "train-model CLI"
+          href: webpages/model_training/train_model_cli.qmd
 
 format:
   html:

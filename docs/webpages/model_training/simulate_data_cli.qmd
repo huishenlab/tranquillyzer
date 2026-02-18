@@ -1,0 +1,48 @@
+---
+title: "simulate-data CLI"
+page-navigation: true
+---
+
+# Input Parameters to `simulate-data`
+
+Careful tuning of the following parameters allows the simulation to match the empirical error profile of specific
+sequencing platforms or chemistries.
+
+| CLI Option | Type | What It Controls | Default |
+|:-----------|:----:|:-----------------|:-------:|
+| `model_name`                 | TEXT  | Library model key defining segment order and motifs                      | required                        |
+| `output_dir`                 | TEXT  | Output directory for simulated data (simulated_data/)                    | required                        |
+| `--training-seq-orders-file` | TEXT  | Path to training_seq_orders.tsv defining segment order and sequences     | `utils/training_seq_orders.tsv` |
+| `--num-reads`                | INT   | Number of primary reads to simulate (before reverse-complement doubling) | 50000                           |
+| `--mismatch-rate`            | FLOAT | Base substitution probability during training read simulation            | 0.05                            |
+| `--insertion-rate`           | FLOAT | Base insertion probability during training read simulation               | 0.05                            |
+| `--deletion-rate`            | FLOAT | Base deletion probability during training read simulation                | 0.06                            |
+| `--min-cdna`                 | INT   | Minimum cDNA length used in training read simulation                     | 100                             |
+| `--max-cdna`                 | INT   | Maximum cDNA length used in training read simulation                     | 500                             |
+| `--polyt-error-rate`         | FLOAT | Error rate within polyA/polyT segments during training simulation        | 0.02                            |
+| `--max-insertions`           | INT   | Maximum number of insertions allowed after a single base                 | 1                               |
+| `--threads`                  | INT   | CPU threads used for training read simulation                            | 2                               |
+| `--rc` / `--no-rc`           | FLAG  | Include reverse-complemented reads (doubles training set size)           | `--rc`                          |
+| `--transcriptome`            | TEXT  | Transcriptome FASTA used for cDNA generation (else random transcripts)   | None                            |
+| `--invalid-fraction`         | FLOAT | Fraction of training reads generated as invalid/artifactual              | 0.3                             |
+| `--help`                     | FLAG  | Show help message                                                        | —                               |
+
+# Example Use Case
+
+```bash
+tranquillyzer simulate-data \
+    10x3p_sc_ont \
+    training_out \
+    --num-reads 50000 \
+    --mismatch-rate 0.05 \
+    --insertion-rate 0.05 \
+    --deletion-rate 0.06 \
+    --min-cdna 100 \
+    --max-cdna 500 \
+    --polyt-error-rate 0.02 \
+    --max-insertions 1 \
+    --invalid-fraction 0.3 \
+    --rc \
+    --threads 2 \
+    --transcriptome gencode.v44.transcripts.fa
+```

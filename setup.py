@@ -2,12 +2,12 @@ from setuptools import setup
 
 setup(
     name="tranquillyzer",
-    version="0.2.0",
+    version="0.2.1",
     packages=[".", "scripts", "utils", "wrappers"],
     py_modules=["main"],
     include_package_data=True,
     package_data={
-        "": ["models/*.h5", "utils/*.tsv"],
+        "": ["models/*", "utils/*.tsv"],
     },
     install_requires=[
         "numpy",
@@ -32,5 +32,5 @@ setup(
             "tranquillyzer=main:app",
         ],
     },
-    python_requires=">=3.10,<3.11",
+    python_requires=">=3.10,<3.12",
 )
