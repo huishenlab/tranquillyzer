@@ -6,7 +6,7 @@
 tranquillyzer.sif
 
 # Unwanted hidden files
-._* 
+._*
 
 # Samba-related files
 .smbdelete*
