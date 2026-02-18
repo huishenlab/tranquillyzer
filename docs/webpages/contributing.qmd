@@ -1,0 +1,38 @@
+---
+title: Contributing
+---
+
+Contributions to Tranquillyzer are welcome. See below for some requirements when contributing to Tranquillyzer, as well
+as some helpful tips to simplify the process.
+
+# How to Make Contributions
+
+1. Create a fork of the Tranquillyzer GitHub repository to your own GitHub account if you have not done so already.
+2. Clone your fork of Tranquillyzer to the location you will be working if you have not done so already.
+3. Run `conda install conda-forge::prek`. This installs `prek` which is used to perform checks for each commit that is
+made.
+4. Run `prek install` to install the hooks that will run whenever you run `git commit`.
+5. Move to the `tranquillyzer` directory and checkout a new branch to work on based on the `dev` branch. Tranquillyzer
+uses the `dev` branch for all new work and then moves it to `main` whenever a new release is being made.
+
+```
+cd tranquillyzer
+git checkout -b working_branch dev
+```
+
+6. Make any changes you want, followed by `git add` and `git commit`.
+7. Push your changes to your GitHub fork and open a PR from your `working_branch` to the `dev` branch of the
+`huishenlab` Tranquillyzer repository.
+
+# Tips for Contributing
+
+- Make sure to frequently pull changes from the `dev` branch of `huishenlab/tranquillyzer`. This makes it easier for us
+to merge your PR and for you to work with the latest versions of the code.
+- Utilize `prek` with your commits. `prek` will be run on your PR when you open it, so by running it ahead of time, you
+will ensure this part of the PR testing passes on the first run.
+  - `prek` will cancel a commit if something fails. Sometimes it will automatically update the files for you, so all you
+  have to do is re-add those files and run `git commit` again. Other times, an error will be generated that you have to
+  resolve yourself based on the error messages returned.
+- It helps to keep both the `main` and `dev` branches of your forked repository in line with the `huishenlab`
+Tranquillyzer repository. Two good options are to either periodically updating your repository when you're not working
+on it, or to update the branches as the first step of any new project that you work on.
