@@ -10,9 +10,7 @@ from collections import OrderedDict
 from multiprocessing import Pool, cpu_count
 from typing import Optional, Tuple, Dict, List
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 # ----------------------------
@@ -294,9 +292,7 @@ def _build_cb_bams_from_bucket(
     Returns stats dict.
     """
     t0 = time.time()
-    cache = WriterCache(
-        max_open=max_open_cb_writers, header_dict=header_dict, out_dir=out_dir
-    )
+    cache = WriterCache(max_open=max_open_cb_writers, header_dict=header_dict, out_dir=out_dir)
 
     stats = {
         "bucket_id": bucket_id,
@@ -418,9 +414,7 @@ def split_bam_file(
         index_outputs,
     )
 
-    input_bam = ensure_sorted_and_indexed(
-        input_bam, prefer_csi=prefer_csi_index
-    )
+    input_bam = ensure_sorted_and_indexed(input_bam, prefer_csi=prefer_csi_index)
 
     # Unique tmp dir so parallel runs don't collide
     tmp_dir = tempfile.mkdtemp(prefix="cb_split_tmp_", dir=out_dir)
@@ -458,10 +452,7 @@ def split_bam_file(
         with Pool(procs1) as pool:
             stage1_results = pool.map(_process_ref_to_buckets, args1)
     else:
-        stage1_results = [
-            _process_ref_to_buckets(args)
-            for args in args1
-    ]
+        stage1_results = [_process_ref_to_buckets(args) for args in args1]
 
     used_buckets = set()
     stage1_stats = []
@@ -488,9 +479,7 @@ def split_bam_file(
     )
 
     if not used_buckets:
-        logger.warning(
-            "No buckets contained any reads with tag %s. Nothing to write.", tag
-        )
+        logger.warning("No buckets contained any reads with tag %s. Nothing to write.", tag)
         if not keep_tmp:
             shutil.rmtree(tmp_dir, ignore_errors=True)
         return
@@ -523,15 +512,9 @@ def split_bam_file(
 
     if procs2 > 1:
         with Pool(procs2) as pool:
-            stage2_stats_list = pool.starmap(
-                _build_cb_bams_from_bucket,
-                stage2_args
-                )
+            stage2_stats_list = pool.starmap(_build_cb_bams_from_bucket, stage2_args)
     else:
-        stage2_stats_list = [
-            _build_cb_bams_from_bucket(*arg)
-            for arg in stage2_args
-    ]
+        stage2_stats_list = [_build_cb_bams_from_bucket(*arg) for arg in stage2_args]
 
     # Summarize stage2
     total_bucket_parts = sum(s["parts_seen"] for s in stage2_stats_list)

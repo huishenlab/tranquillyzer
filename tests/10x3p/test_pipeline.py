@@ -139,10 +139,13 @@ def test_split_bam():
         [
             "tranquillyzer",
             "split-bam",
-            f'{OUT_DIR}/aligned_files/demuxed_aligned_dup_marked.bam',
-            "--bucket-threads", 1,
-            "--merge-threads", 1,
-            "--max-open-cb-writers", 500,
+            f"{OUT_DIR}/aligned_files/demuxed_aligned_dup_marked.bam",
+            "--bucket-threads",
+            1,
+            "--merge-threads",
+            1,
+            "--max-open-cb-writers",
+            500,
             "--filter-secondary",
             "--filter-supplementary",
         ]
@@ -222,6 +225,7 @@ def test_train_model():
             THREADS,
         ]
     )
+
 
 @pytest.mark.order(13)
 def test_available_gpus():

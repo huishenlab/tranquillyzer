@@ -115,7 +115,7 @@ def available_gpus():
         Clean Names - Cleaned names based on number of GPUs
     """
     print("Querying GPUs - this may take some time...")
-    
+
     import scripts.available_gpus as available_gpus
 
     available_gpus.available_gpus()
@@ -522,6 +522,7 @@ def dedup(
 
     dedup_wrap(input_dir, lv_threshold, stranded, per_cell, threads)
 
+
 # ==============================
 # Split bam per cell
 # ==============================
@@ -532,20 +533,15 @@ def split_bam(
     input_bam: str,
     out_dir: Optional[str] = typer.Option(
         None,
-        help=(
-            "Output directory for per-cell BAMs. "
-            "If not provided, defaults to <input_bam_dir>/split_bams."
-        ),
+        help=("Output directory for per-cell BAMs. If not provided, defaults to <input_bam_dir>/split_bams."),
     ),
     bucket_threads: Optional[int] = typer.Option(
         1,
-        help="Number of worker processes for Stage 1 (per-contig bucketing). "
-        "Default: all CPUs (capped by #contigs).",
+        help="Number of worker processes for Stage 1 (per-contig bucketing). Default: all CPUs (capped by #contigs).",
     ),
     merge_threads: Optional[int] = typer.Option(
         1,
-        help="Number of worker processes for Stage 2 (per-bucket merge/split). "
-        "Default: <=8 (I/O heavy).",
+        help="Number of worker processes for Stage 2 (per-bucket merge/split). Default: <=8 (I/O heavy).",
     ),
     nbuckets: int = typer.Option(
         256,
@@ -554,8 +550,7 @@ def split_bam(
     ),
     tag: str = typer.Option(
         "CB",
-        help="BAM tag holding the cell barcode (e.g., CB). "
-        "Reads missing this tag are skipped.",
+        help="BAM tag holding the cell barcode (e.g., CB). Reads missing this tag are skipped.",
     ),
     max_open_cb_writers: int = typer.Option(
         128,
@@ -580,8 +575,7 @@ def split_bam(
     ),
     min_mapq: Optional[int] = typer.Option(
         0,
-        help="Minimum MAPQ to keep an alignment. If not set, "
-        "no MAPQ filter is applied.",
+        help="Minimum MAPQ to keep an alignment. If not set, no MAPQ filter is applied.",
     ),
     keep_tmp: bool = typer.Option(
         False,
@@ -593,8 +587,7 @@ def split_bam(
     ),
     prefer_csi_index: bool = typer.Option(
         False,
-        help="Prefer creating CSI index for the (possibly sorted) "
-        "input BAM if indexing is needed.",
+        help="Prefer creating CSI index for the (possibly sorted) input BAM if indexing is needed.",
     ),
 ):
     """
@@ -755,11 +748,11 @@ def train_model(
         typer.Option(
             help="""
                     Total memory of the GPU in GB.\n
-                    => If there's only one GPU or multiple-GPUs with same memory, 
+                    => If there's only one GPU or multiple-GPUs with same memory,
                     specify an integer\n
                     => If there are mutliple GPUs with different memories,
                     specify a comma-separated list (e.g., 8,16,32)\n
-                    => If nothing is specified and one or more GPUs are available, 
+                    => If nothing is specified and one or more GPUs are available,
                     12 GB will be used by default.\n
                     """
         ),
@@ -863,6 +856,7 @@ def train_model(
         min_batch_size,
         max_batch_size,
     )
+
 
 if __name__ == "__main__":
     app()

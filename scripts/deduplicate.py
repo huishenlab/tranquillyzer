@@ -126,9 +126,7 @@ class Deduper:
 
         # key -> start_bin -> end_bin -> {'bktree': BKTree, 'kept_umis': set()}
         self.state = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
-        self.active_start_bins = defaultdict(
-            deque
-        )  # key -> deque of start_bins in order
+        self.active_start_bins = defaultdict(deque)  # key -> deque of start_bins in order
 
         # stats (primary decisions only)
         self.unique_count = 0
@@ -222,9 +220,7 @@ def process_region(
         hdr["HD"]["SO"] = "coordinate"
         out_header = pysam.AlignmentHeader.from_dict(hdr)
 
-        with pysam.AlignmentFile(
-            temp_bam_path, "wb", header=out_header, threads=threads_bgzf
-        ) as bam_out:
+        with pysam.AlignmentFile(temp_bam_path, "wb", header=out_header, threads=threads_bgzf) as bam_out:
             for read in bam_in.fetch(region):
                 if read.is_unmapped:
                     continue
@@ -232,9 +228,7 @@ def process_region(
                 cb, umi, clean_name = extract_cb_umi(read.query_name)
                 if not cb or not umi:
                     # If CB/UMI missing, write through unchanged
-                    aln = (
-                        read.to_string()
-                    )  # not available; must construct new AlignedSegment
+                    aln = read.to_string()  # not available; must construct new AlignedSegment
                     # Construct minimal pass-through without DT if you prefer; but since we rely on primaries only,
                     # we will skip here (no CB/UMI -> cannot dedup); write original with no DT/dup change.
                     aln_seg = pysam.AlignedSegment(bam_out.header)
@@ -272,9 +266,7 @@ def process_region(
                     qname_dup[clean_name] = dup_str == "Yes"
                 else:
                     # For secondary/supplementary: reuse decision if known; otherwise leave unchanged
-                    dup_str = (
-                        "Yes" if qname_dup.get(clean_name, False) else None
-                    )  # None => no DT tag written
+                    dup_str = "Yes" if qname_dup.get(clean_name, False) else None  # None => no DT tag written
 
                 # Build output alignment
                 aln = pysam.AlignedSegment(bam_out.header)
@@ -285,28 +277,20 @@ def process_region(
                 elif dup_str is not None and dup_str == "No":
                     aln.flag = rd.flag & ~0x400
                 else:
-                    aln.flag = (
-                        rd.flag
-                    )  # unknown for secondaries not yet decided
+                    aln.flag = rd.flag  # unknown for secondaries not yet decided
 
                 aln.reference_name = rd.chrom
                 aln.reference_start = rd.start
                 aln.mapping_quality = rd.mapq
                 aln.cigarstring = rd.cigar
                 aln.query_sequence = rd.seq
-                aln.query_qualities = (
-                    pysam.qualitystring_to_array(rd.qual)
-                    if isinstance(rd.qual, str)
-                    else rd.qual
-                )
+                aln.query_qualities = pysam.qualitystring_to_array(rd.qual) if isinstance(rd.qual, str) else rd.qual
 
                 # Tags
                 aln.set_tag("CB", rd.cb, value_type="Z")
                 aln.set_tag("UB", rd.umi, value_type="Z")
                 if dup_str is not None:
-                    aln.set_tag(
-                        "DT", dup_str, value_type="Z"
-                    )  # only when we have a decision
+                    aln.set_tag("DT", dup_str, value_type="Z")  # only when we have a decision
 
                 bam_out.write(aln)
 
@@ -315,18 +299,14 @@ def process_region(
 
 
 # Merge temp BAMs in @SQ order
-def merge_in_sq_order(
-    output_bam: str, temp_paths_in_order, template_bam: str, threads_bgzf: int
-):
+def merge_in_sq_order(output_bam: str, temp_paths_in_order, template_bam: str, threads_bgzf: int):
     with pysam.AlignmentFile(template_bam, "rb") as template:
         hdr = template.header.to_dict()
         hdr.setdefault("HD", {})
         hdr["HD"]["SO"] = "coordinate"
         out_header = pysam.AlignmentHeader.from_dict(hdr)
 
-        with pysam.AlignmentFile(
-            output_bam, "wb", header=out_header, threads=threads_bgzf
-        ) as merged_out:
+        with pysam.AlignmentFile(output_bam, "wb", header=out_header, threads=threads_bgzf) as merged_out:
             for p in temp_paths_in_order:  # same order as @SQ
                 with pysam.AlignmentFile(p, "rb") as t:
                     for r in t:
@@ -334,9 +314,7 @@ def merge_in_sq_order(
 
 
 # Per-read (QNAME) stats on primaries only
-def compute_final_stats_per_read(
-    bam_path: str, stats_tsv: str, threads: int = 4, primary_only: bool = True
-):
+def compute_final_stats_per_read(bam_path: str, stats_tsv: str, threads: int = 4, primary_only: bool = True):
     """
     Count each read name once:
       - If ANY primary alignment for that QNAME is duplicate -> count as Duplicate.
@@ -350,9 +328,7 @@ def compute_final_stats_per_read(
                 continue
             qn = r.query_name
             # Treat either the SAM duplicate bit or DT tag as authority
-            is_dup = r.is_duplicate or (
-                r.has_tag("DT") and r.get_tag("DT") == "Yes"
-            )
+            is_dup = r.is_duplicate or (r.has_tag("DT") and r.get_tag("DT") == "Yes")
             seen[qn] = seen.get(qn, False) or is_dup
 
     dups = sum(1 for v in seen.values() if v)
@@ -429,9 +405,7 @@ def deduplication_parallel(
 
     # Merge in @SQ order
     ordered_paths = [temp_paths[r] for r in regions if r in temp_paths]
-    merge_in_sq_order(
-        output_bam, ordered_paths, sorted_bam, bgzf_threads_per_writer
-    )
+    merge_in_sq_order(output_bam, ordered_paths, sorted_bam, bgzf_threads_per_writer)
 
     # Cleanup temps
     for p in ordered_paths:
@@ -443,7 +417,5 @@ def deduplication_parallel(
     # Stats: per read (QNAME), primaries only
     logger.info("Duplicate marking complete, computing per-read stats")
     stats_file = output_bam.replace(".bam", "_stats.tsv")
-    compute_final_stats_per_read(
-        output_bam, stats_file, threads=threads, primary_only=True
-    )
+    compute_final_stats_per_read(output_bam, stats_file, threads=threads, primary_only=True)
     logger.info("Computed per-read stats, indexing final BAM")
