@@ -17,11 +17,6 @@ from scripts.demultiplex import assign_cell_id
 logger = logging.getLogger(__name__)
 
 
-def reverse_complement(seq):
-    complement = {"A": "T", "T": "A", "C": "G", "G": "C"}
-    return "".join(complement.get(base, base) for base in reversed(seq))
-
-
 # Create ASCII lookup table (0-127 only, avoids excess memory usage)
 DNA_COMPLEMENT = np.zeros(128, dtype=np.uint8)  # Only map printable ASCII values
 DNA_COMPLEMENT[ord("A")] = ord("T")
