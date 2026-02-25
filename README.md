@@ -55,11 +55,12 @@ Issues can be opened on GitHub: <https://github.com/huishenlab/tranquillyzer/iss
 
 # Acknowledgements
 
-- This work is supported by National Institutes of Health grant UM1DA058219.
+This work was supported by Van Andel Research Institute start-up funding and National Institutes of Health [UM1DA058219]
+to Hui Shen. Computation for the work described in this paper was supported by the High-Performance Cluster and Cloud
+Computing (HPC3) Resource at the Van Andel Research Institute.
 
 # Disclosure of AI-Assisted Development
 
-This project incorporates contributions produced with the assistance of AI-based software development tools. These tools
-were used for ideation, code generation, debugging, and documentation support. Final implementations were made by the
-authors, and all code has undergone manual review and testing. The project authors assumes full responsibility for the
-accuracy, integrity, and licensing compliance of all included code.
+During the preparation of this work the authors used ChatGPT (OpenAI) and AI-based software development tools to assist
+with language refinement and code debugging. The authors developed and verified all scientific content, interpretation
+and conclusions.
