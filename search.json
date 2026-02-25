@@ -238,11 +238,82 @@
     "text": "Command Line Arguments\nRequired Arguments\n\nMODEL_NAME: Name of the model to select from the param-file input file\nOUTPUT_DIR: Directory to write output directories and files to\n\nOptional Arguments\n\n--param-file TEXT: Path to training parameters file. If not provided, uses the default: utils/training_params.tsv (default: None)\n--training-seq-orders-file TEXT: Path to the sequence order file. If not provided, uses the default: utils/training_seq_orders.tsv (default: None)\n--num-val-reads INTEGER: Number of reads to simulate (default: 20)\n--mismatch-rate FLOAT: Mismatch rate (default: 0.05)\n--insertion-rate FLOAT: Insertion rate (default: 0.05)\n--deletion-rate FLOAT: Deletion rate (default: 0.06)\n--min-cdna INTEGER: Minimum cDNA length (default: 100)\n--max-cdna INTEGER: Maximum cDNA length (default: 500)\n--polyt-error-rate FLOAT: Error rate within polyT or polyA segments (default: 0.02)\n--max-insertions FLOAT: Maximum number of allowed insertions after a base (default: 2)\n--threads INTEGER: Number of CPU threads (default: 2)\n--rc / --no-rc: Whether to include reverse complements of the reads in the training data. If rc, final dataset will contain twice the number of user-specified reads (default: rc)\n--transcriptome TEXT: Transcriptome FASTA file. Used to generate cDNA if provided (default: None)\n--invalid-fraction FLOAT: Fraction of invalid reads to generate (default: 0.3)\n--gpu-mem TEXT: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., 8,16,32). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)\n--target-tokens INTEGER: Approximate token budget per GPU - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately batch   size * padded sequence length. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)\n--vram-headroom FLOAT: Fraction of GPU memory to reserve as headroom (default: 0.35)\n--min-batch-size INTEGER: Minimum batch size for model inference (default: 1)\n--max-batch-size INTEGER: Maximum batch size for model inference (default: 2000)\n--help: Print help message and exit"
   },
   {
+    "objectID": "webpages/model_training/train_model_cli.html",
+    "href": "webpages/model_training/train_model_cli.html",
+    "title": "train-model CLI",
+    "section": "",
+    "text": "Input Parameters to train-model\nImportant Note: The error model (e.g., --mismatch-rate, --polyt-error-rate, etc.) and cDNA length options (--min-cdna and --max-cdna) below are used to synthesize a small post-training validation set (with --num-val-reads number of reads). tranquillyzer annotates these reads using the newly trained model and exports a PDF (*_val_viz.pdf) as an initial sanity check. These options do not affect the training reads, which were produced by simulate-data and can be found in reads.pkl and labels.pkl inside the &lt;output_dir&gt;/simulated_data/ directory.\n\n\n\n\n\n\n\n\n\nCLI Option\nType\nWhat It Controls\nDefault\n\n\n\n\nmodel_name\nTEXT\nLibrary model key defining segment order and motifs\nrequired\n\n\noutput_dir\nTEXT\nDirectory where simulated training data lives\nrequired\n\n\n--param-file\nTEXT\nPath to training_params.tsv used to define the hyperparameter grid for model_name\nutils/training_params.tsv\n\n\n--training-seq-orders-file\nTEXT\nPath to training_seq_orders.tsv defining segment order/motifs for the model\nutils/training_seq_orders.tsv\n\n\n--num-val-reads\nINT\nNumber of post-training validation reads to synthesize and visualize\n20\n\n\n--mismatch-rate\nFLOAT\nValidation synthesis mismatch rate\n0.05\n\n\n--insertion-rate\nFLOAT\nValidation synthesis insertion rate\n0.05\n\n\n--deletion-rate\nFLOAT\nValidation synthesis deletion rate\n0.06\n\n\n--min-cdna\nINT\nValidation synthesis minimum cDNA length\n100\n\n\n--max-cdna\nINT\nValidation synthesis maximum cDNA length\n500\n\n\n--polyt-error-rate\nFLOAT\nValidation synthesis error rate inside polyA/polyT segments\n0.02\n\n\n--max-insertions\nFLOAT\nValidation synthesis max insertions per position\n1\n\n\n--threads\nINT\nCPU threads used for validation read synthesis\n2\n\n\n--rc / --no-rc\nFLAG\nInclude reverse complements in validation set (doubles --num-val-reads)\n--rc\n\n\n--transcriptome\nTEXT\nOptional transcriptome FASTA used for validation synthesis (otherwise random transcripts)\nNone (i.e., random transcripts)\n\n\n--invalid-fraction\nFLOAT\nFraction of validation reads synthesized as invalid/artifactual\n0.3\n\n\n--gpu-mem\nTEXT\nGPU memory (GB) used to guide inference batch sizing for validation annotation/plotting\nNone (12 GB if GPU present)\n\n\n--target-tokens\nINT\nToken budget per GPU replica for choosing safe inference batch size (≅ batch × padded_len)\n1200000\n\n\n--vram-headroom\nFLOAT\nFraction of VRAM reserved as headroom when sizing inference batches\n0.35\n\n\n--min-batch-size\nINT\nMinimum inference batch size for validation annotation\n1\n\n\n--max-batch-size\nINT\nMaximum inference batch size for validation annotation\n2000\n\n\n\n\n\nExample training_params.tsv Template\n\n\n\n\n\n\nNote\n\n\n\nIf you copy and paste the following template, make sure the pasted text retains the tab (\\t) characters that serve as the delimiter between the columns.\n\n\n\n\ntraining_params_example.tsv\n\nparameter   10x5p_sc_ont\nbatch_size  128\ntrain_fraction  0.8\nvocab_size  5\nembedding_dim   128\nconv_layers 4\nconv_filters    128\nconv_kernel_size    25\nlstm_layers 1\nlstm_units  96\nbidirectional   TRUE\ncrf_layer   TRUE\nattention_heads 0\ndropout_rate    0.35\nregularization  0.01\nlearning_rate   0.001\nepochs  5\n\nAdditional models can be added to the training_params.tsv file by adding additional columns to the existing file. The name in the first column is the model_name to be used in other tranquillyzer functions for that model. A realistic example that includes parameters for both 10x Genomics 5’ and 3’ protocols is:\n\n\ntraining_params_example_extended.tsv\n\nparameter   10x5p_sc_ont    10x3p_sc_ont\nbatch_size  128 128\ntrain_fraction  0.8 0.8\nvocab_size  5   5\nembedding_dim   128 128\nconv_layers 4   3\nconv_filters    128 128\nconv_kernel_size    25  25\nlstm_layers 1   1\nlstm_units  96  96\nbidirectional   TRUE    TRUE\ncrf_layer   TRUE    TRUE\nattention_heads 0   0\ndropout_rate    0.35    0.35\nregularization  0.01    0.01\nlearning_rate   0.001   0.001\nepochs  5   1\n\n\n\nExample Use Case\ntranquillyzer train-model \\\n    10x3p_sc_ont \\\n    training_out \\\n    --num-val-reads 20 \\\n    --mismatch-rate 0.05 \\\n    --insertion-rate 0.05 \\\n    --deletion-rate 0.06 \\\n    --min-cdna 100 \\\n    --max-cdna 500 \\\n    --polyt-error-rate 0.02 \\\n    --max-insertions 2 \\\n    --invalid-fraction 0.3 \\\n    --rc \\\n    --threads 2 \\\n    --transcriptome gencode.v44.transcripts.fa",
+    "crumbs": [
+      "Model Training",
+      "train-model CLI"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/intro_errors.html",
+    "href": "webpages/model_training/intro_errors.html",
+    "title": "Stage 2: Sequencing Error Modeling",
+    "section": "",
+    "text": "Context-aware Noise Introduction\nAfter generating a clean read and label vector, the simulator introduces base-level errors to approximate ONT/PacBio characteristics. Error operators include:\n\nmismatches (--mismatch-rate)\ninsertions (--insertion-rate, bounded by --max-insertions)\ndeletions (--deletion-rate)\n\nError rates are applied in a label-dependent manner. In the default implementation, polyA/polyT segments use a distinct error rate (--polyt-error-rate) that reflects homopolymer instability, while other segments use the provided global rates. This allows protocol-induced homopolymers to exhibit distinct noise properties without corrupting structured motifs beyond what is intended by the simulation.\n\n\nOrientation Augmentation\nOptionally, the reverse complement of each read can be generated (--rc), with labels reversed accordingly. This augmentation improves robustness to strand orientation and is particularly useful for datasets with mixed orientation or uncertain strand assignment.\n\n\nArtifact Simulation\nTo increase robustness to real-world failure modes, a user-controlled fraction of reads (--invalid-fraction) are simulated as structurally invalid or artifactual. Supported artifact modes include read concatenation, repeated adapter blocks at the 5′ (or 3′) end, and truncations from either end. Optionally, strand inversions or reverse complements may be included during concatenation. Invalid reads in the simulated dataset reduces overconfident labeling of malformed inputs and improves downstream filtering and diagnostics.",
+    "crumbs": [
+      "Model Training",
+      "2. Introduce Errors"
+    ]
+  },
+  {
+    "objectID": "webpages/resource_requirements.html",
+    "href": "webpages/resource_requirements.html",
+    "title": "Resource Requirements",
+    "section": "",
+    "text": "To provide transparent and hardware-agnostic guidance, we characterize GPU feasibility in terms of the maximum read length supportable at a per-GPU (per-replica) batch size = 1. This criterion reflects strict feasibility (i.e., whether the inference can run without out-of-memory errors), rather than throughput or performance.\nAll reported limits correspond to single-replica inference and are therefore governed by per-GPU memory capacity. Multi-GPU execution increases global throughput via data parallelism but does not increase the maximum feasible read length per replica."
+  },
+  {
+    "objectID": "webpages/resource_requirements.html#interpretation-notes",
+    "href": "webpages/resource_requirements.html#interpretation-notes",
+    "title": "Resource Requirements",
+    "section": "Interpretation Notes",
+    "text": "Interpretation Notes\n\nThese limits indicate feasibility, not optimal performance; ultra-long reads near these bounds may run correctly but slowly.\nIncreasing the number of GPUs improves throughput but does not increase the per-replica maximum read length.\nArchitectural changes (e.g., additional LSTM layers, attention heads, or larger embeddings) will reduce these limits."
+  },
+  {
+    "objectID": "webpages/resource_requirements.html#step-1-length-binning-and-padding",
+    "href": "webpages/resource_requirements.html#step-1-length-binning-and-padding",
+    "title": "Resource Requirements",
+    "section": "Step 1: Length Binning and Padding",
+    "text": "Step 1: Length Binning and Padding\nReads are processed in predefined length bins (e.g., 0-499 bp, 500-999 bp, …). For each bin, reads are padded to:\n\\[\nL \\approx B + 10\n\\]\nwhere \\(L\\) is the padded length and \\(B\\) is the upper bound of the bin. Ultimately, the padded length, rather than the raw read length, determines memory usage."
+  },
+  {
+    "objectID": "webpages/resource_requirements.html#step-2-per-replica-batch-size-estimation",
+    "href": "webpages/resource_requirements.html#step-2-per-replica-batch-size-estimation",
+    "title": "Resource Requirements",
+    "section": "Step 2: Per-Replica Batch Size Estimation",
+    "text": "Step 2: Per-Replica Batch Size Estimation\nFor each bin, Tranquillyzer computes the per-replica batch size as the lesser of a heuristic based on the number of processed tokens and a proxy for the memory needed for the CNN:\n\\[\nB_{\\text{per-replica}} = \\min(B_{\\text{tokens}}, B_{\\text{mem}})\n\\]\n(A) Token-budget heuristic\n\\[\nB_{\\text{tokens}} = \\left\\lfloor \\frac{\\text{T}}{L} \\right\\rfloor\n\\]\nwhere \\(T\\) is the target number of tokens to process per replicate. \\(T\\) is controlled by the target_tokens_per_replica parameter and has a default value of 1,200,000.\n(B) Memory-based activation proxy\n\\[\nB_{\\text{mem}} \\approx \\left\\lfloor \\frac{\\text{U}}{C \\times L \\times b} \\right\\rfloor\n\\]\nwhere \\(U\\) is still the number of usable bytes, \\(C\\) is the number of convolutional filters (conv_filters = 128), \\(L\\) is the padded length, and \\(b\\) is the number of bytes per element (bytes_per_element = 4)."
+  },
+  {
+    "objectID": "webpages/resource_requirements.html#step-3-global-batch-size",
+    "href": "webpages/resource_requirements.html#step-3-global-batch-size",
+    "title": "Resource Requirements",
+    "section": "Step 3: Global Batch Size",
+    "text": "Step 3: Global Batch Size\nThe TensorFlow Mirrored Strategy replicates the per-replica batch size across each replica/GPU. Therefore, for \\(R\\) replicas, the global batch size is:\n\\[\nB_{\\text{global}} = B_{\\text{per-replica}} \\times R\n\\]"
+  },
+  {
+    "objectID": "webpages/resource_requirements.html#step-4-automatic-out-of-memory-oom-backoff",
+    "href": "webpages/resource_requirements.html#step-4-automatic-out-of-memory-oom-backoff",
+    "title": "Resource Requirements",
+    "section": "Step 4: Automatic Out-of-Memory (OOM) Backoff",
+    "text": "Step 4: Automatic Out-of-Memory (OOM) Backoff\nInference is wrapped in a fail-safe loop:\n\nAttempt inference at the selected batch size.\nIf OOM or internal runtime error:\n\nclear TensorFlow session,\ntrigger garbage collection,\nhalve the batch size.\n\nRetry until success (down to batch size = 1).\n\nThis mechanism ensures robust execution even when theoretical estimates prove inaccurate."
+  },
+  {
     "objectID": "webpages/releases.html",
     "href": "webpages/releases.html",
     "title": "Releases",
     "section": "",
-    "text": "Releases of Tranquillyzer can be found on GitHub under the Releases page. For more details on each release listed below, follow the “Find it on GitHub” link to be directed to the corresponding release page.\n\nVersion 0.2.0\n\nLatest Release\nRelease Date: 31 December 2025\nFind it on GitHub\nImportant Note: This release suffers from stability issues. It is not recommended that you use this release.\n\n\n\nVersion 0.1.1\n\nRelease Date: 3 December 2025\nFind it on GitHub\n\n\n\nVersion 0.1.0\n\nRelease Date: 22 August 2025\nFind it on GitHub"
+    "text": "Releases of Tranquillyzer can be found on GitHub under the Releases page. For more details on each release listed below, follow the “Find it on GitHub” link to be directed to the corresponding release page.\n\nVersion 0.2.2\n\nLatest Release\nRelease Date: 25 February 2026\nFind it on GitHub\n\n\n\nVersion 0.2.1\n\nRelease Date: 13 January 2026\nFind it on GitHub\n\n\n\nVersion 0.2.0\n\nRelease Date: 31 December 2025\nFind it on GitHub\nImportant Note: This release suffers from stability issues. It is not recommended that you use this release.\n\n\n\nVersion 0.1.1\n\nRelease Date: 3 December 2025\nFind it on GitHub\n\n\n\nVersion 0.1.0\n\nRelease Date: 22 August 2025\nFind it on GitHub"
+  },
+  {
+    "objectID": "webpages/contributing.html",
+    "href": "webpages/contributing.html",
+    "title": "Contributing",
+    "section": "",
+    "text": "Contributions to Tranquillyzer are welcome. See below for some requirements when contributing to Tranquillyzer, as well as some helpful tips to simplify the process.\n\nHow to Make Contributions\n\nCreate a fork of the Tranquillyzer GitHub repository to your own GitHub account if you have not done so already.\nClone your fork of Tranquillyzer to the location you will be working if you have not done so already.\nRun conda install conda-forge::prek. This installs prek which is used to perform checks for each commit that is made.\nRun prek install to install the hooks that will run whenever you run git commit.\nMove to the tranquillyzer directory and checkout a new branch to work on based on the dev branch. Tranquillyzer uses the dev branch for all new work and then moves it to main whenever a new release is being made.\n\ncd tranquillyzer\ngit checkout -b working_branch dev\n\nMake any changes you want, followed by git add and git commit.\nPush your changes to your GitHub fork and open a PR from your working_branch to the dev branch of the huishenlab Tranquillyzer repository.\n\n\n\nTips for Contributing\n\nMake sure to frequently pull changes from the dev branch of huishenlab/tranquillyzer. This makes it easier for us to merge your PR and for you to work with the latest versions of the code.\nUtilize prek with your commits. prek will be run on your PR when you open it, so by running it ahead of time, you will ensure this part of the PR testing passes on the first run.\n\nprek will cancel a commit if something fails. Sometimes it will automatically update the files for you, so all you have to do is re-add those files and run git commit again. Other times, an error will be generated that you have to resolve yourself based on the error messages returned.\n\nIt helps to keep both the main and dev branches of your forked repository in line with the huishenlab Tranquillyzer repository. Two good options are to either periodically updating your repository when you’re not working on it, or to update the branches as the first step of any new project that you work on."
   },
   {
     "objectID": "webpages/quick_start.html",
@@ -329,11 +400,169 @@
     "text": "6. Verify Installation\nTo verify that Tranquillyzer is installed correctly, run:\ntranquillyzer --help\nYou should see the CLI help message with the available sub-commands including (but not limited to):\navailablemodels\npreprocessfasta\nannotate-reads\nvisualize"
   },
   {
+    "objectID": "webpages/model_training/read_simulation.html",
+    "href": "webpages/model_training/read_simulation.html",
+    "title": "Stage 1: Read Structure Simulation",
+    "section": "",
+    "text": "Segment-based Read Construction\nSynthetic reads are generated as ordered concatenations of library-specific segments (e.g., random bases, ONT adapters, protocol adapters, barcodes, UMIs, cDNA, polyA/polyT). The segment order and any fixed sequence motifs are specified for each model_name input in the library definition file: seq_orders.tsv. During concatenation, the simulator emits both the nucleotide sequence and a per-base label vector identifying the originating segment.\n\n\ncDNA Generation and Transcriptome Conditioning\nThe cDNA segment is generated either by sampling fragments from a user-provided transcriptome FASTA (--transcriptome) or, if unspecified, by generating synthetic transcripts of random bases. It is recommended to provide a transcriptome FASTA because it exposes the model to realistic intra-transcript sequence properties, including internal polyA/polyT runs and low-complexity regions. This is important because internal homopolymers can be confused with polyA/polyT tails introduced by the protocol. Training with transcriptome-derived cDNA teaches the model to resolve polyA/polyT contextually using segment boundaries rather than homopolymer presence alone.\n\n\ncDNA Length as a Controlled Trade-off\ncDNA length is sampled uniformly within [min_cDNA, max_cDNA]. This range is a deliberate balance:\n\nShorter cDNA increases the relative proportion of fixed motifs (i.e., adapters/barcodes/UMIs), making boundary learning easier but reducing exposure to long-range sequence context.\nLonger cDNA increases length variability and generalization, but can dilute boundary signal during optimization (i.e., the model spends more capacity modeling cDNA interior), which may reduce accuracy at segment boundaries if the lengths become excessively long relative to fixed segments.\n\nTherefore, cDNA length parameters should be tuned accordingly to match expected read structures while preserving sufficient emphasis on boundary regions.",
+    "crumbs": [
+      "Model Training",
+      "1. Read Simulation"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html",
+    "href": "webpages/model_training/train_model.html",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "",
+    "text": "The train-model command trains a base-level sequence labeling model to assign a segment identity (e.g., adapter, barcode, UMI, cDNA, polyA/T) to every nucleotide position in a read. Training operates on synthetic reads produced by simulate-data (stored as reads.pkl and labels.pkl) and evaluates each trained variant using an independently simulated validation set with known ground-truth labels.\nFor a given model_name, train-model reads a parameter table (training_params.tsv), enumerates the specified hyperparameter combinations, trains each model variant, and exports a standardized set of artifacts (model weights, label binarizer, training history, and a validation visualization PDF).",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#input-representation-and-tokenization",
+    "href": "webpages/model_training/train_model.html#input-representation-and-tokenization",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Input Representation and Tokenization",
+    "text": "Input Representation and Tokenization\nReads are represented as sequences of nucleotide tokens, converted to integers prior to training:\n\nA → 1\nC → 2\nG → 3\nT → 4\nN → 5\n0 reserved for padding\n\nThis is governed by the vocabulary size parameter (vocab_size). In the current implementation, vocab_size is 5 to correspond to the five nucleotide symbols {A, C, G, T, N}, while the padding token, 0, is introduced only for batching and does not represent a nucleotide.\nIncreasing vocab_size is not typically meaningful for DNA unless additional symbols are introduced (e.g., ambiguity codes beyond N). The critical representation choice is the embedding dimension (embedding_dim), which controls how much information the model can store about each token.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#embedding-layer",
+    "href": "webpages/model_training/train_model.html#embedding-layer",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Embedding Layer",
+    "text": "Embedding Layer\nThe embedding layer converts each integer token into a learned numeric vector of length embedding_dim. This step is conceptually similar to assigning each nucleotide a trainable “feature profile” that downstream layers can combine to detect patterns.\n\nA larger embedding_dim increases representational capacity and may help in complex settings (e.g., more labels or noisier reads), but requires additional computational resources and can overfit if training data are limited.\nFor a small vocabulary like DNA, moderate values (e.g., 64-128) are typically sufficient.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#convolutional-layers-conv1d-blocks",
+    "href": "webpages/model_training/train_model.html#convolutional-layers-conv1d-blocks",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Convolutional Layers (“Conv1D” Blocks)",
+    "text": "Convolutional Layers (“Conv1D” Blocks)\nFollowing embedding, the model applies a stack of 1D convolution layers. A convolution layer slides a small window (the kernel) along the sequence and learns to recognize local motifs. In this application, convolutions primarily learn short-range patterns such as adapter subsequences, barcode/UMI neighborhood signatures and transition cues near segment boundaries.\nEach convolution block consists of:\n\nConv1D(filters=conv_filters, kernel_size=conv_kernel_size, padding=\"same\")\nBatchNormalization\nDropout(dropout_rate)\n\nThe user can control the following inputs to the convolution blocks:\n\nconv_kernel_size: Controls how wide a motif the layer can “see” at once. Larger kernels (e.g., 25) help detect longer protocol motifs and smooth local noise. However, selecting too large a value may blur sharp boundary cues, whereas too small a value may miss multi-base motifs.\nconv_filters: Number of motif detectors per layer. More filters means more pattern capacity at the cost of higher memory and time requirements. If boundaries are missed or adapters vary, increasing the number of filters is often more beneficial than increasing the depth.\nconv_layers: How many convolution stages are stacked. More layers allow hierarchical motif composition (from simple to complex). Too many layers can over-smooth or overfit, especially with limited training reads.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#regularization-within-convolution-layers",
+    "href": "webpages/model_training/train_model.html#regularization-within-convolution-layers",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Regularization within Convolution Layers",
+    "text": "Regularization within Convolution Layers\n\nRegularization applies an L2 penalty to convolution weights. Higher values discourage overly complex filters and reduce overfitting, but if too strong it can prevent learning adapter/barcode patterns.\ndropout_rate randomly drops activations during training. Higher dropout improves generalization but can reduce boundary precision if excessive.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#bidirectional-lstm-long-range-context",
+    "href": "webpages/model_training/train_model.html#bidirectional-lstm-long-range-context",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Bidirectional LSTM (Long-Range Context)",
+    "text": "Bidirectional LSTM (Long-Range Context)\nAdapters and barcodes can be recognized locally, but accurate labeling often requires understanding ordering and context. For example, a barcode is not defined only by its sequence composition but also by where it appears relative to other segments. This is addressed using long short-term memory (LSTM) recurrent layers, which process the sequence in order and can retain information over long distances.\ntranquillyzer uses an LSTM configured to bidirectionally read the sequence and output a prediction at every position (return_sequences=True). Bidirectionality means the model reads the sequence both left-to-right and right-to-left, allowing each position to be interpreted using context on both sides.\nThe user has the option to adjust the following parameters that govern the LSTM aspect of tranquillyzer.\n\nlstm_units: Size of the “memory” used to store contextual information. Increasing the number of units can improve modeling of long-range structure but increases compute and can overfit.\nlstm_layers: Stacking multiple LSTMs increases modeling power but may be unnecessary for many protocols.\nbidirectional: True is typically beneficial for boundary labeling because both upstream and downstream motifs inform segment identity. False may be preferred only if strict causal directionality is desired (uncommon for this task).",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#optional-multi-head-self-attention-global-context-refinement",
+    "href": "webpages/model_training/train_model.html#optional-multi-head-self-attention-global-context-refinement",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "[Optional] Multi-head Self-attention (Global Context Refinement)",
+    "text": "[Optional] Multi-head Self-attention (Global Context Refinement)\nIf enabled, (attention_heads &gt; 0), the model applies self-attention after the LSTM. Attention allows each position to “look at” other positions and re-weight information based on relevance, which can help when distant cues are informative (e.g., ambiguous low-complexity regions that require recognizing other motif anchors elsewhere in the read).\n\nMore heads allow multiple “views” of relevance patterns, but increase memory and training time.\nAttention is typically most useful when reads are long and contain repeated and/or ambiguous patterns.\n\nNote: multi-head attention is disabled by default",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#dense-layer-per-base-classifier",
+    "href": "webpages/model_training/train_model.html#dense-layer-per-base-classifier",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Dense Layer (Per-Base Classifier)",
+    "text": "Dense Layer (Per-Base Classifier)\nAfter feature extraction, a dense layer produces a vector of scores for each label at every position. This is the per-position classification step.\n\nnum_labels: Derived from the library segment set - equal to the number of segments defined in the training_seq_orders.tsv",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#conditional-random-field-structured-decoding",
+    "href": "webpages/model_training/train_model.html#conditional-random-field-structured-decoding",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Conditional Random Field (Structured Decoding)",
+    "text": "Conditional Random Field (Structured Decoding)\nThe model uses a Conditional Random Field (CRF) on top of per-base scores. The CRF learns which label transitions are plausible (e.g., adapter → barcode is likely, but barcode → adapter may be unlikely) and encourages globally consistent label sequences.\n\nCRF is particularly beneficial when the model exhibits “label fragmentation” or rapid oscillation across boundaries, especially in repetitive contexts.\nCRF usually increases training and inference time but often improves boundary consistency.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#core-optimization-parameters",
+    "href": "webpages/model_training/train_model.html#core-optimization-parameters",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Core Optimization Parameters",
+    "text": "Core Optimization Parameters\n\nbatch_size: Number of reads per gradient update. Larger batches improve throughput and stabilize gradients but require more memory and may reduce generalization.\ntrain_fraction: Fraction between 0.0 and 1.0 (inclusive) of simulated reads used for training versus internal validation. Higher values increase training signal but reduce internal validation monitoring.\nepochs: Maximum training epochs (with early stopping enabled). More epochs can improve fit but increase overfitting risk.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#model-capacity-and-generalization-controls",
+    "href": "webpages/model_training/train_model.html#model-capacity-and-generalization-controls",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Model Capacity and Generalization Controls",
+    "text": "Model Capacity and Generalization Controls\n\nembedding_dim, conv_layers, conv_filters, conv_kernel_size, lstm_layers, lstm_units, attention_heads: Determine representational power.\ndropout_rate, regularization: Reduce overfitting and stabilize training.\nlearning_rate: Step size for optimization. Too high can destabilize, but too low slows convergence.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/train_model.html#example-hyperparameter-effects-intuitive-scenarios",
+    "href": "webpages/model_training/train_model.html#example-hyperparameter-effects-intuitive-scenarios",
+    "title": "Stage 3/4: Model Training Intuitions",
+    "section": "Example Hyperparameter Effects (Intuitive Scenarios)",
+    "text": "Example Hyperparameter Effects (Intuitive Scenarios)\n\nExample 1: Adapters Recognized but Boundaries are Fuzzy\nSymptom: adapter/barcode regions are detected, but transition points drift.\n\nIncrease conv_kernel_size slightly (e.g., 15 → 20) to provide a wider local context for boundary cues.\nIf overfitting is suspected, increase dropout_rate modestly (e.g. 0.20 → 0.30).\n\n\n\nExample 2: Model Struggles on Noisy Reads (Indels)\nSymptom: predictions degrade sharply as indel rate increases.\n\nIncrease num_reads during simulation to expose more noisy examples (handled in simulate-data).\nIncrease conv_filters (e.g., 64 → 96) to learn more robust motif detectors.\nConsider a slightly lower learning_rate to stabilize optimization under noise.\n\nExample 3: Model is slow and memory-limited on GPU\n\nReduce batch_size.\nReduce conv_filters or embedding_dim (reduces activation memory).\nKeep attention_heads=0 unless needed. Attention increases memory substantially.",
+    "crumbs": [
+      "Model Training",
+      "3./4. Model Training"
+    ]
+  },
+  {
+    "objectID": "webpages/model_training/simulate_data_cli.html",
+    "href": "webpages/model_training/simulate_data_cli.html",
+    "title": "simulate-data CLI",
+    "section": "",
+    "text": "Input Parameters to simulate-data\nCareful tuning of the following parameters allows the simulation to match the empirical error profile of specific sequencing platforms or chemistries.\n\n\n\n\n\n\n\n\n\nCLI Option\nType\nWhat It Controls\nDefault\n\n\n\n\nmodel_name\nTEXT\nLibrary model key defining segment order and motifs\nrequired\n\n\noutput_dir\nTEXT\nOutput directory for simulated data (simulated_data/)\nrequired\n\n\n--training-seq-orders-file\nTEXT\nPath to training_seq_orders.tsv defining segment order and sequences\nutils/training_seq_orders.tsv\n\n\n--num-reads\nINT\nNumber of primary reads to simulate (before reverse-complement doubling)\n50000\n\n\n--mismatch-rate\nFLOAT\nBase substitution probability during training read simulation\n0.05\n\n\n--insertion-rate\nFLOAT\nBase insertion probability during training read simulation\n0.05\n\n\n--deletion-rate\nFLOAT\nBase deletion probability during training read simulation\n0.06\n\n\n--min-cdna\nINT\nMinimum cDNA length used in training read simulation\n100\n\n\n--max-cdna\nINT\nMaximum cDNA length used in training read simulation\n500\n\n\n--polyt-error-rate\nFLOAT\nError rate within polyA/polyT segments during training simulation\n0.02\n\n\n--max-insertions\nINT\nMaximum number of insertions allowed after a single base\n1\n\n\n--threads\nINT\nCPU threads used for training read simulation\n2\n\n\n--rc / --no-rc\nFLAG\nInclude reverse-complemented reads (doubles training set size)\n--rc\n\n\n--transcriptome\nTEXT\nTranscriptome FASTA used for cDNA generation (else random transcripts)\nNone\n\n\n--invalid-fraction\nFLOAT\nFraction of training reads generated as invalid/artifactual\n0.3\n\n\n--help\nFLAG\nShow help message\n—\n\n\n\n\n\nExample Use Case\ntranquillyzer simulate-data \\\n    10x3p_sc_ont \\\n    training_out \\\n    --num-reads 50000 \\\n    --mismatch-rate 0.05 \\\n    --insertion-rate 0.05 \\\n    --deletion-rate 0.06 \\\n    --min-cdna 100 \\\n    --max-cdna 500 \\\n    --polyt-error-rate 0.02 \\\n    --max-insertions 1 \\\n    --invalid-fraction 0.3 \\\n    --rc \\\n    --threads 2 \\\n    --transcriptome gencode.v44.transcripts.fa",
+    "crumbs": [
+      "Model Training",
+      "simulate-data CLI"
+    ]
+  },
+  {
     "objectID": "webpages/model_training.html",
     "href": "webpages/model_training.html",
-    "title": "How to Train Your Model",
+    "title": "Background on Model Training",
     "section": "",
-    "text": "Work in progress - coming soon!"
+    "text": "Overview\nIn long-read RNA-seq data, base-level annotations such as adapters, barcodes, UMIs, cDNA, and polyA/T tails can be inferred either through a set of heuristics or a trained deep learning model. tranquillyzer uses a fully supervised approach to train its deep learning model. As a fully supervised method, tranquillyzer requires labeled data as input for its training.\nLabeled data can either come from annotations generated by an upstream annotation tool or through simulated data which inherently contains labels. Because upstream annotation tools typically rely on heuristics with their own assumptions and biases embedded in them, training a deep learning model on these data is not ideal. The model generally learns to reproduce the output from the tool rather than the true structure of the reads.\ntranquillyzer addresses this limitation by training exclusively on synthetically generated reads with known ground-truth base-level labels. Reads are simulated according to explicit library specifications and sequencing error models, ensuring the true identity of every base is known at generation time. This enables (i) fully supervised learning with exact labels and (ii) objective evaluation without reliance on external annotations. As a result, model training is decoupled from upstream heuristics which enables easy adaptation to new protocols and read structures.\n\n\nTraining Workflow\nThe training procedure consists of four conceptual stages:\n\nSimulation of reads based on a provided structure\nIntroduction of sequencing errors to simulated reads\nSupervised neural network training for base-level annotation (train-model)\nValidation on an independently simulated dataset (train-model)\n\nStages (1) and (2) are performed by the simulate-data command, while stages (3) and (4) are handled by train-model. The following tutorial lays out the intuition behind each of these stages and how they may impact the efficacy of the final model.",
+    "crumbs": [
+      "Model Training",
+      "Overview"
+    ]
   },
   {
     "objectID": "index.html",

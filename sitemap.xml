@@ -2,30 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/about.html</loc>
-    <lastmod>2026-01-08T19:13:10.267Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.599Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/usage.html</loc>
-    <lastmod>2026-01-08T19:13:10.270Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.603Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/train_model_cli.html</loc>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/intro_errors.html</loc>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/resource_requirements.html</loc>
+    <lastmod>2026-02-25T15:29:02.603Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/releases.html</loc>
-    <lastmod>2026-01-08T19:13:10.270Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.603Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/contributing.html</loc>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/quick_start.html</loc>
-    <lastmod>2026-01-08T19:13:10.270Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.603Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/install.html</loc>
-    <lastmod>2026-01-08T19:13:10.270Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/read_simulation.html</loc>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/train_model.html</loc>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
+  </url>
+  <url>
+    <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/simulate_data_cli.html</loc>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training.html</loc>
-    <lastmod>2026-01-08T19:13:10.270Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.602Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/index.html</loc>
-    <lastmod>2026-01-08T19:13:10.267Z</lastmod>
+    <lastmod>2026-02-25T15:29:02.599Z</lastmod>
   </url>
 </urlset>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quick Start – Tranquillyzer Documentation</title>
+<title>Resource Requirements – Tranquillyzer Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -103,6 +68,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -133,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../webpages/quick_start.html" aria-current="page"> 
+    <a class="nav-link" href="../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
@@ -141,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/resource_requirements.html"> 
+    <a class="nav-link active" href="../webpages/resource_requirements.html" aria-current="page"> 
 <span class="menu-text">Resource Requirements</span></a>
   </li>  
   <li class="nav-item">
@@ -179,10 +173,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#available-models" id="toc-available-models" class="nav-link active" data-scroll-target="#available-models">Available Models</a></li>
-  <li><a href="#software-dependencies" id="toc-software-dependencies" class="nav-link" data-scroll-target="#software-dependencies">Software Dependencies</a></li>
-  <li><a href="#important-notes-for-running-tranquillyzer" id="toc-important-notes-for-running-tranquillyzer" class="nav-link" data-scroll-target="#important-notes-for-running-tranquillyzer">Important Notes for Running Tranquillyzer</a></li>
-  <li><a href="#basic-pipeline-for-running-tranquillyzer" id="toc-basic-pipeline-for-running-tranquillyzer" class="nav-link" data-scroll-target="#basic-pipeline-for-running-tranquillyzer">Basic Pipeline for Running Tranquillyzer</a></li>
+  <li><a href="#gpu-feasibility" id="toc-gpu-feasibility" class="nav-link active" data-scroll-target="#gpu-feasibility">GPU Feasibility</a></li>
+  <li><a href="#model-configuration-used-for-all-estimates" id="toc-model-configuration-used-for-all-estimates" class="nav-link" data-scroll-target="#model-configuration-used-for-all-estimates">Model Configuration Used for All Estimates</a></li>
+  <li><a href="#empirical-versus-theoretical-feasibility" id="toc-empirical-versus-theoretical-feasibility" class="nav-link" data-scroll-target="#empirical-versus-theoretical-feasibility">Empirical versus Theoretical Feasibility</a></li>
+  <li><a href="#computation-of-theoretical-feasibility-limits" id="toc-computation-of-theoretical-feasibility-limits" class="nav-link" data-scroll-target="#computation-of-theoretical-feasibility-limits">Computation of Theoretical Feasibility Limits</a></li>
+  <li><a href="#rationale-behind-empirical-scaling-use" id="toc-rationale-behind-empirical-scaling-use" class="nav-link" data-scroll-target="#rationale-behind-empirical-scaling-use">Rationale behind Empirical Scaling Use</a></li>
+  <li><a href="#maximum-supportable-read-length" id="toc-maximum-supportable-read-length" class="nav-link" data-scroll-target="#maximum-supportable-read-length">Maximum Supportable Read-Length</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-notes" id="toc-interpretation-notes" class="nav-link" data-scroll-target="#interpretation-notes">Interpretation Notes</a></li>
+  </ul></li>
+  <li><a href="#dynamic-batch-size-selection-in-tranquillyzer" id="toc-dynamic-batch-size-selection-in-tranquillyzer" class="nav-link" data-scroll-target="#dynamic-batch-size-selection-in-tranquillyzer">Dynamic Batch Size Selection in <em>Tranquillyzer</em></a>
+  <ul class="collapse">
+  <li><a href="#step-1-length-binning-and-padding" id="toc-step-1-length-binning-and-padding" class="nav-link" data-scroll-target="#step-1-length-binning-and-padding">Step 1: Length Binning and Padding</a></li>
+  <li><a href="#step-2-per-replica-batch-size-estimation" id="toc-step-2-per-replica-batch-size-estimation" class="nav-link" data-scroll-target="#step-2-per-replica-batch-size-estimation">Step 2: Per-Replica Batch Size Estimation</a></li>
+  <li><a href="#step-3-global-batch-size" id="toc-step-3-global-batch-size" class="nav-link" data-scroll-target="#step-3-global-batch-size">Step 3: Global Batch Size</a></li>
+  <li><a href="#step-4-automatic-out-of-memory-oom-backoff" id="toc-step-4-automatic-out-of-memory-oom-backoff" class="nav-link" data-scroll-target="#step-4-automatic-out-of-memory-oom-backoff">Step 4: Automatic Out-of-Memory (OOM) Backoff</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -191,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quick Start</h1>
+<h1 class="title">Resource Requirements</h1>
 </div>
 
 
@@ -208,192 +214,209 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="available-models" class="level1">
-<h1>Available Models</h1>
-<table class="caption-top table">
+<section id="gpu-feasibility" class="level1">
+<h1>GPU Feasibility</h1>
+<p>To provide transparent and hardware-agnostic guidance, we characterize GPU feasibility in terms of the <strong>maximum read length supportable at a per-GPU (per-replica) batch size = 1</strong>. This criterion reflects strict feasibility (i.e., whether the inference can run without out-of-memory errors), rather than throughput or performance.</p>
+<p>All reported limits correspond to <strong>single-replica inference</strong> and are therefore governed by <strong>per-GPU memory capacity</strong>. Multi-GPU execution increases global throughput via data parallelism but does <strong>not</strong> increase the maximum feasible read length per replica.</p>
+</section>
+<section id="model-configuration-used-for-all-estimates" class="level1">
+<h1>Model Configuration Used for All Estimates</h1>
+<p>All estimates correspond to the default <strong><em>Tranquillyzer</em> CNN-BiLSTM-CRF</strong> annotation model with the following fixed architecture:</p>
+<ul>
+<li><code>embedding_dim = 128</code></li>
+<li><code>conv_layers = 3</code></li>
+<li><code>conv_filters = 128</code></li>
+<li><code>conv_kernel_size = 25</code></li>
+<li><code>lstm_layers = 1</code></li>
+<li><code>lstm_units = 96</code></li>
+<li><code>bidirectional = TRUE</code></li>
+<li><code>CRF = TRUE</code></li>
+<li><code>attention_heads = 0</code></li>
+</ul>
+<p>Unless otherwise stated, all estimates assume a <strong>VRAM headroom of 0.35</strong>, meaning <em>Tranquillyzer</em> intentionally targets only ~65% of available GPU memory to ensure inference safety.</p>
+</section>
+<section id="empirical-versus-theoretical-feasibility" class="level1">
+<h1>Empirical versus Theoretical Feasibility</h1>
+<ul>
+<li><strong>Empirical</strong>: The model was directly observed to run successfully at per-replica batch size = 1 for the stated read length.</li>
+<li><strong>Theoretical</strong>: Values are extrapolated from empirical measurements using a linear memory-scaling approximation. Real-world feasibility may be lower due to TensorFlow/XLA workspace buffers, allocator fragmentation, driver/runtime differences, or changes to the model architecture.</li>
+</ul>
+</section>
+<section id="computation-of-theoretical-feasibility-limits" class="level1">
+<h1>Computation of Theoretical Feasibility Limits</h1>
+<p>All theoretical estimates are anchored to the following empirical observation:</p>
+<blockquote class="blockquote">
+<p>On a system with <strong>4× NVIDIA L40S GPUs (48 GB VRAM each)</strong>, <em>Tranquillyzer</em> successfully processed reads of approximately <strong>400 kb</strong> at a global batch size ≤ 4, corresponding to <strong>per-replica batch size = 1</strong>.</p>
+</blockquote>
+<p>With <code>VRAM headroom = 0.35</code>, usable memory per GPU is approximated as:</p>
+<p><span class="math display">\[
+U \approx V \times (1 - H)
+\]</span></p>
+<p>where <span class="math inline">\(U\)</span> is the size of the usable memory in bytes, <span class="math inline">\(V\)</span> is the size of VRAM in bytes, and <span class="math inline">\(H\)</span> is the VRAM headroom fraction.</p>
+<p>For an NVIDIA L40S GPU with VRAM = 48 GB, the usable memory is:</p>
+<p><span class="math display">\[
+\begin{aligned}
+U &amp;\approx 48~GB \times (1 - 0.35) \\
+&amp;\approx 48~GB \times 0.65 \\
+&amp;\approx 31.2~GB
+\end{aligned}
+\]</span> We estimate an effective memory cost per base as:</p>
+<p><span class="math display">\[
+k \approx \frac{U}{L_{\max,\text{empirical}}}
+\]</span></p>
+<p>Substituting the NVIDIA L40S values:</p>
+<p><span class="math display">\[
+k \approx \frac{31.2~GB}{400{,}000~\text{bp}}
+\approx 78~\text{KB per base}
+\]</span></p>
+<p>For any other GPU, the maximum feasible read length is approximated as:</p>
+<p><span class="math display">\[
+L_{\max,\text{theoretical}} \approx \frac{\text{V} \times (1 - \text{H})}{k}
+\]</span></p>
+<p>This simplified scaling is intended as a <strong>rough feasibility estimate</strong>, not a guaranteed bound.</p>
+</section>
+<section id="rationale-behind-empirical-scaling-use" class="level1">
+<h1>Rationale behind Empirical Scaling Use</h1>
+<p>Memory usage for CNN-BiLSTM-CRF models in TensorFlow/XLA is not dominated by a single activation tensor. Instead, it is a combination of:</p>
+<ul>
+<li>recurrent activations and LSTM state,</li>
+<li>CRF decoding buffers,</li>
+<li>XLA compilation workspaces,</li>
+<li>allocator fragmentation and padding overhead, and/or</li>
+<li>temporary tensors created during graph execution.</li>
+</ul>
+<p>Empirical anchoring, therefore, provides more realistic bounds than analytical token-count-based estimates, which tend to overestimate feasibility for ultra-long reads.</p>
+</section>
+<section id="maximum-supportable-read-length" class="level1">
+<h1>Maximum Supportable Read-Length</h1>
+<table class="table">
+<caption>All calculations assume a headroom of 0.35 and an effective memory cost per base of 78 KB / bp.</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Parameter \ Model Name</th>
-<th style="text-align: center;"><code>10x5p_sc_ont</code></th>
-<th style="text-align: center;"><code>10x3p_sc_ont</code></th>
+<th>GPU</th>
+<th style="text-align: center;">VRAM (GB)</th>
+<th style="text-align: center;">Max Read-Length (bp)</th>
+<th style="text-align: center;">Status</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Batch Size</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
+<td>NVIDIA T4</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">~133,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Training Fraction</td>
-<td style="text-align: center;">0.8</td>
-<td style="text-align: center;">0.8</td>
+<td>NVIDIA L4</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">~200,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Vocab Size</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">5</td>
+<td>NVIDIA A10</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">~200,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Embedding Dimension</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
+<td>RTX 3090</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">~200,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Convolutional Layers</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">3</td>
+<td>RTX 4090</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">~200,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Convolutional Filters</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
+<td>NVIDIA A100</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">~333,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Convolutional Kernel Size</td>
-<td style="text-align: center;">25</td>
-<td style="text-align: center;">25</td>
+<td><strong>NVIDIA L40S</strong></td>
+<td style="text-align: center;"><strong>48</strong></td>
+<td style="text-align: center;"><strong>~400,000</strong></td>
+<td style="text-align: center;"><strong>Empirically tested</strong></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">LSTM Layers</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
+<td>NVIDIA A100</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">~666,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">LSTM Units</td>
-<td style="text-align: center;">96</td>
-<td style="text-align: center;">96</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Bidirectional</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CRF Layer</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Attention Heads</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Dropout Rate</td>
-<td style="text-align: center;">0.35</td>
-<td style="text-align: center;">0.35</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Regularization</td>
-<td style="text-align: center;">0.01</td>
-<td style="text-align: center;">0.01</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Learning Rate</td>
-<td style="text-align: center;">0.001</td>
-<td style="text-align: center;">0.001</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Epochs</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">1</td>
+<td>NVIDIA H100</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">~666,000</td>
+<td style="text-align: center;">Theoretical</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="software-dependencies" class="level1">
-<h1>Software Dependencies</h1>
+<section id="interpretation-notes" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-notes">Interpretation Notes</h2>
 <ul>
-<li>It is suggested to use Docker (or another containerization tool like Singularity or Apptainer). This handles all dependencies for you and provides easier portability across systems.</li>
-<li>If you are building Tranquillyzer yourself, you will need either <code>mamba</code> or <code>conda</code>. <code>pip</code> is also used during the installation process, though this will be installed via <code>mamba</code>/<code>conda</code> and does not need to be installed on its own.</li>
-<li>Required dependencies for Tranquillyzer are provided in the <code>environment.yml</code> file at the top level of the Tranquillyzer repository.</li>
-<li>TensorFlow has its own requirements to run. Those can be found on <a href="https://www.tensorflow.org/install/source#gpu">TensorFlow’s documentation site</a>.</li>
+<li>These limits indicate <strong>feasibility</strong>, not optimal performance; ultra-long reads near these bounds may run correctly but slowly.</li>
+<li>Increasing the number of GPUs improves throughput but does <strong>not</strong> increase the per-replica maximum read length.</li>
+<li>Architectural changes (e.g., additional LSTM layers, attention heads, or larger embeddings) will reduce these limits.</li>
 </ul>
 </section>
-<section id="important-notes-for-running-tranquillyzer" class="level1">
-<h1>Important Notes for Running Tranquillyzer</h1>
-<p>Will be added as useful notes on running Tranquillyzer are come by</p>
 </section>
-<section id="basic-pipeline-for-running-tranquillyzer" class="level1">
-<h1>Basic Pipeline for Running Tranquillyzer</h1>
-<p>More details about each of the commands can be found on <a href="../webpages/usage.html">Usage page</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing raw FASTQs</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on CPU-only computer</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best to run with &gt;1 thread, though only 1 thread will be used if 1 file is</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         input</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of threads to use when processing</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     DATA_DIR   - path to your raw FASTAs or FASTQs</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - path to where the preprocessing output will be written</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> preprocess <span class="dt">\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    DATA_DIR <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create read length distribution plot</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on a CPU-only computer</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     Only one (1) thread is needed</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR directory from preprocessing step</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> readlengthdist <span class="dt">\</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate reads</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best run on a GPU-enabled computer</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     Also utilizes CPU multiprocessing, so run with &gt;1 threads</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#     MODEL_NAME     - base name of neural net model to use</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#     MODEL_TYPE     - type of model to use</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#     GPU_MEM        - amount of vRAM in your GPU(s)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_FORMAT  - whether to output data as FASTA or FASTQ</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#     SEQ_ORDER_FILE - path to the sequence order file used to define valid</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#                      reads</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR     - same OUTPUT_DIR from preprocessing</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#     WHITELIST_FILE - TSV file with sequences that define each cell (see</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#                      [Usage](usage.qmd) for more details)</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">--model-name</span> MODEL_NAME <span class="dt">\</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">--model-type</span> MODEL_TYPE <span class="dt">\</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">--gpu-mem</span> GPU_MEM <span class="dt">\</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">--output-fmt</span> OUTPUT_FORMAT <span class="dt">\</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">--seq-order-file</span> SEQ_ORDER_FILE <span class="dt">\</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        OUTPUT_DIR <span class="dt">\</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        WHITELIST_FILE</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Align annotated reads</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#    Needs samtools and minimap2 to run (should be installed with tranquillyzer)</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">#    Can be run on a CPU-only computer</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">#    Best to run with &gt;1 threads</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of CPU threads to use</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing (</span><span class="al">NOTE</span><span class="co">: use the same</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">#                  directory twice as shown)</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">#     REFERENCE  - reference FASTA for minimap2</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> align <span class="dt">\</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    REFERENCE <span class="dt">\</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Deduplicate aligned BAM</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">#     Uses samtools</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on a CPU-only computer</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best to run with &gt;1 threads</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of CPU threads to use</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> dedup <span class="dt">\</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="dynamic-batch-size-selection-in-tranquillyzer" class="level1">
+<h1>Dynamic Batch Size Selection in <em>Tranquillyzer</em></h1>
+<p><em>Tranquillyzer</em> employs a <strong>dynamic, memory-aware batching strategy</strong> designed to be safe by default and robust across datasets.</p>
+<section id="step-1-length-binning-and-padding" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-length-binning-and-padding">Step 1: Length Binning and Padding</h2>
+<p>Reads are processed in predefined length bins (e.g., 0-499 bp, 500-999 bp, …). For each bin, reads are padded to:</p>
+<p><span class="math display">\[
+L \approx B + 10
+\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the padded length and <span class="math inline">\(B\)</span> is the upper bound of the bin. Ultimately, the padded length, rather than the raw read length, determines memory usage.</p>
+</section>
+<section id="step-2-per-replica-batch-size-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-per-replica-batch-size-estimation">Step 2: Per-Replica Batch Size Estimation</h2>
+<p>For each bin, <em>Tranquillyzer</em> computes the per-replica batch size as the lesser of a heuristic based on the number of processed tokens and a proxy for the memory needed for the CNN:</p>
+<p><span class="math display">\[
+B_{\text{per-replica}} = \min(B_{\text{tokens}}, B_{\text{mem}})
+\]</span></p>
+<p><strong>(A) Token-budget heuristic</strong></p>
+<p><span class="math display">\[
+B_{\text{tokens}} = \left\lfloor \frac{\text{T}}{L} \right\rfloor
+\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is the target number of tokens to process per replicate. <span class="math inline">\(T\)</span> is controlled by the <code>target_tokens_per_replica</code> parameter and has a default value of 1,200,000.</p>
+<p><strong>(B) Memory-based activation proxy</strong></p>
+<p><span class="math display">\[
+B_{\text{mem}} \approx \left\lfloor \frac{\text{U}}{C \times L \times b} \right\rfloor
+\]</span></p>
+<p>where <span class="math inline">\(U\)</span> is still the number of usable bytes, <span class="math inline">\(C\)</span> is the number of convolutional filters (<code>conv_filters = 128</code>), <span class="math inline">\(L\)</span> is the padded length, and <span class="math inline">\(b\)</span> is the number of bytes per element (<code>bytes_per_element = 4</code>).</p>
+</section>
+<section id="step-3-global-batch-size" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-global-batch-size">Step 3: Global Batch Size</h2>
+<p>The TensorFlow Mirrored Strategy replicates the per-replica batch size across each replica/GPU. Therefore, for <span class="math inline">\(R\)</span> replicas, the global batch size is:</p>
+<p><span class="math display">\[
+B_{\text{global}} = B_{\text{per-replica}} \times R
+\]</span></p>
+</section>
+<section id="step-4-automatic-out-of-memory-oom-backoff" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-automatic-out-of-memory-oom-backoff">Step 4: Automatic Out-of-Memory (OOM) Backoff</h2>
+<p>Inference is wrapped in a fail-safe loop:</p>
+<ol type="1">
+<li>Attempt inference at the selected batch size.</li>
+<li>If OOM or internal runtime error:
+<ul>
+<li>clear TensorFlow session,</li>
+<li>trigger garbage collection,</li>
+<li>halve the batch size.</li>
+</ul></li>
+<li>Retry until success (down to batch size = 1).</li>
+</ol>
+<p>This mechanism ensures robust execution even when theoretical estimates prove inaccurate.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

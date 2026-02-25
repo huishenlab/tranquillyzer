@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Background on Model Training – Tranquillyzer Documentation</title>
+<title>Stage 3/4: Model Training Intuitions – Tranquillyzer Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../webpages/model_training/read_simulation.html" rel="next">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../webpages/model_training/train_model_cli.html" rel="next">
+<link href="../../webpages/model_training/simulate_data_cli.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -80,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tranquillyzer Documentation</span>
     </a>
   </div>
@@ -91,35 +92,35 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/install.html"> 
+    <a class="nav-link" href="../../webpages/install.html"> 
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/quick_start.html"> 
+    <a class="nav-link" href="../../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../webpages/model_training.html" aria-current="page"> 
+    <a class="nav-link active" href="../../webpages/model_training.html" aria-current="page"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/resource_requirements.html"> 
+    <a class="nav-link" href="../../webpages/resource_requirements.html"> 
 <span class="menu-text">Resource Requirements</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/usage.html"> 
+    <a class="nav-link" href="../../webpages/usage.html"> 
 <span class="menu-text">Usage</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/releases.html"> 
+    <a class="nav-link" href="../../webpages/releases.html"> 
 <span class="menu-text">Releases</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/contributing.html"> 
+    <a class="nav-link" href="../../webpages/contributing.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
@@ -140,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../webpages/model_training.html">Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/train_model.html">3./4. Model Training</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -154,37 +155,37 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../webpages/model_training.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. Read Simulation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training/intro_errors.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/model_training/intro_errors.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Introduce Errors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">simulate-data CLI</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3./4. Model Training</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">train-model CLI</span></a>
   </div>
 </li>
@@ -198,8 +199,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#training-workflow" id="toc-training-workflow" class="nav-link" data-scroll-target="#training-workflow">Training Workflow</a></li>
+  <li><a href="#model-architecture" id="toc-model-architecture" class="nav-link active" data-scroll-target="#model-architecture">Model architecture</a>
+  <ul class="collapse">
+  <li><a href="#input-representation-and-tokenization" id="toc-input-representation-and-tokenization" class="nav-link" data-scroll-target="#input-representation-and-tokenization">Input Representation and Tokenization</a></li>
+  <li><a href="#embedding-layer" id="toc-embedding-layer" class="nav-link" data-scroll-target="#embedding-layer">Embedding Layer</a></li>
+  <li><a href="#convolutional-layers-conv1d-blocks" id="toc-convolutional-layers-conv1d-blocks" class="nav-link" data-scroll-target="#convolutional-layers-conv1d-blocks">Convolutional Layers (“Conv1D” Blocks)</a></li>
+  <li><a href="#regularization-within-convolution-layers" id="toc-regularization-within-convolution-layers" class="nav-link" data-scroll-target="#regularization-within-convolution-layers">Regularization within Convolution Layers</a></li>
+  <li><a href="#bidirectional-lstm-long-range-context" id="toc-bidirectional-lstm-long-range-context" class="nav-link" data-scroll-target="#bidirectional-lstm-long-range-context">Bidirectional LSTM (Long-Range Context)</a></li>
+  <li><a href="#optional-multi-head-self-attention-global-context-refinement" id="toc-optional-multi-head-self-attention-global-context-refinement" class="nav-link" data-scroll-target="#optional-multi-head-self-attention-global-context-refinement">[Optional] Multi-head Self-attention (Global Context Refinement)</a></li>
+  <li><a href="#dense-layer-per-base-classifier" id="toc-dense-layer-per-base-classifier" class="nav-link" data-scroll-target="#dense-layer-per-base-classifier">Dense Layer (Per-Base Classifier)</a></li>
+  <li><a href="#conditional-random-field-structured-decoding" id="toc-conditional-random-field-structured-decoding" class="nav-link" data-scroll-target="#conditional-random-field-structured-decoding">Conditional Random Field (Structured Decoding)</a></li>
+  </ul></li>
+  <li><a href="#training-configuration-and-hyperparameters" id="toc-training-configuration-and-hyperparameters" class="nav-link" data-scroll-target="#training-configuration-and-hyperparameters">Training Configuration and Hyperparameters</a>
+  <ul class="collapse">
+  <li><a href="#core-optimization-parameters" id="toc-core-optimization-parameters" class="nav-link" data-scroll-target="#core-optimization-parameters">Core Optimization Parameters</a></li>
+  <li><a href="#model-capacity-and-generalization-controls" id="toc-model-capacity-and-generalization-controls" class="nav-link" data-scroll-target="#model-capacity-and-generalization-controls">Model Capacity and Generalization Controls</a></li>
+  <li><a href="#example-hyperparameter-effects-intuitive-scenarios" id="toc-example-hyperparameter-effects-intuitive-scenarios" class="nav-link" data-scroll-target="#example-hyperparameter-effects-intuitive-scenarios">Example Hyperparameter Effects (Intuitive Scenarios)</a>
+  <ul class="collapse">
+  <li><a href="#example-1-adapters-recognized-but-boundaries-are-fuzzy" id="toc-example-1-adapters-recognized-but-boundaries-are-fuzzy" class="nav-link" data-scroll-target="#example-1-adapters-recognized-but-boundaries-are-fuzzy">Example 1: Adapters Recognized but Boundaries are Fuzzy</a></li>
+  <li><a href="#example-2-model-struggles-on-noisy-reads-indels" id="toc-example-2-model-struggles-on-noisy-reads-indels" class="nav-link" data-scroll-target="#example-2-model-struggles-on-noisy-reads-indels">Example 2: Model Struggles on Noisy Reads (Indels)</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -208,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Background on Model Training</h1>
+<h1 class="title">Stage 3/4: Model Training Intuitions</h1>
 </div>
 
 
@@ -225,24 +245,138 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<p>In long-read RNA-seq data, base-level annotations such as adapters, barcodes, UMIs, cDNA, and polyA/T tails can be inferred either through a set of heuristics or a trained deep learning model. <code>tranquillyzer</code> uses a fully supervised approach to train its deep learning model. As a fully supervised method, <code>tranquillyzer</code> requires labeled data as input for its training.</p>
-<p>Labeled data can either come from annotations generated by an upstream annotation tool or through simulated data which inherently contains labels. Because upstream annotation tools typically rely on heuristics with their own assumptions and biases embedded in them, training a deep learning model on these data is not ideal. The model generally learns to reproduce the output from the tool rather than the true structure of the reads.</p>
-<p><code>tranquillyzer</code> addresses this limitation by training exclusively on synthetically generated reads with known ground-truth base-level labels. Reads are simulated according to explicit library specifications and sequencing error models, ensuring the true identity of every base is known at generation time. This enables (i) fully supervised learning with exact labels and (ii) objective evaluation without reliance on external annotations. As a result, model training is decoupled from upstream heuristics which enables easy adaptation to new protocols and read structures.</p>
+<p>The <code>train-model</code> command trains a base-level sequence labeling model to assign a segment identity (e.g., adapter, barcode, UMI, cDNA, polyA/T) to every nucleotide position in a read. Training operates on synthetic reads produced by <code>simulate-data</code> (stored as <code>reads.pkl</code> and <code>labels.pkl</code>) and evaluates each trained variant using an independently simulated validation set with known ground-truth labels.</p>
+<p>For a given <code>model_name</code>, <code>train-model</code> reads a parameter table (<code>training_params.tsv</code>), enumerates the specified hyperparameter combinations, trains each model variant, and exports a standardized set of artifacts (model weights, label binarizer, training history, and a validation visualization PDF).</p>
+<section id="model-architecture" class="level1">
+<h1>Model architecture</h1>
+<section id="input-representation-and-tokenization" class="level2">
+<h2 class="anchored" data-anchor-id="input-representation-and-tokenization">Input Representation and Tokenization</h2>
+<p>Reads are represented as sequences of nucleotide tokens, converted to integers prior to training:</p>
+<ul>
+<li>A → 1</li>
+<li>C → 2</li>
+<li>G → 3</li>
+<li>T → 4</li>
+<li>N → 5</li>
+<li>0 reserved for padding</li>
+</ul>
+<p>This is governed by the vocabulary size parameter (<code>vocab_size</code>). In the current implementation, <code>vocab_size</code> is 5 to correspond to the five nucleotide symbols <code>{A, C, G, T, N}</code>, while the padding token, 0, is introduced only for batching and does not represent a nucleotide.</p>
+<p>Increasing <code>vocab_size</code> is not typically meaningful for DNA unless additional symbols are introduced (e.g., ambiguity codes beyond <code>N</code>). The critical representation choice is the embedding dimension (<code>embedding_dim</code>), which controls how much information the model can store about each token.</p>
 </section>
-<section id="training-workflow" class="level1">
-<h1>Training Workflow</h1>
-<p>The training procedure consists of four conceptual stages:</p>
+<section id="embedding-layer" class="level2">
+<h2 class="anchored" data-anchor-id="embedding-layer">Embedding Layer</h2>
+<p>The embedding layer converts each integer token into a learned numeric vector of length <code>embedding_dim</code>. This step is conceptually similar to assigning each nucleotide a trainable “feature profile” that downstream layers can combine to detect patterns.</p>
+<ul>
+<li>A larger <code>embedding_dim</code> increases representational capacity and may help in complex settings (e.g., more labels or noisier reads), but requires additional computational resources and can overfit if training data are limited.</li>
+<li>For a small vocabulary like DNA, moderate values (e.g., 64-128) are typically sufficient.</li>
+</ul>
+</section>
+<section id="convolutional-layers-conv1d-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="convolutional-layers-conv1d-blocks">Convolutional Layers (“Conv1D” Blocks)</h2>
+<p>Following embedding, the model applies a stack of 1D convolution layers. A convolution layer slides a small window (the kernel) along the sequence and learns to recognize local motifs. In this application, convolutions primarily learn short-range patterns such as adapter subsequences, barcode/UMI neighborhood signatures and transition cues near segment boundaries.</p>
+<p>Each convolution block consists of:</p>
 <ol type="1">
-<li><a href="../webpages/model_training/read_simulation.html">Simulation of reads based on a provided structure</a></li>
-<li><a href="../webpages/model_training/intro_errors.html">Introduction of sequencing errors to simulated reads</a></li>
-<li>Supervised neural network training for base-level annotation (<code>train-model</code>)</li>
-<li>Validation on an independently simulated dataset (<code>train-model</code>)</li>
+<li><code>Conv1D(filters=conv_filters, kernel_size=conv_kernel_size, padding="same")</code></li>
+<li><code>BatchNormalization</code></li>
+<li><code>Dropout(dropout_rate)</code></li>
 </ol>
-<p>Stages (1) and (2) are performed by the <code>simulate-data</code> command, while stages (3) and (4) are handled by <code>train-model</code>. The following tutorial lays out the intuition behind each of these stages and how they may impact the efficacy of the final model.</p>
+<p>The user can control the following inputs to the convolution blocks:</p>
+<ul>
+<li><code>conv_kernel_size</code>: Controls how wide a motif the layer can “see” at once. Larger kernels (e.g., 25) help detect longer protocol motifs and smooth local noise. However, selecting too large a value may blur sharp boundary cues, whereas too small a value may miss multi-base motifs.</li>
+<li><code>conv_filters</code>: Number of motif detectors per layer. More filters means more pattern capacity at the cost of higher memory and time requirements. If boundaries are missed or adapters vary, increasing the number of filters is often more beneficial than increasing the depth.</li>
+<li><code>conv_layers</code>: How many convolution stages are stacked. More layers allow hierarchical motif composition (from simple to complex). Too many layers can over-smooth or overfit, especially with limited training reads.</li>
+</ul>
+</section>
+<section id="regularization-within-convolution-layers" class="level2">
+<h2 class="anchored" data-anchor-id="regularization-within-convolution-layers">Regularization within Convolution Layers</h2>
+<ul>
+<li>Regularization applies an L2 penalty to convolution weights. Higher values discourage overly complex filters and reduce overfitting, but if too strong it can prevent learning adapter/barcode patterns.</li>
+<li><code>dropout_rate</code> randomly drops activations during training. Higher dropout improves generalization but can reduce boundary precision if excessive.</li>
+</ul>
+</section>
+<section id="bidirectional-lstm-long-range-context" class="level2">
+<h2 class="anchored" data-anchor-id="bidirectional-lstm-long-range-context">Bidirectional LSTM (Long-Range Context)</h2>
+<p>Adapters and barcodes can be recognized locally, but accurate labeling often requires understanding <strong>ordering and context</strong>. For example, a barcode is not defined only by its sequence composition but also by <em>where it appears relative to other segments</em>. This is addressed using long short-term memory (LSTM) recurrent layers, which process the sequence in order and can retain information over long distances.</p>
+<p><code>tranquillyzer</code> uses an LSTM configured to bidirectionally read the sequence and output a prediction at every position (<code>return_sequences=True</code>). Bidirectionality means the model reads the sequence both left-to-right and right-to-left, allowing each position to be interpreted using context on both sides.</p>
+<p>The user has the option to adjust the following parameters that govern the LSTM aspect of <code>tranquillyzer</code>.</p>
+<ul>
+<li><code>lstm_units</code>: Size of the “memory” used to store contextual information. Increasing the number of units can improve modeling of long-range structure but increases compute and can overfit.</li>
+<li><code>lstm_layers</code>: Stacking multiple LSTMs increases modeling power but may be unnecessary for many protocols.</li>
+<li><code>bidirectional</code>: <code>True</code> is typically beneficial for boundary labeling because both upstream and downstream motifs inform segment identity. <code>False</code> may be preferred only if strict causal directionality is desired (uncommon for this task).</li>
+</ul>
+</section>
+<section id="optional-multi-head-self-attention-global-context-refinement" class="level2">
+<h2 class="anchored" data-anchor-id="optional-multi-head-self-attention-global-context-refinement">[Optional] Multi-head Self-attention (Global Context Refinement)</h2>
+<p>If enabled, (<code>attention_heads &gt; 0</code>), the model applies self-attention after the LSTM. Attention allows each position to “look at” other positions and re-weight information based on relevance, which can help when distant cues are informative (e.g., ambiguous low-complexity regions that require recognizing other motif anchors elsewhere in the read).</p>
+<ul>
+<li>More heads allow multiple “views” of relevance patterns, but increase memory and training time.</li>
+<li>Attention is typically most useful when reads are long and contain repeated and/or ambiguous patterns.</li>
+</ul>
+<p><strong>Note</strong>: multi-head attention is disabled by default</p>
+</section>
+<section id="dense-layer-per-base-classifier" class="level2">
+<h2 class="anchored" data-anchor-id="dense-layer-per-base-classifier">Dense Layer (Per-Base Classifier)</h2>
+<p>After feature extraction, a dense layer produces a vector of scores for each label at every position. This is the per-position classification step.</p>
+<ul>
+<li><code>num_labels</code>: Derived from the library segment set - equal to the number of segments defined in the <code>training_seq_orders.tsv</code></li>
+</ul>
+</section>
+<section id="conditional-random-field-structured-decoding" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-random-field-structured-decoding">Conditional Random Field (Structured Decoding)</h2>
+<p>The model uses a Conditional Random Field (CRF) on top of per-base scores. The CRF learns which label transitions are plausible (e.g., adapter → barcode is likely, but barcode → adapter may be unlikely) and encourages globally consistent label sequences.</p>
+<ul>
+<li>CRF is particularly beneficial when the model exhibits “label fragmentation” or rapid oscillation across boundaries, especially in repetitive contexts.</li>
+<li>CRF usually increases training and inference time but often improves boundary consistency.</li>
+</ul>
+</section>
+</section>
+<section id="training-configuration-and-hyperparameters" class="level1">
+<h1>Training Configuration and Hyperparameters</h1>
+<p><code>tranquillyzer</code> uses a tabular parameter grid specified in <code>training_params.tsv</code>, where each column corresponds to a <code>model_name</code> and each row provides one hyperparameter. For each model, values may be single values or comma-delimited lists. If a comma-delimited list is given, <code>train-model</code> will enumerate all hyperparameter combinations.</p>
+<section id="core-optimization-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="core-optimization-parameters">Core Optimization Parameters</h2>
+<ul>
+<li><code>batch_size</code>: Number of reads per gradient update. Larger batches improve throughput and stabilize gradients but require more memory and may reduce generalization.</li>
+<li><code>train_fraction</code>: Fraction between 0.0 and 1.0 (inclusive) of simulated reads used for training versus internal validation. Higher values increase training signal but reduce internal validation monitoring.</li>
+<li><code>epochs</code>: Maximum training epochs (with early stopping enabled). More epochs can improve fit but increase overfitting risk.</li>
+</ul>
+</section>
+<section id="model-capacity-and-generalization-controls" class="level2">
+<h2 class="anchored" data-anchor-id="model-capacity-and-generalization-controls">Model Capacity and Generalization Controls</h2>
+<ul>
+<li><code>embedding_dim</code>, <code>conv_layers</code>, <code>conv_filters</code>, <code>conv_kernel_size</code>, <code>lstm_layers</code>, <code>lstm_units</code>, <code>attention_heads</code>: Determine representational power.</li>
+<li><code>dropout_rate</code>, <code>regularization</code>: Reduce overfitting and stabilize training.</li>
+<li><code>learning_rate</code>: Step size for optimization. Too high can destabilize, but too low slows convergence.</li>
+</ul>
+</section>
+<section id="example-hyperparameter-effects-intuitive-scenarios" class="level2">
+<h2 class="anchored" data-anchor-id="example-hyperparameter-effects-intuitive-scenarios">Example Hyperparameter Effects (Intuitive Scenarios)</h2>
+<section id="example-1-adapters-recognized-but-boundaries-are-fuzzy" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-adapters-recognized-but-boundaries-are-fuzzy">Example 1: Adapters Recognized but Boundaries are Fuzzy</h3>
+<p>Symptom: adapter/barcode regions are detected, but transition points drift.</p>
+<ul>
+<li>Increase <code>conv_kernel_size</code> slightly (e.g., 15 → 20) to provide a wider local context for boundary cues.</li>
+<li>If overfitting is suspected, increase <code>dropout_rate</code> modestly (e.g.&nbsp;0.20 → 0.30).</li>
+</ul>
+</section>
+<section id="example-2-model-struggles-on-noisy-reads-indels" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-model-struggles-on-noisy-reads-indels">Example 2: Model Struggles on Noisy Reads (Indels)</h3>
+<p>Symptom: predictions degrade sharply as indel rate increases.</p>
+<ul>
+<li>Increase <code>num_reads</code> during simulation to expose more noisy examples (handled in <code>simulate-data</code>).</li>
+<li>Increase <code>conv_filters</code> (e.g., 64 → 96) to learn more robust motif detectors.</li>
+<li>Consider a slightly lower <code>learning_rate</code> to stabilize optimization under noise.</li>
+</ul>
+<p>Example 3: Model is slow and memory-limited on GPU</p>
+<ul>
+<li>Reduce <code>batch_size</code>.</li>
+<li>Reduce <code>conv_filters</code> or <code>embedding_dim</code> (reduces activation memory).</li>
+<li>Keep <code>attention_heads=0</code> unless needed. Attention increases memory substantially.</li>
+</ul>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -648,10 +782,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../webpages/model_training/simulate_data_cli.html" class="pagination-link" aria-label="simulate-data CLI">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">simulate-data CLI</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../webpages/model_training/read_simulation.html" class="pagination-link" aria-label="1. Read Simulation">
-        <span class="nav-page-text">1. Read Simulation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../webpages/model_training/train_model_cli.html" class="pagination-link" aria-label="train-model CLI">
+        <span class="nav-page-text">train-model CLI</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

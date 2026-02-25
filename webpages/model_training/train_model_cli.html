@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quick Start – Tranquillyzer Documentation</title>
+<title>train-model CLI – Tranquillyzer Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,23 +58,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../webpages/model_training/train_model.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,17 +105,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tranquillyzer Documentation</span>
     </a>
   </div>
@@ -125,35 +126,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/install.html"> 
+    <a class="nav-link" href="../../webpages/install.html"> 
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../webpages/quick_start.html" aria-current="page"> 
+    <a class="nav-link" href="../../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/model_training.html"> 
+    <a class="nav-link active" href="../../webpages/model_training.html" aria-current="page"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/resource_requirements.html"> 
+    <a class="nav-link" href="../../webpages/resource_requirements.html"> 
 <span class="menu-text">Resource Requirements</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/usage.html"> 
+    <a class="nav-link" href="../../webpages/usage.html"> 
 <span class="menu-text">Usage</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/releases.html"> 
+    <a class="nav-link" href="../../webpages/releases.html"> 
 <span class="menu-text">Releases</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/contributing.html"> 
+    <a class="nav-link" href="../../webpages/contributing.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
@@ -169,20 +170,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/train_model_cli.html">train-model CLI</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Read Simulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training/intro_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Introduce Errors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">simulate-data CLI</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3./4. Model Training</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">train-model CLI</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#available-models" id="toc-available-models" class="nav-link active" data-scroll-target="#available-models">Available Models</a></li>
-  <li><a href="#software-dependencies" id="toc-software-dependencies" class="nav-link" data-scroll-target="#software-dependencies">Software Dependencies</a></li>
-  <li><a href="#important-notes-for-running-tranquillyzer" id="toc-important-notes-for-running-tranquillyzer" class="nav-link" data-scroll-target="#important-notes-for-running-tranquillyzer">Important Notes for Running Tranquillyzer</a></li>
-  <li><a href="#basic-pipeline-for-running-tranquillyzer" id="toc-basic-pipeline-for-running-tranquillyzer" class="nav-link" data-scroll-target="#basic-pipeline-for-running-tranquillyzer">Basic Pipeline for Running Tranquillyzer</a></li>
+  <li><a href="#input-parameters-to-train-model" id="toc-input-parameters-to-train-model" class="nav-link active" data-scroll-target="#input-parameters-to-train-model">Input Parameters to <code>train-model</code></a></li>
+  <li><a href="#example-training_params.tsv-template" id="toc-example-training_params.tsv-template" class="nav-link" data-scroll-target="#example-training_params.tsv-template">Example <code>training_params.tsv</code> Template</a></li>
+  <li><a href="#example-use-case" id="toc-example-use-case" class="nav-link" data-scroll-target="#example-use-case">Example Use Case</a></li>
   </ul>
 </nav>
     </div>
@@ -191,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quick Start</h1>
+<h1 class="title">train-model CLI</h1>
 </div>
 
 
@@ -208,190 +261,232 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="available-models" class="level1">
-<h1>Available Models</h1>
+<section id="input-parameters-to-train-model" class="level1">
+<h1>Input Parameters to <code>train-model</code></h1>
+<p><strong>Important Note</strong>: The error model (e.g., <code>--mismatch-rate</code>, <code>--polyt-error-rate</code>, etc.) and cDNA length options (<code>--min-cdna</code> and <code>--max-cdna</code>) below are used to synthesize a small post-training validation set (with <code>--num-val-reads</code> number of reads). <code>tranquillyzer</code> annotates these reads using the newly trained model and exports a PDF (<code>*_val_viz.pdf</code>) as an initial sanity check. These options do not affect the training reads, which were produced by <code>simulate-data</code> and can be found in <code>reads.pkl</code> and <code>labels.pkl</code> inside the <code>&lt;output_dir&gt;/simulated_data/</code> directory.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 13%">
+<col style="width: 40%">
+<col style="width: 20%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Parameter \ Model Name</th>
-<th style="text-align: center;"><code>10x5p_sc_ont</code></th>
-<th style="text-align: center;"><code>10x3p_sc_ont</code></th>
+<th style="text-align: left;">CLI Option</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: left;">What It Controls</th>
+<th style="text-align: center;">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Batch Size</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
+<td style="text-align: left;"><code>model_name</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: left;">Library model key defining segment order and motifs</td>
+<td style="text-align: center;">required</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Training Fraction</td>
-<td style="text-align: center;">0.8</td>
-<td style="text-align: center;">0.8</td>
+<td style="text-align: left;"><code>output_dir</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: left;">Directory where simulated training data lives</td>
+<td style="text-align: center;">required</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Vocab Size</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">5</td>
+<td style="text-align: left;"><code>--param-file</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: left;">Path to <code>training_params.tsv</code> used to define the hyperparameter grid for <code>model_name</code></td>
+<td style="text-align: center;"><code>utils/training_params.tsv</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Embedding Dimension</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
+<td style="text-align: left;"><code>--training-seq-orders-file</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: left;">Path to <code>training_seq_orders.tsv</code> defining segment order/motifs for the model</td>
+<td style="text-align: center;"><code>utils/training_seq_orders.tsv</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Convolutional Layers</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">3</td>
+<td style="text-align: left;"><code>--num-val-reads</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;">Number of <strong>post-training validation</strong> reads to synthesize and visualize</td>
+<td style="text-align: center;">20</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Convolutional Filters</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
+<td style="text-align: left;"><code>--mismatch-rate</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> mismatch rate</td>
+<td style="text-align: center;">0.05</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Convolutional Kernel Size</td>
-<td style="text-align: center;">25</td>
-<td style="text-align: center;">25</td>
+<td style="text-align: left;"><code>--insertion-rate</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> insertion rate</td>
+<td style="text-align: center;">0.05</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">LSTM Layers</td>
+<td style="text-align: left;"><code>--deletion-rate</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> deletion rate</td>
+<td style="text-align: center;">0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--min-cdna</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> minimum cDNA length</td>
+<td style="text-align: center;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--max-cdna</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> maximum cDNA length</td>
+<td style="text-align: center;">500</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--polyt-error-rate</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> error rate inside polyA/polyT segments</td>
+<td style="text-align: center;">0.02</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--max-insertions</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;"><strong>Validation synthesis</strong> max insertions per position</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">LSTM Units</td>
-<td style="text-align: center;">96</td>
-<td style="text-align: center;">96</td>
+<td style="text-align: left;"><code>--threads</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;">CPU threads used for <strong>validation read synthesis</strong></td>
+<td style="text-align: center;">2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Bidirectional</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
+<td style="text-align: left;"><code>--rc</code> / <code>--no-rc</code></td>
+<td style="text-align: center;">FLAG</td>
+<td style="text-align: left;">Include reverse complements in <strong>validation</strong> set (doubles <code>--num-val-reads</code>)</td>
+<td style="text-align: center;"><code>--rc</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">CRF Layer</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
+<td style="text-align: left;"><code>--transcriptome</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: left;">Optional transcriptome FASTA used for <strong>validation</strong> synthesis (otherwise random transcripts)</td>
+<td style="text-align: center;">None (i.e., random transcripts)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Attention Heads</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
+<td style="text-align: left;"><code>--invalid-fraction</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;">Fraction of <strong>validation</strong> reads synthesized as invalid/artifactual</td>
+<td style="text-align: center;">0.3</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Dropout Rate</td>
+<td style="text-align: left;"><code>--gpu-mem</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: left;">GPU memory (GB) used to guide <em>inference batch sizing</em> for <strong>validation</strong> annotation/plotting</td>
+<td style="text-align: center;">None (12 GB if GPU present)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--target-tokens</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;">Token budget <strong>per GPU replica</strong> for choosing safe inference batch size (≅ batch × padded_len)</td>
+<td style="text-align: center;">1200000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--vram-headroom</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: left;">Fraction of VRAM reserved as headroom when sizing inference batches</td>
 <td style="text-align: center;">0.35</td>
-<td style="text-align: center;">0.35</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Regularization</td>
-<td style="text-align: center;">0.01</td>
-<td style="text-align: center;">0.01</td>
+<td style="text-align: left;"><code>--min-batch-size</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;">Minimum inference batch size for <strong>validation</strong> annotation</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Learning Rate</td>
-<td style="text-align: center;">0.001</td>
-<td style="text-align: center;">0.001</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Epochs</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">1</td>
+<td style="text-align: left;"><code>--max-batch-size</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: left;">Maximum inference batch size for <strong>validation</strong> annotation</td>
+<td style="text-align: center;">2000</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="software-dependencies" class="level1">
-<h1>Software Dependencies</h1>
-<ul>
-<li>It is suggested to use Docker (or another containerization tool like Singularity or Apptainer). This handles all dependencies for you and provides easier portability across systems.</li>
-<li>If you are building Tranquillyzer yourself, you will need either <code>mamba</code> or <code>conda</code>. <code>pip</code> is also used during the installation process, though this will be installed via <code>mamba</code>/<code>conda</code> and does not need to be installed on its own.</li>
-<li>Required dependencies for Tranquillyzer are provided in the <code>environment.yml</code> file at the top level of the Tranquillyzer repository.</li>
-<li>TensorFlow has its own requirements to run. Those can be found on <a href="https://www.tensorflow.org/install/source#gpu">TensorFlow’s documentation site</a>.</li>
-</ul>
+<section id="example-training_params.tsv-template" class="level1">
+<h1>Example <code>training_params.tsv</code> Template</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you copy and paste the following template, make sure the pasted text retains the tab (<code>\t</code>) characters that serve as the delimiter between the columns.</p>
+</div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>training_params_example.tsv</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="training_params_example.tsv"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>parameter   10x5p_sc_ont</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>batch_size  128</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>train_fraction  0.8</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>vocab_size  5</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>embedding_dim   128</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>conv_layers 4</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>conv_filters    128</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>conv_kernel_size    25</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>lstm_layers 1</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>lstm_units  96</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>bidirectional   TRUE</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>crf_layer   TRUE</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>attention_heads 0</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>dropout_rate    0.35</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>regularization  0.01</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>learning_rate   0.001</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>epochs  5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Additional models can be added to the <code>training_params.tsv</code> file by adding additional columns to the existing file. The name in the first column is the <code>model_name</code> to be used in other <code>tranquillyzer</code> functions for that model. A realistic example that includes parameters for both 10x Genomics 5’ and 3’ protocols is:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>training_params_example_extended.tsv</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="training_params_example_extended.tsv"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>parameter   10x5p_sc_ont    10x3p_sc_ont</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>batch_size  128 128</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>train_fraction  0.8 0.8</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>vocab_size  5   5</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>embedding_dim   128 128</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>conv_layers 4   3</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>conv_filters    128 128</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>conv_kernel_size    25  25</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>lstm_layers 1   1</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>lstm_units  96  96</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>bidirectional   TRUE    TRUE</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>crf_layer   TRUE    TRUE</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>attention_heads 0   0</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>dropout_rate    0.35    0.35</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>regularization  0.01    0.01</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>learning_rate   0.001   0.001</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>epochs  5   1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="important-notes-for-running-tranquillyzer" class="level1">
-<h1>Important Notes for Running Tranquillyzer</h1>
-<p>Will be added as useful notes on running Tranquillyzer are come by</p>
-</section>
-<section id="basic-pipeline-for-running-tranquillyzer" class="level1">
-<h1>Basic Pipeline for Running Tranquillyzer</h1>
-<p>More details about each of the commands can be found on <a href="../webpages/usage.html">Usage page</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocessing raw FASTQs</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on CPU-only computer</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best to run with &gt;1 thread, though only 1 thread will be used if 1 file is</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         input</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of threads to use when processing</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     DATA_DIR   - path to your raw FASTAs or FASTQs</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - path to where the preprocessing output will be written</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> preprocess <span class="dt">\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    DATA_DIR <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create read length distribution plot</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on a CPU-only computer</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     Only one (1) thread is needed</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR directory from preprocessing step</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> readlengthdist <span class="dt">\</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate reads</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best run on a GPU-enabled computer</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     Also utilizes CPU multiprocessing, so run with &gt;1 threads</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#     MODEL_NAME     - base name of neural net model to use</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#     MODEL_TYPE     - type of model to use</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#     GPU_MEM        - amount of vRAM in your GPU(s)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_FORMAT  - whether to output data as FASTA or FASTQ</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#     SEQ_ORDER_FILE - path to the sequence order file used to define valid</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#                      reads</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR     - same OUTPUT_DIR from preprocessing</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#     WHITELIST_FILE - TSV file with sequences that define each cell (see</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#                      [Usage](usage.qmd) for more details)</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">--model-name</span> MODEL_NAME <span class="dt">\</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">--model-type</span> MODEL_TYPE <span class="dt">\</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">--gpu-mem</span> GPU_MEM <span class="dt">\</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">--output-fmt</span> OUTPUT_FORMAT <span class="dt">\</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">--seq-order-file</span> SEQ_ORDER_FILE <span class="dt">\</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        OUTPUT_DIR <span class="dt">\</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        WHITELIST_FILE</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Align annotated reads</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#    Needs samtools and minimap2 to run (should be installed with tranquillyzer)</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">#    Can be run on a CPU-only computer</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">#    Best to run with &gt;1 threads</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of CPU threads to use</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing (</span><span class="al">NOTE</span><span class="co">: use the same</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">#                  directory twice as shown)</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">#     REFERENCE  - reference FASTA for minimap2</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> align <span class="dt">\</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    REFERENCE <span class="dt">\</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Deduplicate aligned BAM</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Notes:</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">#     Uses samtools</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">#     Can be run on a CPU-only computer</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">#     Best to run with &gt;1 threads</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co"># User-defined elements:</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">#     N_THREADS  - number of CPU threads to use</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">#     OUTPUT_DIR - same OUTPUT_DIR from preprocessing</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> dedup <span class="dt">\</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> N_THREADS <span class="dt">\</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="example-use-case" class="level1">
+<h1>Example Use Case</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> train-model <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    10x3p_sc_ont <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    training_out <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--num-val-reads</span> 20 <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mismatch-rate</span> 0.05 <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--insertion-rate</span> 0.05 <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--deletion-rate</span> 0.06 <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min-cdna</span> 100 <span class="dt">\</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-cdna</span> 500 <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--polyt-error-rate</span> 0.02 <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-insertions</span> 2 <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--invalid-fraction</span> 0.3 <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--rc</span> <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 2 <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--transcriptome</span> gencode.v44.transcripts.fa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -797,6 +892,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../webpages/model_training/train_model.html" class="pagination-link" aria-label="3./4. Model Training">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3./4. Model Training</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
