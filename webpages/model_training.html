@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Background on Model Training – Tranquillyzer Documentation</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,15 +35,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="../webpages/model_training/read_simulation.html" rel="next">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,6 +105,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../webpages/pipeline_guide.html"> 
+<span class="menu-text">Pipeline Guide</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="../webpages/model_training.html" aria-current="page"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
@@ -112,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../webpages/usage.html"> 
-<span class="menu-text">Usage</span></a>
+<span class="menu-text">CLI Reference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../webpages/releases.html"> 
@@ -161,13 +167,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Read Simulation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../webpages/model_training/intro_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Introduce Errors</span></a>
+ <span class="menu-text">Read Simulation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -179,13 +179,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3./4. Model Training</span></a>
+ <span class="menu-text">Model Training</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">train-model CLI</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/model_training/assess_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model Assessment</span></a>
   </div>
 </li>
     </ul>
@@ -200,6 +206,8 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#training-workflow" id="toc-training-workflow" class="nav-link" data-scroll-target="#training-workflow">Training Workflow</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#output-artifacts" id="toc-output-artifacts" class="nav-link" data-scroll-target="#output-artifacts">Output Artifacts</a></li>
   </ul>
 </nav>
     </div>
@@ -227,20 +235,93 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>In long-read RNA-seq data, base-level annotations such as adapters, barcodes, UMIs, cDNA, and polyA/T tails can be inferred either through a set of heuristics or a trained deep learning model. <code>tranquillyzer</code> uses a fully supervised approach to train its deep learning model. As a fully supervised method, <code>tranquillyzer</code> requires labeled data as input for its training.</p>
-<p>Labeled data can either come from annotations generated by an upstream annotation tool or through simulated data which inherently contains labels. Because upstream annotation tools typically rely on heuristics with their own assumptions and biases embedded in them, training a deep learning model on these data is not ideal. The model generally learns to reproduce the output from the tool rather than the true structure of the reads.</p>
-<p><code>tranquillyzer</code> addresses this limitation by training exclusively on synthetically generated reads with known ground-truth base-level labels. Reads are simulated according to explicit library specifications and sequencing error models, ensuring the true identity of every base is known at generation time. This enables (i) fully supervised learning with exact labels and (ii) objective evaluation without reliance on external annotations. As a result, model training is decoupled from upstream heuristics which enables easy adaptation to new protocols and read structures.</p>
+<p><em>Tranquillyzer</em> uses a deep learning model to label every base in a long-read RNA-seq read — identifying adapters, barcodes, UMIs, cDNA, polyA/T tails, and other structural elements. To train this model, <em>Tranquillyzer</em> needs labeled data where the true identity of every base is known.</p>
+<p>Rather than relying on labels from an upstream annotation tool (which would embed that tool’s own assumptions and biases into the model), <em>Tranquillyzer</em> trains exclusively on <strong>synthetically generated reads</strong>. These synthetic reads are built from explicit library specifications and a configurable sequencing error model, so the ground-truth label of every base is known at generation time. This approach enables fully supervised learning with exact labels and makes it straightforward to adapt the model to new protocols or read structures.</p>
 </section>
 <section id="training-workflow" class="level1">
 <h1>Training Workflow</h1>
-<p>The training procedure consists of four conceptual stages:</p>
-<ol type="1">
-<li><a href="../webpages/model_training/read_simulation.html">Simulation of reads based on a provided structure</a></li>
-<li><a href="../webpages/model_training/intro_errors.html">Introduction of sequencing errors to simulated reads</a></li>
-<li>Supervised neural network training for base-level annotation (<code>train-model</code>)</li>
-<li>Validation on an independently simulated dataset (<code>train-model</code>)</li>
-</ol>
-<p>Stages (1) and (2) are performed by the <code>simulate-data</code> command, while stages (3) and (4) are handled by <code>train-model</code>. The following tutorial lays out the intuition behind each of these stages and how they may impact the efficacy of the final model.</p>
+<p>Training consists of four stages, handled by two commands:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Stage</th>
+<th>Description</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td><a href="../webpages/model_training/read_simulation.html#stage-1-read-structure-simulation">Simulate reads based on a defined library structure</a></td>
+<td><code>simulate-data</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td><a href="../webpages/model_training/read_simulation.html#stage-2-sequencing-error-modeling">Introduce realistic sequencing errors into the simulated reads</a></td>
+<td><code>simulate-data</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td><a href="../webpages/model_training/train_model.html">Train the neural network on the labeled reads</a></td>
+<td><code>train-model</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td><a href="../webpages/model_training/train_model.html">Validate the model on an independently simulated set</a></td>
+<td><code>train-model</code></td>
+</tr>
+</tbody>
+</table>
+<p>After training, the <a href="../webpages/model_training/assess_model.html">Model Assessment</a> page describes how to rigorously evaluate model quality using the <code>assess-model</code> command, which computes quantitative metrics on architecture accuracy, segment boundary precision, and per-base classification performance.</p>
+<p>The following pages walk through each stage, explaining the intuition behind key decisions and how they affect the final model.</p>
+</section>
+<section id="prerequisites" class="level1">
+<h1>Prerequisites</h1>
+<p>Before training, prepare the following:</p>
+<ul>
+<li><strong><code>seq_orders.yaml</code></strong> — defines the segment order, motif sequences, barcodes, UMIs, and valid structures for your library protocol. A default file is provided at <code>utils/seq_orders.yaml</code>. If you are training for a new protocol, you will need to add an entry for it. See the <a href="../webpages/model_training/simulate_data_cli.html">simulate-data CLI reference</a> and <a href="../webpages/model_training/read_simulation.html">read simulation</a> pages for details.</li>
+<li><strong><code>training_params.yaml</code></strong> — defines the model architecture and training hyperparameters. A default file is provided at <code>utils/training_params.yaml</code>. See the <a href="../webpages/model_training/train_model_cli.html">train-model CLI reference</a> page for the full parameter list and examples.</li>
+<li><strong>Transcriptome FASTA (recommended)</strong> — providing a reference transcriptome via <code>--transcriptome</code> gives the simulator realistic cDNA sequences instead of random DNA. This helps the model learn to distinguish internal homopolymers from true polyA/T tails.</li>
+</ul>
+</section>
+<section id="output-artifacts" class="level1">
+<h1>Output Artifacts</h1>
+<p>After training, each model variant produces the following artifacts in its output directory:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>{model_name}.h5</code></td>
+<td>Trained model weights (Keras HDF5 format)</td>
+</tr>
+<tr class="even">
+<td><code>{model_name}_lbl_bin.pkl</code></td>
+<td>Fitted label binarizer (scikit-learn pickle) — maps segment names to numeric labels</td>
+</tr>
+<tr class="odd">
+<td><code>{model_name}_params.yaml</code></td>
+<td>Model architecture and hyperparameters used for this variant</td>
+</tr>
+<tr class="even">
+<td><code>{model_name}_history.tsv</code></td>
+<td>Training history (loss, accuracy, etc. per epoch)</td>
+</tr>
+<tr class="odd">
+<td><code>{model_name}_val_viz.pdf</code></td>
+<td>Visualization of model predictions on validation reads — a quick sanity check</td>
+</tr>
+</tbody>
+</table>
+<p>To use a trained model for annotation, place the <code>.h5</code>, <code>_lbl_bin.pkl</code>, and <code>_params.yaml</code> files in the <code>models/</code> directory.</p>
 
 
 </section>
@@ -650,8 +731,8 @@ ul.task-list li input[type="checkbox"] {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../webpages/model_training/read_simulation.html" class="pagination-link" aria-label="1. Read Simulation">
-        <span class="nav-page-text">1. Read Simulation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../webpages/model_training/read_simulation.html" class="pagination-link" aria-label="Read Simulation">
+        <span class="nav-page-text">Read Simulation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

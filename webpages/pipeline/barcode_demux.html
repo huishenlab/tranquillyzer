@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Model Training – Tranquillyzer Documentation</title>
+<title>Barcode Correction and Demultiplexing – Tranquillyzer Documentation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +67,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../webpages/model_training/train_model_cli.html" rel="next">
-<link href="../../webpages/model_training/simulate_data_cli.html" rel="prev">
+<link href="../../webpages/pipeline/align_dedup.html" rel="next">
+<link href="../../webpages/pipeline/annotation.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -106,11 +141,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../webpages/pipeline_guide.html"> 
+    <a class="nav-link active" href="../../webpages/pipeline_guide.html" aria-current="page"> 
 <span class="menu-text">Pipeline Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../webpages/model_training.html" aria-current="page"> 
+    <a class="nav-link" href="../../webpages/model_training.html"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
@@ -147,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/train_model.html">Model Training</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/pipeline/barcode_demux.html">Barcode Correction &amp; Demux</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -161,38 +196,56 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/pipeline_guide.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Read Simulation</span></a>
+  <a href="../../webpages/pipeline/preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preprocessing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">simulate-data CLI</span></a>
+  <a href="../../webpages/pipeline/annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Model Training</span></a>
+  <a href="../../webpages/pipeline/barcode_demux.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Barcode Correction &amp; Demux</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">train-model CLI</span></a>
+  <a href="../../webpages/pipeline/align_dedup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alignment &amp; Deduplication</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/assess_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model Assessment</span></a>
+  <a href="../../webpages/pipeline/split_bam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BAM Splitting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gene Quantification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/qc_metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QC Metrics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
   </div>
 </li>
     </ul>
@@ -205,36 +258,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#model-architecture-overview" id="toc-model-architecture-overview" class="nav-link active" data-scroll-target="#model-architecture-overview">Model Architecture Overview</a></li>
-  <li><a href="#layer-by-layer-details" id="toc-layer-by-layer-details" class="nav-link" data-scroll-target="#layer-by-layer-details">Layer-by-Layer Details</a>
+  <li><a href="#whitelist-based-barcode-correction" id="toc-whitelist-based-barcode-correction" class="nav-link active" data-scroll-target="#whitelist-based-barcode-correction">Whitelist-Based Barcode Correction</a>
   <ul class="collapse">
-  <li><a href="#input-representation" id="toc-input-representation" class="nav-link" data-scroll-target="#input-representation">Input Representation</a></li>
-  <li><a href="#embedding-layer" id="toc-embedding-layer" class="nav-link" data-scroll-target="#embedding-layer">Embedding Layer</a></li>
-  <li><a href="#convolutional-layers" id="toc-convolutional-layers" class="nav-link" data-scroll-target="#convolutional-layers">Convolutional Layers</a></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization">Regularization</a></li>
-  <li><a href="#bidirectional-lstm" id="toc-bidirectional-lstm" class="nav-link" data-scroll-target="#bidirectional-lstm">Bidirectional LSTM</a>
+  <li><a href="#integrated-correction-recommended" id="toc-integrated-correction-recommended" class="nav-link" data-scroll-target="#integrated-correction-recommended">Integrated Correction (Recommended)</a></li>
+  <li><a href="#standalone-correction" id="toc-standalone-correction" class="nav-link" data-scroll-target="#standalone-correction">Standalone Correction</a>
   <ul class="collapse">
-  <li><a href="#when-the-bilstm-can-be-dropped" id="toc-when-the-bilstm-can-be-dropped" class="nav-link" data-scroll-target="#when-the-bilstm-can-be-dropped">When the BiLSTM can be dropped</a></li>
+  <li><a href="#correction-strategy" id="toc-correction-strategy" class="nav-link" data-scroll-target="#correction-strategy">Correction Strategy</a></li>
+  <li><a href="#concurrent-demultiplexing" id="toc-concurrent-demultiplexing" class="nav-link" data-scroll-target="#concurrent-demultiplexing">Concurrent Demultiplexing</a></li>
+  <li><a href="#standalone-correction-options" id="toc-standalone-correction-options" class="nav-link" data-scroll-target="#standalone-correction-options">Standalone Correction Options</a></li>
   </ul></li>
-  <li><a href="#multi-head-self-attention-experimental" id="toc-multi-head-self-attention-experimental" class="nav-link" data-scroll-target="#multi-head-self-attention-experimental">Multi-Head Self-Attention (Experimental)</a></li>
-  <li><a href="#dense-layer" id="toc-dense-layer" class="nav-link" data-scroll-target="#dense-layer">Dense Layer</a></li>
-  <li><a href="#conditional-random-field-crf" id="toc-conditional-random-field-crf" class="nav-link" data-scroll-target="#conditional-random-field-crf">Conditional Random Field (CRF)</a></li>
   </ul></li>
-  <li><a href="#training-configuration" id="toc-training-configuration" class="nav-link" data-scroll-target="#training-configuration">Training Configuration</a>
+  <li><a href="#whitelist-free-barcode-discovery" id="toc-whitelist-free-barcode-discovery" class="nav-link" data-scroll-target="#whitelist-free-barcode-discovery">Whitelist-Free Barcode Discovery</a>
   <ul class="collapse">
-  <li><a href="#optimizer-and-learning-rate" id="toc-optimizer-and-learning-rate" class="nav-link" data-scroll-target="#optimizer-and-learning-rate">Optimizer and Learning Rate</a></li>
-  <li><a href="#early-stopping" id="toc-early-stopping" class="nav-link" data-scroll-target="#early-stopping">Early Stopping</a></li>
-  <li><a href="#batch-sizing-and-dynamic-padding" id="toc-batch-sizing-and-dynamic-padding" class="nav-link" data-scroll-target="#batch-sizing-and-dynamic-padding">Batch Sizing and Dynamic Padding</a></li>
-  <li><a href="#multi-gpu-support" id="toc-multi-gpu-support" class="nav-link" data-scroll-target="#multi-gpu-support">Multi-GPU Support</a></li>
-  <li><a href="#core-training-parameters" id="toc-core-training-parameters" class="nav-link" data-scroll-target="#core-training-parameters">Core Training Parameters</a></li>
+  <li><a href="#annotation-without-a-whitelist" id="toc-annotation-without-a-whitelist" class="nav-link" data-scroll-target="#annotation-without-a-whitelist">Annotation Without a Whitelist</a></li>
+  <li><a href="#barcode-discovery" id="toc-barcode-discovery" class="nav-link" data-scroll-target="#barcode-discovery">Barcode Discovery</a>
+  <ul class="collapse">
+  <li><a href="#discovery-process" id="toc-discovery-process" class="nav-link" data-scroll-target="#discovery-process">Discovery Process</a></li>
+  <li><a href="#discovery-options" id="toc-discovery-options" class="nav-link" data-scroll-target="#discovery-options">Discovery Options</a></li>
+  <li><a href="#discovery-output" id="toc-discovery-output" class="nav-link" data-scroll-target="#discovery-output">Discovery Output</a></li>
   </ul></li>
-  <li><a href="#hyperparameter-grid-search" id="toc-hyperparameter-grid-search" class="nav-link" data-scroll-target="#hyperparameter-grid-search">Hyperparameter Grid Search</a></li>
-  <li><a href="#post-training-validation" id="toc-post-training-validation" class="nav-link" data-scroll-target="#post-training-validation">Post-Training Validation</a></li>
-  <li><a href="#hyperparameter-tuning-guide" id="toc-hyperparameter-tuning-guide" class="nav-link" data-scroll-target="#hyperparameter-tuning-guide">Hyperparameter Tuning Guide</a>
+  <li><a href="#correction-and-demultiplexing" id="toc-correction-and-demultiplexing" class="nav-link" data-scroll-target="#correction-and-demultiplexing">Correction and Demultiplexing</a></li>
+  </ul></li>
+  <li><a href="#standalone-demultiplexing" id="toc-standalone-demultiplexing" class="nav-link" data-scroll-target="#standalone-demultiplexing">Standalone Demultiplexing</a>
   <ul class="collapse">
-  <li><a href="#imprecise-segment-boundaries" id="toc-imprecise-segment-boundaries" class="nav-link" data-scroll-target="#imprecise-segment-boundaries">Imprecise Segment Boundaries</a></li>
-  <li><a href="#degraded-accuracy-on-noisy-reads" id="toc-degraded-accuracy-on-noisy-reads" class="nav-link" data-scroll-target="#degraded-accuracy-on-noisy-reads">Degraded Accuracy on Noisy Reads</a></li>
-  <li><a href="#reducing-gpu-memory-usage" id="toc-reducing-gpu-memory-usage" class="nav-link" data-scroll-target="#reducing-gpu-memory-usage">Reducing GPU Memory Usage</a></li>
+  <li><a href="#demux-output" id="toc-demux-output" class="nav-link" data-scroll-target="#demux-output">Demux Output</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -244,7 +291,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Model Training</h1>
+<h1 class="title">Barcode Correction and Demultiplexing</h1>
 </div>
 
 
@@ -261,253 +308,294 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The <code>train-model</code> command trains a deep learning model that assigns a segment label (e.g., adapter, barcode, UMI, cDNA, polyA/T) to every base in a read. It trains on the synthetic reads produced by <code>simulate-data</code> and validates each model variant using an independently simulated set with known ground-truth labels.</p>
-<p>If multiple hyperparameter combinations are specified in <code>training_params.yaml</code>, <code>train-model</code> trains each variant separately and exports a standardized set of artifacts for each one (see <a href="../../webpages/model_training.html#output-artifacts">Output Artifacts</a>).</p>
-<section id="model-architecture-overview" class="level1">
-<h1>Model Architecture Overview</h1>
-<p>The model processes a read through a series of layers, each building on the previous one to capture increasingly complex patterns:</p>
-<pre><code>Input tokens → Embedding → Conv layers → [BiLSTM] → Dense → CRF → Per-base labels</code></pre>
-<p>Brackets around <code>BiLSTM</code> indicate that it is an optional component — see <a href="#when-the-bilstm-can-be-dropped">When the BiLSTM can be dropped</a> below.</p>
-<p>At a high level:</p>
+<p>After annotation, barcode sequences need to be corrected (matched to known barcodes) and reads need to be assigned to cells (demultiplexed). <em>Tranquillyzer</em> offers two approaches depending on whether you have a barcode whitelist.</p>
+<section id="whitelist-based-barcode-correction" class="level1">
+<h1>Whitelist-Based Barcode Correction</h1>
+<p>If you have a barcode whitelist (e.g., from 10x Genomics), barcode correction can happen either <strong>integrated</strong> with annotation or as a <strong>standalone</strong> step.</p>
+<section id="integrated-correction-recommended" class="level2">
+<h2 class="anchored" data-anchor-id="integrated-correction-recommended">Integrated Correction (Recommended)</h2>
+<p>The fastest approach. Barcode correction and demultiplexing run concurrently with annotation. See the <a href="../../webpages/pipeline/annotation.html">Annotation</a> page for details:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-barcode-correction</span> <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-demux</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    WHITELIST_FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="standalone-correction" class="level2">
+<h2 class="anchored" data-anchor-id="standalone-correction">Standalone Correction</h2>
+<p>Use <code>barcode-correct</code> when you have already annotated reads and want to correct barcodes separately. For example, if you want to try a different whitelist or adjust the Levenshtein threshold without re-running annotation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> barcode-correct <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bc-lv-threshold</span> 2 <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    WHITELIST_FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="correction-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="correction-strategy">Correction Strategy</h3>
+<p>For each read, the corrected barcode is determined by:</p>
 <ol type="1">
-<li>Each DNA base is converted to a numeric token and then to a learned vector representation (<strong>embedding</strong>).</li>
-<li><strong>Convolutional layers</strong> scan local windows along the read to detect short motifs like adapter subsequences and boundary signatures.</li>
-<li>A <strong>bidirectional LSTM</strong> reads the entire sequence in both directions, providing long-range context — so the model knows, for example, that a barcode should appear between specific adapter sequences.</li>
-<li>A <strong>dense layer</strong> produces a score for each possible label at every position.</li>
-<li>A <strong>CRF layer</strong> enforces globally consistent label sequences by learning which label transitions are plausible (e.g., adapter → barcode is likely, but barcode → adapter may not be).</li>
+<li><strong>Exact match</strong>: check if the extracted barcode is directly in the whitelist (fastest path).</li>
+<li><strong>Reverse complement</strong>: check if the reverse complement matches (handles strand ambiguity).</li>
+<li><strong>Fuzzy matching</strong>: find the closest whitelist barcode within a Levenshtein edit distance threshold (<code>--bc-lv-threshold</code>, default 2)</li>
 </ol>
-<p>The sections below explain each component in more detail, along with the parameters that control it.</p>
+<p>If no match is found within the threshold, the barcode is labeled <code>NMF</code> (No Match Found). If multiple whitelist barcodes tie at the minimum distance, the read is marked as <code>ambiguous</code>.</p>
+<p>For multi-barcode protocols (e.g., combinatorial indexing with CBC + i5 + i7), all barcode columns are corrected independently, and a cell ID is assigned via product matching against the whitelist.</p>
 </section>
-<section id="layer-by-layer-details" class="level1">
-<h1>Layer-by-Layer Details</h1>
-<section id="input-representation" class="level2">
-<h2 class="anchored" data-anchor-id="input-representation">Input Representation</h2>
-<p>Reads are converted to integer tokens before training:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Base</th>
-<th style="text-align: center;">Token</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">padding</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">A</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">G</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">T</td>
-<td style="text-align: center;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">N</td>
-<td style="text-align: center;">5</td>
-</tr>
-</tbody>
-</table>
-<p>This mapping is governed by the <code>vocab_size</code> parameter (default: 5, for the five nucleotide symbols). The padding token (0) is used only to make reads within a batch the same length and does not represent a nucleotide.</p>
+<section id="concurrent-demultiplexing" class="level3">
+<h3 class="anchored" data-anchor-id="concurrent-demultiplexing">Concurrent Demultiplexing</h3>
+<p>Add <code>--run-demux</code> to export demultiplexed FASTA/FASTQ files at the same time as correction:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> barcode-correct <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-demux</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-fmt</span> fasta <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    WHITELIST_FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="embedding-layer" class="level2">
-<h2 class="anchored" data-anchor-id="embedding-layer">Embedding Layer</h2>
-<p>The embedding layer converts each integer token into a learned numeric vector of length <code>embedding_dim</code>. This gives the model a richer representation of each base than the raw integer — essentially, each nucleotide gets a trainable “feature profile” that downstream layers can combine to detect patterns.</p>
-<ul>
-<li><strong><code>embedding_dim</code></strong> (default: 128): controls how much information the model stores about each token. For DNA’s small vocabulary, moderate values (64-128) are typically sufficient. Larger values increase capacity but require more memory and can lead to overfitting with limited training data.</li>
-</ul>
-</section>
-<section id="convolutional-layers" class="level2">
-<h2 class="anchored" data-anchor-id="convolutional-layers">Convolutional Layers</h2>
-<p>After embedding, the model applies a stack of 1D convolutional layers. Each layer slides a small window (the <strong>kernel</strong>) along the read and learns to recognize local motifs — adapter subsequences, barcode/UMI neighborhood signatures, and transition cues near segment boundaries.</p>
-<p>Each convolutional block consists of:</p>
-<ol type="1">
-<li><code>Conv1D</code> with ReLU activation and L2 regularization</li>
-<li><code>BatchNormalization</code></li>
-<li><code>Dropout</code></li>
-</ol>
-<p>The key parameters are:</p>
-<ul>
-<li><strong><code>conv_kernel_size</code></strong> (default: 25): how wide a motif each layer can detect at once. Larger kernels help detect longer protocol motifs and smooth local noise, but values that are too large may blur sharp boundary cues.</li>
-<li><strong><code>conv_filters</code></strong> (default: 128 per layer): the number of distinct motif detectors per layer. More filters means more pattern capacity at the cost of memory and compute. If boundaries are being missed or adapters vary across reads, increasing filters is often more effective than adding more layers.</li>
-<li><strong><code>conv_layers</code></strong> (default: 3): how many convolutional stages are stacked. More layers allow hierarchical motif composition (combining simple patterns into complex ones). Too many layers can over-smooth or overfit.</li>
-<li><strong><code>dilation_rates</code></strong> (default: [1, 1, 1]): controls the spacing between kernel elements. Increasing dilation (e.g., [1, 3, 5]) expands the receptive field — the amount of surrounding context each layer can see — without increasing the number of parameters. This is useful when segment boundaries depend on context that extends beyond a single kernel width.</li>
-</ul>
-</section>
-<section id="regularization" class="level2">
-<h2 class="anchored" data-anchor-id="regularization">Regularization</h2>
-<p>Two mechanisms prevent the model from overfitting to the training data:</p>
-<ul>
-<li><strong>L2 regularization</strong> (<code>regularization</code>, default: 0.01): applies a penalty to large convolution weights, encouraging simpler patterns. If too strong, it can prevent the model from learning adapter/barcode motifs.</li>
-<li><strong>Dropout</strong> (<code>dropout_rate</code>, default: 0.35): randomly disables a fraction of activations during training, forcing the model to be robust to missing features. Higher dropout improves generalization but can reduce boundary precision if excessive.</li>
-</ul>
-</section>
-<section id="bidirectional-lstm" class="level2">
-<h2 class="anchored" data-anchor-id="bidirectional-lstm">Bidirectional LSTM</h2>
-<p>Adapters and barcodes can be recognized by their local sequence, but accurate labeling often requires understanding <strong>where a segment appears relative to others</strong>. For example, a barcode is not just a 16-mer — it is a 16-mer that appears between specific adapter sequences. The LSTM (Long Short-Term Memory) layer addresses this by reading the sequence in order and retaining information over long distances.</p>
-<p><em>Tranquillyzer</em> uses a <strong>bidirectional</strong> LSTM by default, meaning it reads the sequence both left-to-right and right-to-left. This allows each position to be interpreted using context from both sides.</p>
-<ul>
-<li><strong><code>lstm_units</code></strong> (default: 96): the size of the LSTM’s internal memory. Increasing units improves the model’s ability to track long-range structure but increases compute and can overfit.</li>
-<li><strong><code>lstm_layers</code></strong> (default: 1): stacking multiple LSTMs increases modeling power but is often unnecessary for standard protocols.</li>
-<li><strong><code>bidirectional</code></strong> (default: True): reading in both directions is typically beneficial for boundary labeling. Setting this to False is uncommon for this task.</li>
-</ul>
-<section id="when-the-bilstm-can-be-dropped" class="level3">
-<h3 class="anchored" data-anchor-id="when-the-bilstm-can-be-dropped">When the BiLSTM can be dropped</h3>
-<p>For typical segmentation tasks — short motif-like adapters, barcodes, and UMIs flanked by known structure — the <strong>Conv + CRF</strong> backbone alone is often sufficient. Convolutional layers capture the local motifs, and the CRF enforces globally consistent label sequences, which together cover most of what the BiLSTM contributes for well-behaved library designs.</p>
-<p>Dropping or shrinking the BiLSTM (e.g., setting <code>lstm_layers = 0</code>) can yield accuracy comparable to the default CNN-BiLSTM-CRF model while noticeably reducing training and inference time and GPU memory footprint. Because the BiLSTM is sequential and memory-heavy, removing it also allows larger batch sizes and makes processing very long reads more tractable.</p>
-<p>The BiLSTM is more likely to help when long-range dependencies actually matter — for example, ambiguous motifs whose identity depends on distant context, or non-standard library structures with repeated or overlapping adapter patterns.</p>
-<p><strong>Practical recommendation:</strong> start with the default CNN-BiLSTM-CRF. If inference is memory-bound or reads are very long, train a Conv + CRF variant (<code>lstm_layers = 0</code>) and compare per-segment accuracy on a held-out validation set before committing to it.</p>
-</section>
-</section>
-<section id="multi-head-self-attention-experimental" class="level2">
-<h2 class="anchored" data-anchor-id="multi-head-self-attention-experimental">Multi-Head Self-Attention (Experimental)</h2>
-<blockquote class="blockquote">
-<p><strong>Warning:</strong> Self-attention is an <strong>experimental feature</strong> intended for exploratory and research purposes only. The standard CNN-BiLSTM-CRF architecture has been sufficient for all read segmentation tasks to date, and self-attention has never been required in practice. Enabling it significantly increases GPU memory usage and training time, and may not improve (or could even degrade) performance for typical annotation workloads. It is disabled by default and should remain so unless you have a specific research reason to experiment with it.</p>
-</blockquote>
-<p>If enabled (<code>attention_heads &gt; 0</code>), the model applies self-attention after the LSTM. Attention allows each position to directly reference other positions in the read and re-weight information based on relevance.</p>
-<ul>
-<li>More attention heads allow multiple “views” of relevance patterns, but substantially increase memory and training time.</li>
-<li><strong>Disabled by default</strong> (<code>attention_heads = 0</code>). The CNN-BiLSTM-CRF architecture provides sufficient context modeling for segment labeling tasks.</li>
-</ul>
-</section>
-<section id="dense-layer" class="level2">
-<h2 class="anchored" data-anchor-id="dense-layer">Dense Layer</h2>
-<p>After feature extraction, a dense (fully connected) layer produces a vector of scores for each possible segment label at every position. The number of outputs equals <code>num_labels</code>, which is determined automatically from the segment definitions in <code>seq_orders.yaml</code>.</p>
-</section>
-<section id="conditional-random-field-crf" class="level2">
-<h2 class="anchored" data-anchor-id="conditional-random-field-crf">Conditional Random Field (CRF)</h2>
-<p>The CRF layer sits on top of the per-base scores and learns which label transitions are plausible. For example, it can learn that <code>adapter → barcode</code> is a likely transition but <code>barcode → adapter</code> is not, and use this to produce globally consistent label sequences.</p>
-<p>The CRF is particularly beneficial when the model exhibits <strong>label fragmentation</strong> — rapid oscillation between labels near boundaries or in repetitive regions. It usually increases training and inference time slightly but often improves boundary consistency.</p>
-<p>When <code>crf_layer = False</code>, the model uses standard softmax classification instead, which predicts each position independently without considering neighboring labels.</p>
-</section>
-</section>
-<section id="training-configuration" class="level1">
-<h1>Training Configuration</h1>
-<section id="optimizer-and-learning-rate" class="level2">
-<h2 class="anchored" data-anchor-id="optimizer-and-learning-rate">Optimizer and Learning Rate</h2>
-<p>Training uses the <strong>Adam optimizer</strong> with gradient clipping (<code>clipnorm = 1.0</code>) to prevent unstable updates. The learning rate is controlled by:</p>
-<ul>
-<li><strong><code>learning_rate</code></strong> (default: 0.001): the step size for weight updates. Too high can cause training to diverge; too low slows convergence.</li>
-<li><strong>Automatic reduction</strong>: if validation accuracy plateaus, the learning rate is halved (down to a minimum of 1e-5). This is handled by <code>ReduceLROnPlateau</code> with patience = 1 epoch.</li>
-</ul>
-</section>
-<section id="early-stopping" class="level2">
-<h2 class="anchored" data-anchor-id="early-stopping">Early Stopping</h2>
-<p>Training automatically stops when the model is no longer improving on the validation set, preventing overfitting:</p>
-<ul>
-<li><strong>CRF models</strong>: training stops after 1 epoch without improvement in validation loss (patience = 1). The weights from the best epoch are restored.</li>
-<li><strong>Non-CRF models</strong>: training stops after 3 epochs without improvement (patience = 3).</li>
-</ul>
-<p>The <code>epochs</code> parameter (default: 5) sets the maximum number of training epochs, but early stopping typically ends training before this limit.</p>
-</section>
-<section id="batch-sizing-and-dynamic-padding" class="level2">
-<h2 class="anchored" data-anchor-id="batch-sizing-and-dynamic-padding">Batch Sizing and Dynamic Padding</h2>
-<p>Training reads within a batch are padded to the length of the longest read in that batch (not the longest read in the dataset). This <strong>dynamic padding</strong> approach reduces wasted computation on shorter reads. The <code>batch_size</code> parameter (default: 128) controls how many reads are in each batch.</p>
-<ul>
-<li>Larger batches improve throughput and stabilize gradient estimates but require more GPU memory.</li>
-<li>Smaller batches use less memory and can sometimes improve generalization.</li>
-</ul>
-</section>
-<section id="multi-gpu-support" class="level2">
-<h2 class="anchored" data-anchor-id="multi-gpu-support">Multi-GPU Support</h2>
-<p>When multiple GPUs are available, <code>train-model</code> automatically distributes training across them using TensorFlow’s <code>MirroredStrategy</code>. No additional configuration is needed.</p>
-</section>
-<section id="core-training-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="core-training-parameters">Core Training Parameters</h2>
+<section id="standalone-correction-options" class="level3">
+<h3 class="anchored" data-anchor-id="standalone-correction-options">Standalone Correction Options</h3>
 <table class="caption-top table">
 <colgroup>
+<col style="width: 23%">
 <col style="width: 30%">
-<col style="width: 40%">
-<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Parameter</th>
+<th>Option</th>
 <th style="text-align: center;">Default</th>
-<th>What it controls</th>
+<th>Description</th>
+<th>When to change</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>batch_size</code></td>
-<td style="text-align: center;">128</td>
-<td>Reads per gradient update</td>
+<td><code>INPUT_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Directory containing annotation_metadata/</td>
+<td></td>
 </tr>
 <tr class="even">
-<td><code>train_fraction</code></td>
-<td style="text-align: center;">0.8</td>
-<td>Fraction of simulated reads used for training (rest for internal validation)</td>
+<td><code>WHITELIST_FILE</code></td>
+<td style="text-align: center;">required</td>
+<td>TSV with barcode columns</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td><code>epochs</code></td>
-<td style="text-align: center;">5</td>
-<td>Maximum training epochs (early stopping typically ends sooner)</td>
+<td><code>--output-dir</code></td>
+<td style="text-align: center;"><code>INPUT_DIR</code></td>
+<td>Where to write corrected output</td>
+<td>Set if you want separate output</td>
 </tr>
 <tr class="even">
-<td><code>learning_rate</code></td>
-<td style="text-align: center;">0.001</td>
-<td>Step size for optimization</td>
+<td><code>--model-name</code></td>
+<td style="text-align: center;"><code>10x3p_sc_ont_013</code></td>
+<td>Model for barcode column resolution</td>
+<td>Match your annotation model</td>
 </tr>
 <tr class="odd">
-<td><code>dropout_rate</code></td>
-<td style="text-align: center;">0.35</td>
-<td>Fraction of activations randomly disabled during training</td>
+<td><code>--bc-lv-threshold</code></td>
+<td style="text-align: center;">2</td>
+<td>Max Levenshtein distance for fuzzy matching</td>
+<td>Increase for noisier barcodes</td>
 </tr>
 <tr class="even">
-<td><code>regularization</code></td>
-<td style="text-align: center;">0.01</td>
-<td>L2 penalty strength on convolution weights</td>
+<td><code>--run-demux</code></td>
+<td style="text-align: center;">off</td>
+<td>Demultiplex concurrently</td>
+<td>Enable to get FASTA/FASTQ output</td>
+</tr>
+<tr class="odd">
+<td><code>--output-fmt</code></td>
+<td style="text-align: center;"><code>fasta</code></td>
+<td>Demux format</td>
+<td>Use <code>fastq</code> if quality scores available</td>
+</tr>
+<tr class="even">
+<td><code>--include-barcode-quals</code></td>
+<td style="text-align: center;">off</td>
+<td>Include barcode quality scores in headers</td>
+<td>Enable for downstream QC</td>
+</tr>
+<tr class="odd">
+<td><code>--include-polya</code></td>
+<td style="text-align: center;">off</td>
+<td>Append polyA/T tail to demuxed reads</td>
+<td>Enable if needed downstream</td>
+</tr>
+<tr class="even">
+<td><code>--chunk-size</code></td>
+<td style="text-align: center;">100,000</td>
+<td>Rows per processing chunk</td>
+<td>Rarely needs changing</td>
+</tr>
+<tr class="odd">
+<td><code>--threads</code></td>
+<td style="text-align: center;">12</td>
+<td>CPU threads</td>
+<td>Match your available cores</td>
+</tr>
+<tr class="even">
+<td><code>--resume</code> / <code>--no-resume</code></td>
+<td style="text-align: center;"><code>--resume</code></td>
+<td>Resume from checkpoint</td>
+<td>Disable to force full re-run</td>
 </tr>
 </tbody>
 </table>
 </section>
 </section>
-<section id="hyperparameter-grid-search" class="level1">
-<h1>Hyperparameter Grid Search</h1>
-<p>If you specify multiple values for a parameter in <code>training_params.yaml</code> (as a comma-delimited list), <code>train-model</code> will enumerate <strong>all combinations</strong> and train a separate model variant for each. For example, if you specify <code>learning_rate: 0.001,0.0001</code> and <code>dropout_rate: 0.2,0.35</code>, four variants will be trained.</p>
-<p>Each variant is saved in its own subdirectory with a numeric index (e.g., <code>model_name_0/</code>, <code>model_name_1/</code>, …).</p>
-<p><strong>Note:</strong> Per-layer parameters like <code>conv_filters</code>, <code>conv_kernel_sizes</code>, <code>dilation_rates</code>, and <code>lstm_units</code> are specified as lists that define the value for each layer — they are not expanded as part of the grid search.</p>
 </section>
-<section id="post-training-validation" class="level1">
-<h1>Post-Training Validation</h1>
-<p>After training each variant, <code>train-model</code> automatically generates an independent set of validation reads (controlled by <code>--num-val-reads</code>, default 20), runs them through the trained model, and produces a PDF visualization (<code>*_val_viz.pdf</code>). This serves as a quick sanity check — you can visually inspect whether the model is correctly identifying segment boundaries on reads it has never seen.</p>
-<p>The validation reads are generated using the same error model parameters (<code>--mismatch-rate</code>, <code>--insertion-rate</code>, etc.) but are completely independent from the training data.</p>
+<section id="whitelist-free-barcode-discovery" class="level1">
+<h1>Whitelist-Free Barcode Discovery</h1>
+<p>If you do not have a barcode whitelist, <em>Tranquillyzer</em> can discover cell barcodes directly from the annotation output using count-based knee-point detection.</p>
+<section id="annotation-without-a-whitelist" class="level2">
+<h2 class="anchored" data-anchor-id="annotation-without-a-whitelist">Annotation Without a Whitelist</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="hyperparameter-tuning-guide" class="level1">
-<h1>Hyperparameter Tuning Guide</h1>
-<section id="imprecise-segment-boundaries" class="level2">
-<h2 class="anchored" data-anchor-id="imprecise-segment-boundaries">Imprecise Segment Boundaries</h2>
-<p>The model finds the right segments but transition points drift by a few bases.</p>
+<section id="barcode-discovery" class="level2">
+<h2 class="anchored" data-anchor-id="barcode-discovery">Barcode Discovery</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> generate-whitelist <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--expected-cells</span> 5000 <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="discovery-process" class="level3">
+<h3 class="anchored" data-anchor-id="discovery-process">Discovery Process</h3>
+<ol type="1">
+<li><p><strong>Count barcodes</strong>: scan all valid annotations and count occurrences of each unique barcode (or barcode tuple for multi-barcode protocols). Barcodes are canonicalized via reverse complement (lexicographic minimum of sequence and its RC) to collapse strand-ambiguous duplicates.</p></li>
+<li><p><strong>Knee-point detection</strong>: sort barcodes by count (descending) and find the “knee” in the log-log rank-count curve where real cell barcodes transition to background noise. If <code>--expected-cells</code> is provided, it guides the detection; otherwise, the knee is found automatically using the kneedle algorithm.</p></li>
+<li><p><strong>Near-duplicate merging</strong>: barcodes within edit distance 1 of a higher-count barcode are merged into it. This uses deletion neighborhood hashing for efficient O(K*L) computation instead of O(K^2) pairwise comparison.</p></li>
+<li><p><strong>Output whitelist</strong>:the surviving barcodes are written as a whitelist TSV, ready for <code>barcode-correct</code>.</p></li>
+</ol>
+</section>
+<section id="discovery-options" class="level3">
+<h3 class="anchored" data-anchor-id="discovery-options">Discovery Options</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th style="text-align: center;">Default</th>
+<th>Description</th>
+<th>When to change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>OUTPUT_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Annotation output directory</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>--model-name</code></td>
+<td style="text-align: center;"><code>10x3p_sc_ont_013</code></td>
+<td>Model for barcode column resolution</td>
+<td>Match your annotation model</td>
+</tr>
+<tr class="odd">
+<td><code>--expected-cells</code></td>
+<td style="text-align: center;">None (auto)</td>
+<td>Hint for expected number of cells</td>
+<td>Provide if known for better knee detection</td>
+</tr>
+<tr class="even">
+<td><code>--min-cell-ratio</code></td>
+<td style="text-align: center;">0.50</td>
+<td>Knee threshold as fraction of cliff-top count</td>
+<td>Lower to include more cells; raise for stricter filtering</td>
+</tr>
+<tr class="odd">
+<td><code>--min-reads-per-barcode</code></td>
+<td style="text-align: center;">3</td>
+<td>Minimum reads for a barcode to be considered</td>
+<td>Increase for noisier data</td>
+</tr>
+<tr class="even">
+<td><code>--barcode-columns</code></td>
+<td style="text-align: center;">auto (from model)</td>
+<td>Comma-separated barcode column names</td>
+<td>Only if model config is unavailable</td>
+</tr>
+<tr class="odd">
+<td><code>--chunk-size</code></td>
+<td style="text-align: center;">100,000</td>
+<td>Rows per streaming chunk</td>
+<td>Rarely needs changing</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="discovery-output" class="level3">
+<h3 class="anchored" data-anchor-id="discovery-output">Discovery Output</h3>
 <ul>
-<li>Increase <code>conv_kernel_size</code> slightly (e.g., 15 → 20) to give the model a wider local context for boundary detection.</li>
-<li>If the model appears to be overfitting, increase <code>dropout_rate</code> modestly (e.g., 0.20 → 0.30).</li>
+<li><strong><code>annotation_metadata/discovered_whitelist.tsv</code></strong>: discovered barcode whitelist (use as input to <code>barcode-correct</code>)</li>
+<li><strong><code>annotation_metadata/barcode_discovery_stats.json</code></strong>: summary statistics (unique counts, knee threshold, merge mapping)</li>
+<li><strong><code>annotation_metadata/barcode_counts.tsv</code></strong>: all observed barcodes with counts and above/below-knee status</li>
+<li><strong><code>annotation_metadata/barcode_rank_plot.png</code></strong>: log-log rank plot showing the knee threshold</li>
 </ul>
 </section>
-<section id="degraded-accuracy-on-noisy-reads" class="level2">
-<h2 class="anchored" data-anchor-id="degraded-accuracy-on-noisy-reads">Degraded Accuracy on Noisy Reads</h2>
-<p>Predictions are accurate on clean reads but break down as error rates increase.</p>
-<ul>
-<li>Increase <code>--num-reads</code> during simulation to expose the model to more noisy examples.</li>
-<li>Increase <code>conv_filters</code> (e.g., 64 → 96) to learn more robust motif detectors.</li>
-<li>Consider a slightly lower <code>learning_rate</code> to stabilize optimization under noise.</li>
-</ul>
 </section>
-<section id="reducing-gpu-memory-usage" class="level2">
-<h2 class="anchored" data-anchor-id="reducing-gpu-memory-usage">Reducing GPU Memory Usage</h2>
+<section id="correction-and-demultiplexing" class="level2">
+<h2 class="anchored" data-anchor-id="correction-and-demultiplexing">Correction and Demultiplexing</h2>
+<p>Use the discovered whitelist with <code>barcode-correct</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> barcode-correct <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-demux</span> <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-fmt</span> fasta <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR/annotation_metadata/discovered_whitelist.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="standalone-demultiplexing" class="level1">
+<h1>Standalone Demultiplexing</h1>
+<p>If barcode correction has already been run and you just need to re-export FASTA/FASTQ files (e.g., in a different format), use <code>demux-reads</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> demux-reads <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-fmt</span> fastq <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This reads the corrected annotation parquet and exports demultiplexed reads without re-running correction.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th style="text-align: center;">Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>INPUT_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Directory containing corrected annotations</td>
+</tr>
+<tr class="even">
+<td><code>--output-dir</code></td>
+<td style="text-align: center;"><code>INPUT_DIR</code></td>
+<td>Where to write demux output</td>
+</tr>
+<tr class="odd">
+<td><code>--output-fmt</code></td>
+<td style="text-align: center;"><code>fasta</code></td>
+<td>Output format: <code>fasta</code> or <code>fastq</code></td>
+</tr>
+</tbody>
+</table>
+<section id="demux-output" class="level2">
+<h2 class="anchored" data-anchor-id="demux-output">Demux Output</h2>
 <ul>
-<li>Reduce <code>batch_size</code> to lower GPU memory usage.</li>
-<li>Reduce <code>conv_filters</code> or <code>embedding_dim</code> to decrease the model’s memory footprint.</li>
-<li>Keep <code>attention_heads = 0</code> unless needed — attention increases memory usage substantially.</li>
+<li><strong><code>demuxed_fasta/demuxed.fasta.gz</code></strong>:reads assigned to cells (gzipped)</li>
+<li><strong><code>demuxed_fasta/ambiguous.fasta.gz</code></strong>:reads with ambiguous barcode matches (gzipped)</li>
 </ul>
+<p>FASTA/FASTQ headers include cell ID, corrected barcodes, UMI, and orientation:</p>
+<pre><code>&gt;read_001_42_ACGTACGT cell_id:42|Barcodes:CBC:ATCGATCGATCGATCG|UMI:ACGTACGTACGT|orientation:+</code></pre>
 
 
 </section>
@@ -916,13 +1004,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../webpages/model_training/simulate_data_cli.html" class="pagination-link" aria-label="simulate-data CLI">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">simulate-data CLI</span>
+      <a href="../../webpages/pipeline/annotation.html" class="pagination-link" aria-label="Annotation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Annotation</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../webpages/model_training/train_model_cli.html" class="pagination-link" aria-label="train-model CLI">
-        <span class="nav-page-text">train-model CLI</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../webpages/pipeline/align_dedup.html" class="pagination-link" aria-label="Alignment &amp; Deduplication">
+        <span class="nav-page-text">Alignment &amp; Deduplication</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

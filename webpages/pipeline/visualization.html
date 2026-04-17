@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tranquillyzer Overview – Tranquillyzer Documentation</title>
+<title>Visualization – Tranquillyzer Documentation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,25 +23,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../webpages/pipeline/qc_metrics.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,17 +107,17 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tranquillyzer Documentation</span>
     </a>
   </div>
@@ -92,39 +128,39 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/install.html"> 
+    <a class="nav-link" href="../../webpages/install.html"> 
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/quick_start.html"> 
+    <a class="nav-link" href="../../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/pipeline_guide.html"> 
+    <a class="nav-link active" href="../../webpages/pipeline_guide.html" aria-current="page"> 
 <span class="menu-text">Pipeline Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/model_training.html"> 
+    <a class="nav-link" href="../../webpages/model_training.html"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/resource_requirements.html"> 
+    <a class="nav-link" href="../../webpages/resource_requirements.html"> 
 <span class="menu-text">Resource Requirements</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/usage.html"> 
+    <a class="nav-link" href="../../webpages/usage.html"> 
 <span class="menu-text">CLI Reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/releases.html"> 
+    <a class="nav-link" href="../../webpages/releases.html"> 
 <span class="menu-text">Releases</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/contributing.html"> 
+    <a class="nav-link" href="../../webpages/contributing.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
@@ -140,32 +176,97 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/pipeline/visualization.html">Visualization</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preprocessing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/barcode_demux.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barcode Correction &amp; Demux</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/align_dedup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alignment &amp; Deduplication</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/split_bam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BAM Splitting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gene Quantification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/qc_metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QC Metrics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/visualization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Visualization</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#citation" id="toc-citation" class="nav-link active" data-scroll-target="#citation">Citation</a>
+  <li><a href="#read-annotation-visualization" id="toc-read-annotation-visualization" class="nav-link active" data-scroll-target="#read-annotation-visualization">Read Annotation Visualization</a>
   <ul class="collapse">
-  <li><a href="#biorxiv" id="toc-biorxiv" class="nav-link" data-scroll-target="#biorxiv">bioRxiv</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
   </ul></li>
-  <li><a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start">Quick Start</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#overview-of-tranquillyzer" id="toc-overview-of-tranquillyzer" class="nav-link" data-scroll-target="#overview-of-tranquillyzer">Overview of Tranquillyzer</a>
+  <li><a href="#read-length-distribution" id="toc-read-length-distribution" class="nav-link" data-scroll-target="#read-length-distribution">Read Length Distribution</a>
   <ul class="collapse">
-  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a></li>
-  <li><a href="#read-annotation-and-demultiplexing" id="toc-read-annotation-and-demultiplexing" class="nav-link" data-scroll-target="#read-annotation-and-demultiplexing">Read Annotation and Demultiplexing</a></li>
-  <li><a href="#duplicate-marking" id="toc-duplicate-marking" class="nav-link" data-scroll-target="#duplicate-marking">Duplicate Marking</a></li>
-  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
+  <li><a href="#output-1" id="toc-output-1" class="nav-link" data-scroll-target="#output-1">Output</a></li>
   </ul></li>
-  <li><a href="#issues" id="toc-issues" class="nav-link" data-scroll-target="#issues">Issues</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#disclosure-of-ai-assisted-development" id="toc-disclosure-of-ai-assisted-development" class="nav-link" data-scroll-target="#disclosure-of-ai-assisted-development">Disclosure of AI-Assisted Development</a></li>
   </ul>
 </nav>
     </div>
@@ -174,7 +275,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tranquillyzer Overview</h1>
+<h1 class="title">Visualization</h1>
 </div>
 
 
@@ -191,68 +292,111 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><b>PLEASE BE AWARE THAT THIS WEBSITE IS UNDER ACTIVE DEVELOPMENT AND MAY CHANGE DRASTICALLY FROM DAY TO DAY. IF YOU NEED A MORE STABLE VERSION PLEASE CHECK BACK IN A MONTH.</b></p>
-<p>Tranquillyzer (<b>TRAN</b>script <b>QU</b>antification <b>I</b>n <b>L</b>ong reads-ana<b>LYZER</b>) is a flexible, architecture-aware deep learning framework for processing long-read single-cell RNA-seq (scRNA-seq) data. It employs a hybrid neural network architecture and a global, context-aware design that enables the precise identification of structural elements. In addition to supporting established single-cell protocols (e.g., the 10x Chromium Single Cell 3’ Gene Expression protocol), Tranquillyzer accommodates custom library formats through rapid, one-time model training on user-defined label schemas. Model training for both established and custom protocols can be typically completed within a few hours on standard GPUs.</p>
-<p>For a detailed description of the framework, benchmarking results, and application to real datasets, please refer to the <a href="https://www.biorxiv.org/content/10.1101/2025.07.25.666829v1">preprint</a>.</p>
-<section id="citation" class="level1">
-<h1>Citation</h1>
-<section id="biorxiv" class="level3">
-<h3 class="anchored" data-anchor-id="biorxiv">bioRxiv</h3>
-<pre><code>Tranquillyzer: A Flexible Neural Network Framework for Structural Annotation and
-Demultiplexing of Long-Read Transcriptomes. Ayush Semwal, Jacob Morrison, Ian
-Beddows, Theron Palmer, Mary F. Majewski, H. Josh Jang, Benjamin K. Johnson, Hui
-Shen. bioRxiv 2025.07.25.666829; doi: https://doi.org/10.1101/2025.07.25.666829.</code></pre>
+<p><em>Tranquillyzer</em> provides two visualization tools for inspecting reads and data quality.</p>
+<section id="read-annotation-visualization" class="level1">
+<h1>Read Annotation Visualization</h1>
+<p>The <code>visualize</code> command produces color-coded plots of individual reads, showing the model’s predicted annotations for each structural element (adapters, barcodes, UMIs, cDNA, polyA/T). This is useful for spot-checking model predictions and debugging annotation issues.</p>
+<p>Visualization runs its own model inference and is independent of <code>annotate-reads</code>. It can be run before, after, or without annotation.</p>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize N random reads</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> visualize <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--num-reads</span> 10 <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize specific reads by name</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> visualize <span class="dt">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--read-names</span> read_001,read_002,read_003 <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Either <code>--num-reads</code> or <code>--read-names</code> must be provided.</p>
+</section>
+<section id="options" class="level2">
+<h2 class="anchored" data-anchor-id="options">Options</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th style="text-align: center;">Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>OUTPUT_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Directory with preprocessed reads (writes to <code>plots/</code>)</td>
+</tr>
+<tr class="even">
+<td><code>--output-file</code></td>
+<td style="text-align: center;"><code>full_read_annots</code></td>
+<td>PDF filename prefix</td>
+</tr>
+<tr class="odd">
+<td><code>--model-name</code></td>
+<td style="text-align: center;"><code>10x3p_sc_ont_013</code></td>
+<td>Model for inference</td>
+</tr>
+<tr class="even">
+<td><code>--num-reads</code></td>
+<td style="text-align: center;">None</td>
+<td>Number of random reads to visualize per Parquet file</td>
+</tr>
+<tr class="odd">
+<td><code>--read-names</code></td>
+<td style="text-align: center;">None</td>
+<td>Comma-separated list of specific read names</td>
+</tr>
+<tr class="even">
+<td><code>--gpu-mem</code></td>
+<td style="text-align: center;">12 GB</td>
+<td>GPU memory budget</td>
+</tr>
+<tr class="odd">
+<td><code>--target-tokens</code></td>
+<td style="text-align: center;">1,200,000</td>
+<td>Token budget per GPU</td>
+</tr>
+<tr class="even">
+<td><code>--vram-headroom</code></td>
+<td style="text-align: center;">0.35</td>
+<td>VRAM headroom fraction</td>
+</tr>
+<tr class="odd">
+<td><code>--threads</code></td>
+<td style="text-align: center;">2</td>
+<td>CPU threads</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="output" class="level2">
+<h2 class="anchored" data-anchor-id="output">Output</h2>
+<ul>
+<li><strong><code>plots/{output_file}.pdf</code></strong>:multi-page PDF with one read per page, color-coded by segment type</li>
+</ul>
 </section>
 </section>
-<section id="quick-start" class="level1">
-<h1>Quick Start</h1>
-<p>For a guide to getting started with Tranquillyzer, see the <a href="./webpages/quick_start.html">Quick Start guide</a>.</p>
-</section>
-<section id="installation" class="level1">
-<h1>Installation</h1>
-<p>Tranquillyzer is available through a variety of methods. See the <a href="./webpages/install.html">Installation</a> page for details.</p>
-</section>
-<section id="overview-of-tranquillyzer" class="level1">
-<h1>Overview of Tranquillyzer</h1>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="tranquillyzer_schema.png" class="img-fluid figure-img"></p>
-<figcaption>Tranquillyzer Overview</figcaption>
-</figure>
-</div>
-<section id="preprocessing" class="level2">
-<h2 class="anchored" data-anchor-id="preprocessing">Preprocessing</h2>
-<p>Tranquillyzer implements a parallelized binning strategy that sorts reads into discrete bins based on their length (e.g., 0-499 bp, 500-999 bp, and so on) and then writes each bin to its own Parquet file. For long reads (above a configurable threshold), bin widths automatically widen to coarser tiers, and optionally, adjacent sparsely populated bins can be merged to reduce processing overhead. This strategy ensures that reads of similar lengths are grouped together, minimizing unnecessary padding and optimizing GPU memory consumption. In parallel, Tranquillyzer generates a lightweight index that maps each read to its corresponding bin. This index enables rapid retrieval of individual reads for targeted visualization or debugging via the <code>visualize</code> subcommand and eliminates reloading the full dataset.</p>
-</section>
-<section id="read-annotation-and-demultiplexing" class="level2">
-<h2 class="anchored" data-anchor-id="read-annotation-and-demultiplexing">Read Annotation and Demultiplexing</h2>
-<p>Reads are annotated in batches pulled from the Parquet files of similarly-sized reads generated during preprocessing. For each file, the batch size is dynamically scaled based on the average read length to balance memory usage and throughput. Once batched and encoded (i.e., converting A/C/G/T/N bases into numeric values), reads are passed through the trained model to infer base-wise label sequences to enable the identification of key structural components such as adapters, cell barcodes (CBCs), unique molecular identifiers (UMIs), cDNA regions, and polyA/T tails.</p>
-<p>Model inference is distributed across all available GPU cores to process batches concurrently across devices. As each batch completes the inference phase, its predictions are offloaded to a pool of CPU threads, configured via a user-defined threads parameter, for postprocessing. This stage includes label decoding, structural validation, barcode correction, and demultiplexing. From the per-base annotations, continguous regions are aggregated to identify structural components within each read (e.g., adapters, CBCs/UMIs, or RNA inserts). The structural validity of each read is assessed by comparing the predicted order against a protocol-specific label sequence defined in a tab-delimited text file. Reads that conform to the expected structure are marked as valid; those that do not are flagged as invalid.</p>
-<p>For structurally valid reads, annotated barcodes are compared against a provided whitelist using the Levenshtein edit distance (ED). Reads with a unique match within a user-defined threshold (default: ED &lt;= 2) are assigned the corresponding barcode, while those that fail to match or yield multiple equally close matches are labeled as ambiguous. In parallel, RNA insert sequences from structurally valid reads with successfully assigned barcodes are written <code>demuxed.fasta</code> file, with the corrected CBC embedded in the FASTA header for compatibility with downstream alignment and quantification pipelines. Reads with a valid structural layout but no confidently assigned barcode are instead saved to <code>ambiguous.fasta</code> for further inspection and/or potential rescue.</p>
-</section>
-<section id="duplicate-marking" class="level2">
-<h2 class="anchored" data-anchor-id="duplicate-marking">Duplicate Marking</h2>
-<p>The successfully demultiplexed reads (i.e., those in <code>demuxed.fasta</code>) are next aligned to a user-specified reference genome using <code>minimap2</code> with spliced alignment settings. Mapped reads are coordinate-sorted into an output BAM file, while unmapped reads are discarded. To perform duplicate marking, reads with similar start and end genomic positions and identical strand orientation and cell barcode are compared for UMI similarity. Reads with similar UMIs (have an ED &lt;= a user-defined threshold) are defined as duplicates. One read is retained as the “original” read, and the other reads are marked as duplicate reads by setting standard SAM auxiliary tags and applying the “read is PCR or optical duplicate” flag. The filters used to define duplicates are configurable so users may relax or tighten these constraints depending on their experimental design or tolerance for false positives.</p>
-<p>Deduplication is done in parallel across genomic regions. Temporary BAM files are generated for each genomic region and then merged into final duplicate-marked output BAM once each region has been processed. The output file can then be post-processed using tools such as <code>samtools</code> for downstream filtering and analysis.</p>
-</section>
-<section id="visualization" class="level2">
-<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
-<p>Tranquillyzer produces detailed, color-coded visualizations of read annotations. These figures label individual structural elements such as adapter sequences, polyA/T tails, cell barcodes, UMIs, and cDNA regions to quickly explore a read’s architecture.</p>
-</section>
-</section>
-<section id="issues" class="level1">
-<h1>Issues</h1>
-<p>Issues can be opened on GitHub: <a href="https://github.com/huishenlab/tranquillyzer/issues" class="uri">https://github.com/huishenlab/tranquillyzer/issues</a>.</p>
-</section>
-<section id="acknowledgements" class="level1">
-<h1>Acknowledgements</h1>
-<p>This work was supported by Van Andel Research Institute start-up funding and National Institutes of Health [UM1DA058219] to Hui Shen. Computation for the work described in this paper was supported by the High-Performance Cluster and Cloud Computing (HPC3) Resource at the Van Andel Research Institute.</p>
-</section>
-<section id="disclosure-of-ai-assisted-development" class="level1">
-<h1>Disclosure of AI-Assisted Development</h1>
-<p>During the preparation of this work the authors used ChatGPT (OpenAI) and AI-based software development tools to assist with language refinement and code debugging. The authors developed and verified all scientific content, interpretation and conclusions.</p>
+<section id="read-length-distribution" class="level1">
+<h1>Read Length Distribution</h1>
+<p>The <code>readlengthdist</code> command generates a plot showing the distribution of read lengths in your preprocessed data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> readlengthdist OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-1" class="level2">
+<h2 class="anchored" data-anchor-id="output-1">Output</h2>
+<ul>
+<li><strong><code>plots/read_length_distribution.png</code></strong>:log10-transformed read lengths on the x-axis, frequencies on the y-axis</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -656,6 +800,15 @@ Shen. bioRxiv 2025.07.25.666829; doi: https://doi.org/10.1101/2025.07.25.666829.
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../webpages/pipeline/qc_metrics.html" class="pagination-link" aria-label="QC Metrics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">QC Metrics</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

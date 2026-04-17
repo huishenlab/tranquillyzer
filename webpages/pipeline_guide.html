@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quick Start – Tranquillyzer Documentation</title>
+<title>Pipeline Guide – Tranquillyzer Documentation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -67,6 +32,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../webpages/pipeline/preprocessing.html" rel="next">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -109,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -135,11 +101,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../webpages/quick_start.html" aria-current="page"> 
+    <a class="nav-link" href="../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../webpages/pipeline_guide.html"> 
+    <a class="nav-link active" href="../webpages/pipeline_guide.html" aria-current="page"> 
 <span class="menu-text">Pipeline Guide</span></a>
   </li>  
   <li class="nav-item">
@@ -175,21 +141,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../webpages/pipeline_guide.html">Overview</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline_guide.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preprocessing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/barcode_demux.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barcode Correction &amp; Demux</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/align_dedup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alignment &amp; Deduplication</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/split_bam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BAM Splitting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gene Quantification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/qc_metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QC Metrics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../webpages/pipeline/visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
-  <li><a href="#available-models" id="toc-available-models" class="nav-link" data-scroll-target="#available-models">Available Models</a></li>
-  <li><a href="#whitelist-based-pipeline" id="toc-whitelist-based-pipeline" class="nav-link" data-scroll-target="#whitelist-based-pipeline">Whitelist-Based Pipeline</a></li>
-  <li><a href="#whitelist-free-pipeline" id="toc-whitelist-free-pipeline" class="nav-link" data-scroll-target="#whitelist-free-pipeline">Whitelist-Free Pipeline</a></li>
-  <li><a href="#software-dependencies" id="toc-software-dependencies" class="nav-link" data-scroll-target="#software-dependencies">Software Dependencies</a></li>
+  <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link active" data-scroll-target="#core-concepts">Core Concepts</a>
+  <ul class="collapse">
+  <li><a href="#base-level-read-annotation" id="toc-base-level-read-annotation" class="nav-link" data-scroll-target="#base-level-read-annotation">Base-Level Read Annotation</a></li>
+  <li><a href="#barcode-correction" id="toc-barcode-correction" class="nav-link" data-scroll-target="#barcode-correction">Barcode Correction</a>
+  <ul class="collapse">
+  <li><a href="#whitelist-based-correction" id="toc-whitelist-based-correction" class="nav-link" data-scroll-target="#whitelist-based-correction">Whitelist-Based Correction</a></li>
+  <li><a href="#whitelist-free-barcode-discovery" id="toc-whitelist-free-barcode-discovery" class="nav-link" data-scroll-target="#whitelist-free-barcode-discovery">Whitelist-Free Barcode Discovery</a></li>
+  </ul></li>
+  <li><a href="#demultiplexing" id="toc-demultiplexing" class="nav-link" data-scroll-target="#demultiplexing">Demultiplexing</a></li>
+  <li><a href="#quality-control-metrics" id="toc-quality-control-metrics" class="nav-link" data-scroll-target="#quality-control-metrics">Quality Control Metrics</a></li>
+  </ul></li>
+  <li><a href="#two-workflow-paths" id="toc-two-workflow-paths" class="nav-link" data-scroll-target="#two-workflow-paths">Two Workflow Paths</a>
+  <ul class="collapse">
+  <li><a href="#whitelist-based-workflow" id="toc-whitelist-based-workflow" class="nav-link" data-scroll-target="#whitelist-based-workflow">Whitelist-Based Workflow</a></li>
+  <li><a href="#whitelist-free-workflow" id="toc-whitelist-free-workflow" class="nav-link" data-scroll-target="#whitelist-free-workflow">Whitelist-Free Workflow</a></li>
+  </ul></li>
+  <li><a href="#input-and-output" id="toc-input-and-output" class="nav-link" data-scroll-target="#input-and-output">Input and Output</a>
+  <ul class="collapse">
+  <li><a href="#input" id="toc-input" class="nav-link" data-scroll-target="#input">Input</a></li>
+  <li><a href="#output-directory-structure" id="toc-output-directory-structure" class="nav-link" data-scroll-target="#output-directory-structure">Output Directory Structure</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -198,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quick Start</h1>
+<h1 class="title">Pipeline Guide</h1>
 </div>
 
 
@@ -215,200 +268,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This page provides minimal end-to-end examples to get you running quickly. For detailed explanations of each step, see the <a href="../webpages/pipeline_guide.html">Pipeline Guide</a>. For a full list of all CLI options, see the <a href="../webpages/usage.html">CLI Reference</a>.</p>
-<section id="prerequisites" class="level1">
-<h1>Prerequisites</h1>
+<p><em>Tranquillyzer</em> processes long-read single-cell RNA-seq data through a series of steps, from raw FASTA/FASTQ files to per-cell demultiplexed reads, aligned BAMs, and QC reports. This guide explains the core concepts behind each processing stage, the key decisions involved, and how the pieces fit together.</p>
+<section id="core-concepts" class="level1">
+<h1>Core Concepts</h1>
+<section id="base-level-read-annotation" class="level2">
+<h2 class="anchored" data-anchor-id="base-level-read-annotation">Base-Level Read Annotation</h2>
+<p>A long-read single-cell RNA-seq read is not just a cDNA sequence. It contains multiple structural elements arranged in a protocol-specific order. A typical 10x Genomics 3’ read, for example, looks like:</p>
+<pre><code>[5' adapter] [cell barcode (16 bp)] [UMI (12 bp)] [polyT] [cDNA] [3' adapter]</code></pre>
+<p>Annotation is the process of identifying which bases belong to which structural element. <em>Tranquillyzer</em> does this using a trained CNN-BiLSTM-CRF deep learning model that assigns a label to <strong>every base</strong> in the read. The model learns to recognize segment boundaries from surrounding sequence context, rather than relying on exact pattern matching. This makes it robust to:</p>
 <ul>
-<li>A GPU with at least 16 GB VRAM is recommended (see <a href="../webpages/resource_requirements.html">Resource Requirements</a>)</li>
-<li>Raw FASTA or FASTQ files from your sequencing run</li>
-<li>A reference genome FASTA for alignment</li>
-<li>A barcode whitelist TSV (for whitelist-based workflow) or none (for whitelist-free workflow)</li>
+<li><strong>Sequencing errors</strong> that corrupt barcode or adapter sequences</li>
+<li><strong>Truncated reads</strong> that are missing one or more structural elements</li>
+<li><strong>Chimeric/concatenated reads</strong> where multiple full or partial cDNA fragments are joined into a single read, arising from library preparation or sequencing</li>
+<li><strong>Internal homopolymers</strong> in cDNA that can mimic polyA/T tails</li>
 </ul>
+<p>After labeling, the predicted segment order is compared against valid structures defined in the model’s configuration (<code>seq_orders.yaml</code>). Reads matching a valid structure are classified as <strong>valid</strong>; others are classified as <strong>invalid</strong> and set aside.</p>
 </section>
-<section id="available-models" class="level1">
-<h1>Available Models</h1>
-<p><em>Tranquillyzer</em> ships with pre-trained models for common 10x Genomics protocols:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Parameter</th>
-<th style="text-align: center;"><code>10x5p_sc_ont</code></th>
-<th style="text-align: center;"><code>10x3p_sc_ont</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Batch Size</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Training Fraction</td>
-<td style="text-align: center;">0.8</td>
-<td style="text-align: center;">0.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Vocab Size</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Embedding Dimension</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Conv Layers</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Conv Filters</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Conv Kernel Size</td>
-<td style="text-align: center;">25</td>
-<td style="text-align: center;">25</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dilation Rates</td>
-<td style="text-align: center;">[1, 1, 1, 1]</td>
-<td style="text-align: center;">[1, 3, 5]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LSTM Layers</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LSTM Units</td>
-<td style="text-align: center;">96</td>
-<td style="text-align: center;">96</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Bidirectional</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CRF Layer</td>
-<td style="text-align: center;">True</td>
-<td style="text-align: center;">True</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Attention Heads</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dropout Rate</td>
-<td style="text-align: center;">0.35</td>
-<td style="text-align: center;">0.35</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Regularization</td>
-<td style="text-align: center;">0.01</td>
-<td style="text-align: center;">0.01</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Learning Rate</td>
-<td style="text-align: center;">0.001</td>
-<td style="text-align: center;">0.001</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Epochs</td>
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">5</td>
-</tr>
-</tbody>
-</table>
-<p>Use <code>tranquillyzer availablemodels</code> to see all installed models and their configurations.</p>
-</section>
-<section id="whitelist-based-pipeline" class="level1">
-<h1>Whitelist-Based Pipeline</h1>
-<p>The most common workflow — you have a barcode whitelist from your library prep kit.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocess raw reads into length-binned Parquets</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> preprocess <span class="dt">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    /path/to/fastq_dir <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Annotate reads + correct barcodes + demultiplex (single pass)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-barcode-correction</span> <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-demux</span> <span class="dt">\</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-fmt</span> fasta <span class="dt">\</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    /path/to/output <span class="dt">\</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    /path/to/whitelist.tsv</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Align to reference genome</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> align <span class="dt">\</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    /path/to/output <span class="dt">\</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    /path/to/reference.fa <span class="dt">\</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Mark PCR duplicates</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> dedup <span class="dt">\</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Generate QC report</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> qc-metrics <span class="dt">\</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 4 <span class="dt">\</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bam</span> /path/to/output/aligned_files/dup_marked.bam <span class="dt">\</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="whitelist-free-pipeline" class="level1">
-<h1>Whitelist-Free Pipeline</h1>
-<p>Use this when you do not have a barcode whitelist — <em>Tranquillyzer</em> discovers cell barcodes from the data.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preprocess</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> preprocess <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    /path/to/fastq_dir <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Annotate reads (no whitelist)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Discover cell barcodes via knee-point detection</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> generate-whitelist <span class="dt">\</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--expected-cells</span> 5000 <span class="dt">\</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    /path/to/output</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Correct barcodes using the discovered whitelist + demultiplex</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> barcode-correct <span class="dt">\</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-demux</span> <span class="dt">\</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-fmt</span> fasta <span class="dt">\</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    /path/to/output <span class="dt">\</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    /path/to/output/annotation_metadata/discovered_whitelist.tsv</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Align, dedup, and QC (same as whitelist-based)</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> align <span class="at">--threads</span> 12 /path/to/output /path/to/reference.fa /path/to/output</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> dedup <span class="at">--threads</span> 12 /path/to/output</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> qc-metrics <span class="at">--threads</span> 4 <span class="at">--bam</span> /path/to/output/aligned_files/dup_marked.bam /path/to/output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="software-dependencies" class="level1">
-<h1>Software Dependencies</h1>
+<section id="barcode-correction" class="level2">
+<h2 class="anchored" data-anchor-id="barcode-correction">Barcode Correction</h2>
+<p>After annotation, each valid read has an extracted barcode sequence corresponding to the bases the model labeled as the cell barcode. However, these raw extracted sequences cannot be used directly for cell assignment for two reasons:</p>
+<ol type="1">
+<li><strong>Sequencing errors</strong> introduce substitutions, insertions, and deletions into the barcode, so the extracted sequence may not exactly match any known barcode.</li>
+<li><strong>Strand ambiguity</strong> in nanopore reads means the barcode may appear as its reverse complement, depending on which DNA strand was sequenced.</li>
+</ol>
+<p>Without correction, each error-containing barcode would be treated as a distinct cell, artificially inflating the number of detected cells and fragmenting reads that belong to the same cell across multiple identities.</p>
+<p>There are two general strategies for correcting barcodes, depending on whether a reference set of valid barcodes is available:</p>
 <ul>
-<li><strong>Docker</strong> (recommended): handles all dependencies and provides portability across systems. Singularity and Apptainer are also supported.</li>
-<li><strong>Manual install</strong>: requires <code>mamba</code> or <code>conda</code>. Dependencies are listed in <code>environment.yml</code>.</li>
-<li><strong>TensorFlow</strong>: has its own GPU requirements — see <a href="https://www.tensorflow.org/install/source#gpu">TensorFlow’s documentation</a>.</li>
+<li><strong>Whitelist-based correction</strong>: the extracted barcode is compared against a known set of valid barcodes (a whitelist). This whitelist typically comes from the corresponding short-read experiment for the same library (e.g., cell barcodes identified by Cell Ranger from 10x Genomics short-read data). This is the most common and most reliable approach, since the search space is constrained to barcodes that are known to exist in the experiment.</li>
+<li><strong>Whitelist-free correction</strong>: when no whitelist is available (e.g., custom protocols or novel library designs), cell barcodes must first be discovered from the data itself before correction can proceed. This involves identifying which barcode sequences correspond to real cells versus sequencing noise.</li>
 </ul>
-<p>See the <a href="../webpages/install.html">Install</a> page for detailed setup instructions.</p>
+<p><em>Tranquillyzer</em> supports both strategies. The sections below describe each in detail.</p>
+<section id="whitelist-based-correction" class="level3">
+<h3 class="anchored" data-anchor-id="whitelist-based-correction">Whitelist-Based Correction</h3>
+<p>Given a whitelist, <em>Tranquillyzer</em> matches each extracted barcode to the closest valid barcode using a tiered strategy, applied in order of increasing computational cost:</p>
+<ol type="1">
+<li><strong>Exact match</strong>: the extracted barcode is found directly in the whitelist. This is the fastest path and handles error-free reads.</li>
+<li><strong>Reverse complement match</strong>: the reverse complement of the barcode is checked against the whitelist. This resolves cases where the read was sequenced from the opposite strand.</li>
+<li><strong>Fuzzy match</strong>: if neither exact nor reverse complement matching succeeds, the closest whitelist barcode within a configurable Levenshtein edit distance threshold (default: 2 edits) is selected. Levenshtein distance counts the minimum number of single-base insertions, deletions, or substitutions needed to transform one sequence into another.</li>
+</ol>
+<p>If no whitelist barcode is within the threshold, the barcode is labeled <code>NMF</code> (No Match Found) and the read is excluded from downstream cell-level analyses. If multiple whitelist barcodes tie at the minimum distance, the read is marked as <code>ambiguous</code> since the true cell of origin cannot be determined.</p>
+<p>For protocols with <strong>multiple barcodes</strong> (e.g., combinatorial indexing with CBC + i5 + i7), each barcode is corrected independently and a cell identity is assigned via product matching against the whitelist.</p>
+</section>
+<section id="whitelist-free-barcode-discovery" class="level3">
+<h3 class="anchored" data-anchor-id="whitelist-free-barcode-discovery">Whitelist-Free Barcode Discovery</h3>
+<p>When no whitelist is available, <em>Tranquillyzer</em> can discover cell barcodes directly from the annotation output. The approach relies on the expectation that true cell barcodes are shared across many reads originating from the same cell, resulting in high read counts, while erroneous barcodes introduced by sequencing errors tend to be unique or near-unique, resulting in low read counts.</p>
+<p>The discovery process involves three steps:</p>
+<ol type="1">
+<li><strong>Barcode counting</strong>: all extracted barcodes from valid reads are counted. Barcodes are canonicalized via reverse complement (taking the lexicographic minimum of each sequence and its RC) to collapse strand-ambiguous duplicates.</li>
+<li><strong>Knee-point detection</strong>: barcodes are sorted by count in descending order. The resulting rank-count curve shows a characteristic <strong>knee</strong>, a sharp drop-off where real cells transition to background noise. <em>Tranquillyzer</em> detects this knee automatically using the kneedle algorithm, or guided by an <code>--expected-cells</code> hint if provided.</li>
+<li><strong>Near-duplicate merging</strong>: barcodes within edit distance 1 of a higher-count barcode are merged into it, collapsing error variants of the same true barcode into a single entry.</li>
+</ol>
+<p>The surviving barcodes are output as a discovered whitelist, which can then be used for standard whitelist-based correction as described above.</p>
+</section>
+</section>
+<section id="demultiplexing" class="level2">
+<h2 class="anchored" data-anchor-id="demultiplexing">Demultiplexing</h2>
+<p>Demultiplexing assigns each read to the cell it came from and exports per-cell FASTA or FASTQ files. After barcode correction, each valid read has a corrected barcode and a corresponding cell ID. Demultiplexing groups reads by cell ID and writes them to output files, with headers containing the cell identity, corrected barcodes, UMI sequence, and read orientation.</p>
+<p>Reads with ambiguous barcode assignments are written to a separate file (<code>ambiguous.fasta.gz</code>) so they can be reviewed or discarded as needed.</p>
+</section>
+<section id="quality-control-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="quality-control-metrics">Quality Control Metrics</h2>
+<p>QC metrics provide a quantitative assessment of the data at multiple levels, from raw read statistics through cell-level gene quantification. <em>Tranquillyzer</em> generates an interactive HTML report combining annotation-level metrics (read validity, barcode assignment rates, segment lengths), alignment-level metrics (mapping rates, duplication, saturation), and optionally gene-level metrics (genes per cell, UMIs per cell, mitochondrial fraction). These metrics help identify issues such as low barcode assignment rates, over-sequencing, or poor library quality.</p>
+</section>
+</section>
+<section id="two-workflow-paths" class="level1">
+<h1>Two Workflow Paths</h1>
+<p><em>Tranquillyzer</em> supports two workflows depending on whether you have a barcode whitelist for your experiment:</p>
+<section id="whitelist-based-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="whitelist-based-workflow">Whitelist-Based Workflow</h2>
+<p>If you already have a barcode whitelist (e.g., from 10x Genomics), <em>Tranquillyzer</em> can annotate, correct barcodes, and demultiplex in a single pass:</p>
+<pre><code>preprocess → annotate-reads (with whitelist + --run-barcode-correction + --run-demux)
+           → align → dedup → split-bam → qc-metrics</code></pre>
+<p>This is the fastest path because barcode correction and demultiplexing are integrated into the annotation pass. For details, see <a href="../webpages/pipeline/annotation.html">Annotation</a> and <a href="../webpages/pipeline/barcode_demux.html">Barcode Correction &amp; Demux</a>.</p>
+</section>
+<section id="whitelist-free-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="whitelist-free-workflow">Whitelist-Free Workflow</h2>
+<p>If you do not have a barcode whitelist (e.g., custom protocol, novel library prep), <em>Tranquillyzer</em> can discover cell barcodes from the data itself:</p>
+<pre><code>preprocess → annotate-reads (without whitelist)
+           → generate-whitelist (knee-point discovery)
+           → barcode-correct (with discovered whitelist)
+           → demux-reads
+           → align → dedup → split-bam → qc-metrics</code></pre>
+<p>This workflow first annotates reads to extract barcode sequences, then uses the <code>generate-whitelist</code> command to identify true cell barcodes via knee-point detection, and finally corrects and demultiplexes using the discovered whitelist. For details, see <a href="../webpages/pipeline/barcode_demux.html">Barcode Correction &amp; Demux</a>.</p>
+</section>
+</section>
+<section id="input-and-output" class="level1">
+<h1>Input and Output</h1>
+<section id="input" class="level2">
+<h2 class="anchored" data-anchor-id="input">Input</h2>
+<p>The raw input to <em>Tranquillyzer</em> is a directory containing FASTA or FASTQ files from your sequencing run. Supported extensions: <code>.fasta</code>, <code>.fa</code>, <code>.fasta.gz</code>, <code>.fa.gz</code>, <code>.fastq</code>, <code>.fq</code>, <code>.fastq.gz</code>, <code>.fq.gz</code>.</p>
+</section>
+<section id="output-directory-structure" class="level2">
+<h2 class="anchored" data-anchor-id="output-directory-structure">Output Directory Structure</h2>
+<p>All outputs are organized under a single output directory:</p>
+<pre><code>&lt;output_dir&gt;/
+├── full_length_pp_fa/           # Preprocessed length-binned Parquet files
+├── annotation_chunks/           # Per-chunk annotation intermediates
+├── annotation_metadata/         # Combined annotation outputs
+│   ├── annotations_valid.parquet
+│   ├── annotations_invalid.parquet
+│   ├── annotations_valid_bc_corrected.parquet   (after barcode correction)
+│   ├── discovered_whitelist.tsv                  (whitelist-free only)
+│   ├── barcode_discovery_stats.json              (whitelist-free only)
+│   ├── barcode_counts.tsv                        (whitelist-free only)
+│   └── barcode_rank_plot.png                     (whitelist-free only)
+├── demuxed_fasta/               # Per-cell FASTA/FASTQ.gz
+├── aligned_files/               # BAM + index
+├── qc_metrics/                  # HTML report + MultiQC TSVs
+├── split_bams/                  # Per-cell BAM files
+├── plots/                       # Visualization PDFs
+└── checkpoints/                 # Resume checkpoints</code></pre>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -812,6 +784,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../webpages/pipeline/preprocessing.html" class="pagination-link" aria-label="Preprocessing">
+        <span class="nav-page-text">Preprocessing</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

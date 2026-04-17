@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stage 1: Read Structure Simulation – Tranquillyzer Documentation</title>
+<title>Read Simulation – Tranquillyzer Documentation</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -20,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,19 +67,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../webpages/model_training/intro_errors.html" rel="next">
+<link href="../../webpages/model_training/simulate_data_cli.html" rel="next">
 <link href="../../webpages/model_training.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,6 +141,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../webpages/pipeline_guide.html"> 
+<span class="menu-text">Pipeline Guide</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="../../webpages/model_training.html" aria-current="page"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
@@ -113,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../webpages/usage.html"> 
-<span class="menu-text">Usage</span></a>
+<span class="menu-text">CLI Reference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../webpages/releases.html"> 
@@ -141,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/read_simulation.html">1. Read Simulation</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/read_simulation.html">Read Simulation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -162,13 +203,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">1. Read Simulation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/intro_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Introduce Errors</span></a>
+ <span class="menu-text">Read Simulation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -180,13 +215,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3./4. Model Training</span></a>
+ <span class="menu-text">Model Training</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">train-model CLI</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/model_training/assess_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model Assessment</span></a>
   </div>
 </li>
     </ul>
@@ -199,9 +240,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#segment-based-read-construction" id="toc-segment-based-read-construction" class="nav-link active" data-scroll-target="#segment-based-read-construction">Segment-based Read Construction</a></li>
-  <li><a href="#cdna-generation-and-transcriptome-conditioning" id="toc-cdna-generation-and-transcriptome-conditioning" class="nav-link" data-scroll-target="#cdna-generation-and-transcriptome-conditioning">cDNA Generation and Transcriptome Conditioning</a></li>
-  <li><a href="#cdna-length-as-a-controlled-trade-off" id="toc-cdna-length-as-a-controlled-trade-off" class="nav-link" data-scroll-target="#cdna-length-as-a-controlled-trade-off">cDNA Length as a Controlled Trade-off</a></li>
+  <li><a href="#stage-1-read-structure-simulation" id="toc-stage-1-read-structure-simulation" class="nav-link active" data-scroll-target="#stage-1-read-structure-simulation">Stage 1: Read Structure Simulation</a>
+  <ul class="collapse">
+  <li><a href="#segment-based-read-construction" id="toc-segment-based-read-construction" class="nav-link" data-scroll-target="#segment-based-read-construction">Segment-Based Read Construction</a></li>
+  <li><a href="#defining-your-library-structure" id="toc-defining-your-library-structure" class="nav-link" data-scroll-target="#defining-your-library-structure">Defining Your Library Structure</a></li>
+  <li><a href="#writing-your-own-seq_orders.yaml" id="toc-writing-your-own-seq_orders.yaml" class="nav-link" data-scroll-target="#writing-your-own-seq_orders.yaml">Writing Your Own <code>seq_orders.yaml</code></a>
+  <ul class="collapse">
+  <li><a href="#step-1-define-a-library" id="toc-step-1-define-a-library" class="nav-link" data-scroll-target="#step-1-define-a-library">Step 1: Define a Library</a></li>
+  <li><a href="#step-2-define-valid-structures" id="toc-step-2-define-valid-structures" class="nav-link" data-scroll-target="#step-2-define-valid-structures">Step 2: Define Valid Structures</a></li>
+  <li><a href="#step-3-define-training-structures" id="toc-step-3-define-training-structures" class="nav-link" data-scroll-target="#step-3-define-training-structures">Step 3: Define Training Structures</a></li>
+  <li><a href="#step-4-create-a-model-entry" id="toc-step-4-create-a-model-entry" class="nav-link" data-scroll-target="#step-4-create-a-model-entry">Step 4: Create a Model Entry</a></li>
+  </ul></li>
+  <li><a href="#cdna-generation" id="toc-cdna-generation" class="nav-link" data-scroll-target="#cdna-generation">cDNA Generation</a></li>
+  <li><a href="#cdna-length-considerations" id="toc-cdna-length-considerations" class="nav-link" data-scroll-target="#cdna-length-considerations">cDNA Length Considerations</a></li>
+  </ul></li>
+  <li><a href="#stage-2-sequencing-error-modeling" id="toc-stage-2-sequencing-error-modeling" class="nav-link" data-scroll-target="#stage-2-sequencing-error-modeling">Stage 2: Sequencing Error Modeling</a>
+  <ul class="collapse">
+  <li><a href="#simulating-sequencing-errors" id="toc-simulating-sequencing-errors" class="nav-link" data-scroll-target="#simulating-sequencing-errors">Simulating Sequencing Errors</a></li>
+  <li><a href="#error-types" id="toc-error-types" class="nav-link" data-scroll-target="#error-types">Error Types</a></li>
+  <li><a href="#segment-aware-error-rates" id="toc-segment-aware-error-rates" class="nav-link" data-scroll-target="#segment-aware-error-rates">Segment-Aware Error Rates</a></li>
+  <li><a href="#strand-orientation-augmentation" id="toc-strand-orientation-augmentation" class="nav-link" data-scroll-target="#strand-orientation-augmentation">Strand Orientation Augmentation</a></li>
+  <li><a href="#artifact-simulation" id="toc-artifact-simulation" class="nav-link" data-scroll-target="#artifact-simulation">Artifact Simulation</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -210,7 +270,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stage 1: Read Structure Simulation</h1>
+<h1 class="title">Read Simulation</h1>
 </div>
 
 
@@ -227,24 +287,235 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="segment-based-read-construction" class="level1">
-<h1>Segment-based Read Construction</h1>
-<p>Synthetic reads are generated as ordered concatenations of library-specific segments (e.g., random bases, ONT adapters, protocol adapters, barcodes, UMIs, cDNA, polyA/polyT). The segment order and any fixed sequence motifs are specified for each <code>model_name</code> input in the library definition file: <code>seq_orders.tsv</code>. During concatenation, the simulator emits both the nucleotide sequence and a per-base label vector identifying the originating segment.</p>
+<p>The <code>simulate-data</code> command generates synthetic labeled reads for model training. This process has two stages: first, reads are assembled from a defined library structure with known ground-truth labels; then, realistic sequencing errors are introduced so the model learns to handle noisy data.</p>
+<section id="stage-1-read-structure-simulation" class="level1">
+<h1>Stage 1: Read Structure Simulation</h1>
+<section id="segment-based-read-construction" class="level2">
+<h2 class="anchored" data-anchor-id="segment-based-read-construction">Segment-Based Read Construction</h2>
+<p>Synthetic reads are assembled by concatenating library-specific segments in a defined order — adapters, barcodes, UMIs, cDNA, polyA/T tails, and any other structural elements specified by the protocol. Think of it as building a read from a template: each segment is generated according to its type, and the segments are joined together to form a complete read.</p>
+<p>The segment order and any fixed sequence motifs (e.g., adapter sequences) are specified in the library definition file (<code>seq_orders.yaml</code>). During assembly, the simulator records both the nucleotide sequence and a <strong>per-base label</strong> that identifies which segment each base belongs to. These labels are the ground-truth annotations used for training.</p>
 </section>
-<section id="cdna-generation-and-transcriptome-conditioning" class="level1">
-<h1>cDNA Generation and Transcriptome Conditioning</h1>
-<p>The cDNA segment is generated either by sampling fragments from a user-provided transcriptome FASTA (<code>--transcriptome</code>) or, if unspecified, by generating synthetic transcripts of random bases. It is recommended to provide a transcriptome FASTA because it exposes the model to realistic intra-transcript sequence properties, including internal polyA/polyT runs and low-complexity regions. This is important because internal homopolymers can be confused with polyA/polyT tails introduced by the protocol. Training with transcriptome-derived cDNA teaches the model to resolve polyA/polyT contextually using segment boundaries rather than homopolymer presence alone.</p>
-</section>
-<section id="cdna-length-as-a-controlled-trade-off" class="level1">
-<h1>cDNA Length as a Controlled Trade-off</h1>
-<p>cDNA length is sampled uniformly within <code>[min_cDNA, max_cDNA]</code>. This range is a deliberate balance:</p>
+<section id="defining-your-library-structure" class="level2">
+<h2 class="anchored" data-anchor-id="defining-your-library-structure">Defining Your Library Structure</h2>
+<p>Each library protocol is defined in <code>seq_orders.yaml</code> with the following information:</p>
 <ul>
-<li>Shorter cDNA increases the relative proportion of fixed motifs (i.e., adapters/barcodes/UMIs), making boundary learning easier but reducing exposure to long-range sequence context.</li>
-<li>Longer cDNA increases length variability and generalization, but can dilute boundary signal during optimization (i.e., the model spends more capacity modeling cDNA interior), which may reduce accuracy at segment boundaries if the lengths become excessively long relative to fixed segments.</li>
+<li><strong>Segment names and order</strong> — the structural elements in the order they appear in a read (e.g., <code>p5</code>, <code>i5</code>, <code>CBC</code>, <code>UMI</code>, <code>cDNA</code>, <code>polyA</code>, <code>p7</code>)</li>
+<li><strong>Segment patterns</strong> — the sequence or pattern for each segment:
+<ul>
+<li>A literal DNA string (e.g., <code>CTACACGACGCTCTTCCGATCT</code>) for fixed adapter/primer sequences</li>
+<li><code>NX</code> (e.g., <code>N16</code>) for a fixed-length unknown sequence (barcodes, UMIs)</li>
+<li><code>NN</code> for a variable-length unknown sequence (cDNA)</li>
+<li><code>A</code> or <code>T</code> for polyA or polyT tails of random length</li>
+</ul></li>
+<li><strong>Barcodes and UMIs</strong> — which segments define a cell and which define a molecule</li>
+<li><strong>Valid structures</strong> — the acceptable segment orderings that the model should recognize during inference</li>
+<li><strong>Training structures</strong> — the segment orderings used for training, including proportions and optional artifact modes</li>
 </ul>
-<p>Therefore, cDNA length parameters should be tuned accordingly to match expected read structures while preserving sufficient emphasis on boundary regions.</p>
+</section>
+<section id="writing-your-own-seq_orders.yaml" class="level2">
+<h2 class="anchored" data-anchor-id="writing-your-own-seq_orders.yaml">Writing Your Own <code>seq_orders.yaml</code></h2>
+<p>The <code>seq_orders.yaml</code> file has a two-level structure: <strong>libraries</strong> define the sequencing chemistry, and <strong>models</strong> reference a library (optionally overriding specific fields). This separation means you define your protocol once as a library and then create multiple model variants from it without duplicating configuration.</p>
+<section id="step-1-define-a-library" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-define-a-library">Step 1: Define a Library</h3>
+<p>A library captures everything about your sequencing protocol’s read structure. Here is a minimal example for a hypothetical single-cell protocol with a 5’ adapter, a 16 bp cell barcode, a 12 bp UMI, cDNA, a polyA tail, and a 3’ adapter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">libraries</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">my_protocol</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">strand</span><span class="kw">:</span><span class="at"> fwd</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">barcodes</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">CBC</span><span class="kw">]</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">umis</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">UMI</span><span class="kw">]</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">segments</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> adapter_5p</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> AGATCGGAAGAGC</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> CBC</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> N16</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> UMI</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> N12</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> cDNA</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> NN</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> polyA</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> A</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> adapter_3p</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> GTACTCTGCGTTG</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Key points:</p>
+<ul>
+<li><strong><code>strand</code></strong>: set to <code>fwd</code> or <code>rev</code> depending on which orientation the cDNA is expected to be in relative to the reference transcriptome.</li>
+<li><strong><code>barcodes</code></strong> and <strong><code>umis</code></strong>: list the segment names that define a cell and a molecule, respectively. These names must match entries in the <code>segments</code> list.</li>
+<li><strong><code>segments</code></strong>: an ordered list defining each structural element. The <code>name</code> field is the label the model will learn to predict. The <code>pattern</code> field specifies how to generate that segment:</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Pattern</th>
+<th>Meaning</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Literal string</td>
+<td>Fixed known sequence</td>
+<td>Adapter/primer sequences</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>NX</code></td>
+<td>Random sequence of exactly X bases</td>
+<td>Barcodes (<code>N16</code>), UMIs (<code>N12</code>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>NN</code></td>
+<td>Random sequence of variable length</td>
+<td>cDNA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>A</code></td>
+<td>PolyA tail (random length)</td>
+<td>3’ polyA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>T</code></td>
+<td>PolyT tail (random length)</td>
+<td>5’ polyT</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-2-define-valid-structures" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-define-valid-structures">Step 2: Define Valid Structures</h3>
+<p>Valid structures tell <em>Tranquillyzer</em> which segment orderings to accept as correctly annotated during inference. A read matching <strong>any</strong> of the listed structures is considered valid. Typically, you define one structure for the full-length read and optionally others for known truncation variants:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">valid_structures</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span><span class="co">    # full-length read</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span><span class="co">            # missing polyA (still valid)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-3-define-training-structures" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-define-training-structures">Step 3: Define Training Structures</h3>
+<p>Training structures control which read layouts are generated during simulation and in what proportions. This is where you teach the model to handle both well-formed reads and common artifacts.</p>
+<p>Each training structure has:</p>
+<ul>
+<li><strong><code>order</code></strong>: the sequence of segment names</li>
+<li><strong><code>proportion</code></strong>: the fraction of training reads generated with this layout (all proportions should sum to 1.0)</li>
+<li><strong><code>repeat</code></strong> (optional): number of times to concatenate the read (simulates read concatenation artifacts)</li>
+<li><strong><code>rc_pattern</code></strong> (optional): a list of orientations for each repeated fragment — <code>fwd</code> (forward), <code>rev</code> (reverse complement), or <code>reverse</code> (reversed without complementing)</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">training_structures</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">      # 50% full-length, well-formed reads</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">full_read</span><span class="kw">:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.50</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">      # 10% concatenated reads (fwd + rev-comp) — a common nanopore artifact</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">concat_fwd_rev</span><span class="kw">:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">repeat</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">rc_pattern</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">fwd</span><span class="kw">,</span><span class="at"> rev</span><span class="kw">]</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.10</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">      # 10% truncated at 5' end (missing adapter)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">truncated_no_5p</span><span class="kw">:</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.10</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">      # 10% truncated at 3' end (missing adapter)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">truncated_no_3p</span><span class="kw">:</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">]</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.10</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">      # 10% reads with stuttered/repeated barcode blocks</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">stutter_cbc</span><span class="kw">:</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.10</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">      # 10% reads with repeated 3' adapter</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">stutter_3p</span><span class="kw">:</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can also override the orientation of individual elements within a structure using <code>:fwd</code>, <code>:rev</code>, or <code>:reverse</code> suffixes. For example, a hairpin-like structure where the second half is reversed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">hairpin</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> polyT</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyT:rev</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> adapter_5p:rev</span><span class="kw">]</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-4-create-a-model-entry" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-create-a-model-entry">Step 4: Create a Model Entry</h3>
+<p>Once your library is defined, create a model entry that references it. The simplest case inherits everything from the library without overrides:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">my_protocol_001</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">library</span><span class="kw">:</span><span class="at"> my_protocol</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you want to adjust specific fields for a particular model variant (e.g., change training structure proportions or add a new structure), you can override them in the model entry. Overrides use <strong>shallow merging</strong> for training structures — new keys are added, existing keys are updated, and keys set to <code>null</code> are removed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">models</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">my_protocol_002</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">library</span><span class="kw">:</span><span class="at"> my_protocol</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">training_structures</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">truncated_no_5p</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span><span class="co">         # remove this structure</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">full_read</span><span class="kw">:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.70</span><span class="co">           # increase proportion of full reads</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">new_artifact</span><span class="kw">:</span><span class="co">                 # add a new structure</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">adapter_5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> polyA</span><span class="kw">,</span><span class="at"> adapter_3p</span><span class="kw">]</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">repeat</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">rc_pattern</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">fwd</span><span class="kw">,</span><span class="at"> rev</span><span class="kw">,</span><span class="at"> fwd</span><span class="kw">]</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="cdna-generation" class="level2">
+<h2 class="anchored" data-anchor-id="cdna-generation">cDNA Generation</h2>
+<p>The cDNA segment can be generated in two ways:</p>
+<ul>
+<li><strong>From a transcriptome FASTA</strong> (<code>--transcriptome</code>): fragments are sampled from real transcript sequences. This is the recommended approach because it exposes the model to realistic cDNA properties, including internal polyA/T runs and low-complexity regions. These internal homopolymers can be confused with the protocol-introduced polyA/T tails, so training with real cDNA teaches the model to resolve polyA/T boundaries using surrounding context rather than homopolymer presence alone.</li>
+<li><strong>Random sequences</strong> (default): if no transcriptome is provided, cDNA is generated as random DNA. This works for initial testing but may produce a model that struggles with internal homopolymers in real data.</li>
+</ul>
+</section>
+<section id="cdna-length-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="cdna-length-considerations">cDNA Length Considerations</h2>
+<p>cDNA length is sampled uniformly within the range <code>[--min-cdna, --max-cdna]</code>. This range affects how well the model learns segment boundaries:</p>
+<ul>
+<li><strong>Shorter cDNA</strong> means the fixed-length elements (adapters, barcodes, UMIs) make up a larger fraction of each read. This gives the model more boundary examples per read, making it easier to learn transitions — but the model sees less long-range sequence context.</li>
+<li><strong>Longer cDNA</strong> increases the variety of read lengths and improves generalization. However, if reads become very long relative to the fixed segments, the model spends most of its capacity on cDNA interior and may become less precise at segment boundaries.</li>
+</ul>
+<p>As a general guideline, choose a cDNA length range that reflects the expected read lengths in your real data, while keeping it short enough that boundary regions remain well-represented in training.</p>
+</section>
+</section>
+<section id="stage-2-sequencing-error-modeling" class="level1">
+<h1>Stage 2: Sequencing Error Modeling</h1>
+<section id="simulating-sequencing-errors" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-sequencing-errors">Simulating Sequencing Errors</h2>
+<p>Real sequencing data contains errors — bases are substituted, inserted, or deleted during the sequencing process. If the model were trained only on clean, error-free reads, it would struggle with real data. The simulator addresses this by introducing realistic errors into the synthetic reads before training, so the model learns to annotate reads correctly despite noise.</p>
+</section>
+<section id="error-types" class="level2">
+<h2 class="anchored" data-anchor-id="error-types">Error Types</h2>
+<p>Three types of base-level errors are applied:</p>
+<ul>
+<li><strong>Mismatches</strong> (<code>--mismatch-rate</code>): a base is replaced with a different base. Default: 0.05 (5%).</li>
+<li><strong>Insertions</strong> (<code>--insertion-rate</code>): extra bases are added after a position, up to a maximum of <code>--max-insertions</code> per position. Default: 0.05 (5%), max 1 insertion per position.</li>
+<li><strong>Deletions</strong> (<code>--deletion-rate</code>): a base is removed from the sequence. Default: 0.06 (6%).</li>
+</ul>
+<p>These rates are applied per base position. When an insertion or deletion occurs, the per-base label vector is updated accordingly (labels are inserted or removed to stay aligned with the modified sequence).</p>
+</section>
+<section id="segment-aware-error-rates" class="level2">
+<h2 class="anchored" data-anchor-id="segment-aware-error-rates">Segment-Aware Error Rates</h2>
+<p>Not all segments receive the same error treatment. PolyA/T tails use a separate, typically lower error rate (<code>--polyt-error-rate</code>, default 0.02) that reflects the distinct noise characteristics of homopolymer regions in nanopore sequencing. Other segments use the global rates listed above.</p>
+<p><strong>When to adjust error rates:</strong> Match the error rates to your sequencing platform and chemistry. For example, if you are using a newer ONT chemistry with lower error rates, you may want to reduce <code>--mismatch-rate</code> and <code>--insertion-rate</code> accordingly. If your data has particularly noisy homopolymer regions, increase <code>--polyt-error-rate</code>.</p>
+</section>
+<section id="strand-orientation-augmentation" class="level2">
+<h2 class="anchored" data-anchor-id="strand-orientation-augmentation">Strand Orientation Augmentation</h2>
+<p>Reads can come from either DNA strand. By default (<code>--rc</code>), the simulator generates the reverse complement of each read (with labels reversed accordingly), doubling the training set size. This teaches the model to handle both orientations and is particularly useful for datasets where strand assignment is uncertain or mixed.</p>
+<p>If your protocol always produces reads in a known orientation, you can disable this with <code>--no-rc</code>, though keeping it enabled generally improves robustness.</p>
+</section>
+<section id="artifact-simulation" class="level2">
+<h2 class="anchored" data-anchor-id="artifact-simulation">Artifact Simulation</h2>
+<p>Real sequencing datasets inevitably contain malformed or artifactual reads — concatenated reads, truncated reads, reads with repeated adapter blocks, and other structural anomalies. If the model only sees well-formed reads during training, it may confidently mislabel these artifacts instead of flagging them as invalid.</p>
+<p>To address this, the simulator generates a configurable fraction of structurally invalid reads (<code>--invalid-fraction</code>, default 0.30). Supported artifact modes include:</p>
+<ul>
+<li>Read concatenation (two reads joined together)</li>
+<li>Repeated adapter blocks at the 5’ or 3’ end</li>
+<li>Truncations from either end</li>
+</ul>
+<p>Training on a mix of valid and invalid reads improves the model’s ability to recognize and flag malformed inputs during inference.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -655,8 +926,8 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../webpages/model_training/intro_errors.html" class="pagination-link" aria-label="2. Introduce Errors">
-        <span class="nav-page-text">2. Introduce Errors</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../webpages/model_training/simulate_data_cli.html" class="pagination-link" aria-label="simulate-data CLI">
+        <span class="nav-page-text">simulate-data CLI</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

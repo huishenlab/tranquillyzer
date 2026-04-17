@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>simulate-data CLI – Tranquillyzer Documentation</title>
+<title>Model Assessment – Tranquillyzer Documentation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -67,8 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../webpages/model_training/train_model.html" rel="next">
-<link href="../../webpages/model_training/read_simulation.html" rel="prev">
+<link href="../../webpages/model_training/train_model_cli.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -182,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/simulate_data_cli.html">simulate-data CLI</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/assess_model.html">Model Assessment</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -208,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">simulate-data CLI</span></a>
   </div>
 </li>
@@ -226,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/assess_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/model_training/assess_model.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Model Assessment</span></a>
   </div>
 </li>
@@ -240,8 +239,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#command-line-options" id="toc-command-line-options" class="nav-link active" data-scroll-target="#command-line-options">Command Line Options</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link active" data-scroll-target="#how-it-works">How It Works</a></li>
+  <li><a href="#assessment-structures" id="toc-assessment-structures" class="nav-link" data-scroll-target="#assessment-structures">Assessment Structures</a></li>
+  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics">Metrics</a>
+  <ul class="collapse">
+  <li><a href="#read-architecture-accuracy" id="toc-read-architecture-accuracy" class="nav-link" data-scroll-target="#read-architecture-accuracy">Read Architecture Accuracy</a></li>
+  <li><a href="#segment-edit-distance" id="toc-segment-edit-distance" class="nav-link" data-scroll-target="#segment-edit-distance">Segment Edit Distance</a></li>
+  <li><a href="#per-base-classification-metrics" id="toc-per-base-classification-metrics" class="nav-link" data-scroll-target="#per-base-classification-metrics">Per-Base Classification Metrics</a></li>
+  </ul></li>
+  <li><a href="#output-artifacts" id="toc-output-artifacts" class="nav-link" data-scroll-target="#output-artifacts">Output Artifacts</a></li>
+  <li><a href="#command-line-options" id="toc-command-line-options" class="nav-link" data-scroll-target="#command-line-options">Command Line Options</a></li>
   <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example Usage</a></li>
+  <li><a href="#interpreting-results" id="toc-interpreting-results" class="nav-link" data-scroll-target="#interpreting-results">Interpreting Results</a>
+  <ul class="collapse">
+  <li><a href="#what-to-look-for" id="toc-what-to-look-for" class="nav-link" data-scroll-target="#what-to-look-for">What to Look For</a></li>
+  <li><a href="#comparing-model-variants" id="toc-comparing-model-variants" class="nav-link" data-scroll-target="#comparing-model-variants">Comparing Model Variants</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -250,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">simulate-data CLI</h1>
+<h1 class="title">Model Assessment</h1>
 </div>
 
 
@@ -267,18 +280,155 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The <code>simulate-data</code> command generates synthetic labeled reads for training. It builds reads according to the library structure defined in <code>seq_orders.yaml</code>, introduces sequencing errors, and outputs the reads and their per-base labels as pickle files in <code>{output_dir}/simulated_data/</code>.</p>
-<p>For background on how reads are simulated and why, see <a href="../../webpages/model_training/read_simulation.html">Read Structure Simulation</a> and <a href="../../webpages/model_training/read_simulation.html#stage-2-sequencing-error-modeling">Sequencing Error Modeling</a>.</p>
+<p>After training a model, you need to know how well it actually performs. The <code>assess-model</code> command provides a quantitative evaluation of a trained model by simulating reads with known ground-truth labels, running them through the full annotation pipeline, and comparing the model’s predictions against the truth.</p>
+<p>This goes well beyond the quick visual check produced by <code>train-model</code> (which generates a small PDF of ~20 annotated reads). <code>assess-model</code> produces detailed metrics on structural accuracy, segment boundary precision, and per-base classification performance — giving you a basis for comparing model variants and deciding which to deploy.</p>
+<section id="how-it-works" class="level1">
+<h1>How It Works</h1>
+<p>The assessment runs a fully automated 4-stage pipeline:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Stage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td>Simulate assessment reads with known ground-truth labels</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td>Preprocess the simulated reads (length-binning into Parquet)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td>Run the full annotation pipeline on the simulated reads</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td>Compare predictions to ground truth and compute metrics</td>
+</tr>
+</tbody>
+</table>
+<p>Each stage supports <strong>resume</strong> — if a stage has already completed (e.g., from a previous interrupted run), it is skipped automatically. This is controlled by <code>--resume</code> / <code>--no-resume</code> (enabled by default).</p>
+</section>
+<section id="assessment-structures" class="level1">
+<h1>Assessment Structures</h1>
+<p>The reads used for assessment are generated from <strong>assessment structures</strong> defined in <code>seq_orders.yaml</code>. These are separate from the training structures and are specifically designed to evaluate model performance across different read types:</p>
+<ul>
+<li><strong>Single-fragment reads</strong> in both forward and reverse-complement orientations</li>
+<li><strong>Concatenated reads</strong> with various orientation combinations (fwd+rev, fwd+fwd, rev+fwd, rev+rev)</li>
+</ul>
+<p>This ensures the model is tested on the full range of read architectures it will encounter in real data, including the concatenation artifacts that are common in nanopore sequencing.</p>
+<p>Assessment structures are defined per library in <code>seq_orders.yaml</code> using the same format as training structures:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">assessment_structures</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">single_fwd</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> polyT</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> 3p</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.25</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">single_rev</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> polyT</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> 3p</span><span class="kw">]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">rc_pattern</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">rev</span><span class="kw">]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.25</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">concat_fwd_rev</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> polyT</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> 3p</span><span class="kw">]</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">repeat</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">rc_pattern</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">fwd</span><span class="kw">,</span><span class="at"> rev</span><span class="kw">]</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.125</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">concat_fwd_fwd</span><span class="kw">:</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">5p</span><span class="kw">,</span><span class="at"> CBC</span><span class="kw">,</span><span class="at"> UMI</span><span class="kw">,</span><span class="at"> polyT</span><span class="kw">,</span><span class="at"> cDNA</span><span class="kw">,</span><span class="at"> 3p</span><span class="kw">]</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">repeat</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">rc_pattern</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">fwd</span><span class="kw">,</span><span class="at"> fwd</span><span class="kw">]</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">proportion</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.125</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">      # ... additional orientation combinations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>See <a href="../../webpages/model_training/read_simulation.html#writing-your-own-seq_orders.yaml">Writing Your Own <code>seq_orders.yaml</code></a> for details on the structure format.</p>
+</section>
+<section id="metrics" class="level1">
+<h1>Metrics</h1>
+<p>The assessment produces three categories of quantitative metrics, each addressing a different aspect of model quality.</p>
+<section id="read-architecture-accuracy" class="level2">
+<h2 class="anchored" data-anchor-id="read-architecture-accuracy">Read Architecture Accuracy</h2>
+<p>This metric evaluates the model’s ability to correctly identify the overall structure of a read:</p>
+<ul>
+<li><strong>Single-fragment reads:</strong> What fraction of single-fragment reads were correctly classified as valid (i.e., the model recognized them as well-formed reads)?</li>
+<li><strong>Concatenated reads:</strong> When a read contains multiple concatenated fragments, how many of the expected fragments did the model successfully recover? This is reported as a <strong>fragment recovery rate</strong> — the ratio of predicted fragments to expected fragments across all concatenated reads.</li>
+</ul>
+<p>These metrics are especially important for nanopore data, where read concatenation is a common artifact that must be correctly identified and split.</p>
+</section>
+<section id="segment-edit-distance" class="level2">
+<h2 class="anchored" data-anchor-id="segment-edit-distance">Segment Edit Distance</h2>
+<p>For each structural segment (adapters, barcodes, UMIs, polyA/T), this metric measures how closely the model’s predicted segment boundaries match the ground truth. It computes the <strong>Levenshtein edit distance</strong> between the predicted and true sequence for each segment, both as:</p>
+<ul>
+<li><strong>Raw edit distance</strong> (in base pairs) — the absolute number of insertions, deletions, or substitutions needed to transform the predicted segment into the true segment</li>
+<li><strong>Normalized edit distance</strong> — the raw distance divided by the true segment length, giving a length-independent measure of boundary accuracy</li>
+</ul>
+<p>Lower edit distances indicate more precise boundary predictions. Segments like cDNA and random flanks are excluded from this analysis since their sequences are inherently variable.</p>
+</section>
+<section id="per-base-classification-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="per-base-classification-metrics">Per-Base Classification Metrics</h2>
+<p>This is the most granular evaluation. For every base in every assessment read, the model’s predicted label is compared to the ground-truth label, producing standard classification metrics for each segment type:</p>
+<ul>
+<li><strong>Precision</strong> — of all bases the model labeled as segment X, what fraction actually belong to segment X?</li>
+<li><strong>Recall</strong> — of all bases that truly belong to segment X, what fraction did the model correctly label?</li>
+<li><strong>F1 Score</strong> — the harmonic mean of precision and recall, providing a single balanced measure</li>
+</ul>
+<p>Macro and weighted averages across all segments are also reported.</p>
+</section>
+</section>
+<section id="output-artifacts" class="level1">
+<h1>Output Artifacts</h1>
+<p>All outputs are written to the assessment output directory:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>assessment_fasta/</code></td>
+<td>Simulated assessment reads (FASTA files)</td>
+</tr>
+<tr class="even">
+<td><code>assessment_gt/assessment_gt.parquet</code></td>
+<td>Ground-truth metadata (per-base labels, expected fragment count, structure type)</td>
+</tr>
+<tr class="odd">
+<td><code>annotation_metadata/annotations_valid.parquet</code></td>
+<td>Model predictions for valid reads</td>
+</tr>
+<tr class="even">
+<td><code>annotation_metadata/annotations_invalid.parquet</code></td>
+<td>Model predictions for invalid reads</td>
+</tr>
+<tr class="odd">
+<td><code>assessment_metrics/{model}_architecture_accuracy.tsv</code></td>
+<td>Read architecture accuracy by structure type</td>
+</tr>
+<tr class="even">
+<td><code>assessment_metrics/{model}_segment_edit_distance.tsv</code></td>
+<td>Per-segment edit distances</td>
+</tr>
+<tr class="odd">
+<td><code>assessment_metrics/{model}_classification_report.tsv</code></td>
+<td>Per-base precision, recall, F1 by segment</td>
+</tr>
+<tr class="even">
+<td><code>assessment_metrics/{model}_assessment_report.html</code></td>
+<td>Interactive HTML report with all metrics and visualizations</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>HTML report</strong> is a single-page interactive dashboard (built with Plotly) that combines all metrics into zoomable, pannable plots with hover tooltips. This is the primary artifact for reviewing model quality.</p>
+</section>
 <section id="command-line-options" class="level1">
 <h1>Command Line Options</h1>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 18%">
-<col style="width: 9%">
-<col style="width: 14%">
-<col style="width: 28%">
-<col style="width: 29%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">CLI Option</th>
@@ -293,129 +443,247 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;"><code>model_name</code></td>
 <td style="text-align: center;">TEXT</td>
 <td style="text-align: center;">required</td>
-<td style="text-align: left;">Library model key defining segment order and motifs</td>
-<td style="text-align: left;">Set to match your protocol</td>
+<td style="text-align: left;">Library model key in seq_orders.yaml</td>
+<td style="text-align: left;">Set to match your model</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><code>model_dir</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: center;">required</td>
+<td style="text-align: left;">Directory containing .h5 and _lbl_bin.pkl files</td>
+<td style="text-align: left;">Point to your trained model</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><code>output_dir</code></td>
 <td style="text-align: center;">TEXT</td>
 <td style="text-align: center;">required</td>
-<td style="text-align: left;">Output directory (writes to <code>simulated_data/</code> subdirectory)</td>
+<td style="text-align: left;">Where to write assessment outputs</td>
 <td style="text-align: left;">—</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><code>--training-seq-orders-file</code></td>
+<tr class="even">
+<td style="text-align: left;"><code>--seq-order-file</code></td>
 <td style="text-align: center;">TEXT</td>
 <td style="text-align: center;"><code>utils/seq_orders.yaml</code></td>
-<td style="text-align: left;">Library definition file specifying segment order and sequences</td>
+<td style="text-align: left;">Library definition file</td>
 <td style="text-align: left;">Only if using a custom file</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>--num-reads</code></td>
 <td style="text-align: center;">INT</td>
-<td style="text-align: center;">50,000</td>
-<td style="text-align: left;">Number of reads to simulate (before reverse-complement doubling)</td>
-<td style="text-align: left;">Increase for more training data; decrease for quick tests</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: left;">Number of assessment reads to simulate</td>
+<td style="text-align: left;">Increase for more reliable metrics (e.g., 500-1000)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--concat-fraction</code></td>
+<td style="text-align: center;">FLOAT</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: left;">Override the fraction of concatenated reads</td>
+<td style="text-align: left;">Use to test concat handling specifically</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><code>--min-cDNA</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: left;">Minimum cDNA length in assessment reads</td>
+<td style="text-align: left;">Match expected read lengths</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--max-cDNA</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: left;">Maximum cDNA length in assessment reads</td>
+<td style="text-align: left;">Match expected read lengths</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--max-read-length</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: left;">Cap total read length (adjusts cDNA accordingly)</td>
+<td style="text-align: left;">Use to test behavior at specific read lengths</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>--mismatch-rate</code></td>
 <td style="text-align: center;">FLOAT</td>
 <td style="text-align: center;">0.05</td>
-<td style="text-align: left;">Base substitution probability</td>
-<td style="text-align: left;">Match your sequencing platform’s error profile</td>
+<td style="text-align: left;">Substitution error rate</td>
+<td style="text-align: left;">Match your sequencing platform</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><code>--insertion-rate</code></td>
 <td style="text-align: center;">FLOAT</td>
 <td style="text-align: center;">0.05</td>
-<td style="text-align: left;">Base insertion probability</td>
-<td style="text-align: left;">Match your sequencing platform’s error profile</td>
+<td style="text-align: left;">Insertion error rate</td>
+<td style="text-align: left;">Match your sequencing platform</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>--deletion-rate</code></td>
 <td style="text-align: center;">FLOAT</td>
 <td style="text-align: center;">0.06</td>
-<td style="text-align: left;">Base deletion probability</td>
-<td style="text-align: left;">Match your sequencing platform’s error profile</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>--min-cdna</code></td>
-<td style="text-align: center;">INT</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: left;">Minimum cDNA length in simulated reads</td>
-<td style="text-align: left;">Adjust to match expected read lengths</td>
+<td style="text-align: left;">Deletion error rate</td>
+<td style="text-align: left;">Match your sequencing platform</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>--max-cdna</code></td>
-<td style="text-align: center;">INT</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: left;">Maximum cDNA length in simulated reads</td>
-<td style="text-align: left;">Adjust to match expected read lengths</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;"><code>--polyt-error-rate</code></td>
 <td style="text-align: center;">FLOAT</td>
 <td style="text-align: center;">0.02</td>
-<td style="text-align: left;">Error rate within polyA/polyT segments</td>
-<td style="text-align: left;">Increase if your data has noisy homopolymers</td>
+<td style="text-align: left;">PolyA/T region error rate</td>
+<td style="text-align: left;">Adjust for homopolymer noise</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><code>--max-insertions</code></td>
 <td style="text-align: center;">INT</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: left;">Maximum insertions allowed after a single base</td>
+<td style="text-align: left;">Max insertions per base position</td>
 <td style="text-align: left;">Rarely needs changing</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>--threads</code></td>
-<td style="text-align: center;">INT</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: left;">CPU threads for read simulation</td>
-<td style="text-align: left;">Increase for faster generation on multi-core machines</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>--rc</code> / <code>--no-rc</code></td>
 <td style="text-align: center;">FLAG</td>
 <td style="text-align: center;"><code>--rc</code></td>
-<td style="text-align: left;">Include reverse complements (doubles the training set)</td>
-<td style="text-align: left;">Disable only if your protocol has a fixed known orientation</td>
+<td style="text-align: left;">Include reverse complements (doubles dataset)</td>
+<td style="text-align: left;">Keep enabled for thorough assessment</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>--transcriptome</code></td>
 <td style="text-align: center;">TEXT</td>
 <td style="text-align: center;">None</td>
-<td style="text-align: left;">Transcriptome FASTA for realistic cDNA generation</td>
-<td style="text-align: left;">Recommended — improves model accuracy on real data</td>
+<td style="text-align: left;">Transcriptome FASTA for realistic cDNA</td>
+<td style="text-align: left;">Recommended for realistic assessment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>--invalid-fraction</code></td>
+<td style="text-align: left;"><code>--min-spacer</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Minimum spacer length between concatenated fragments</td>
+<td style="text-align: left;">Adjust if your data has inter-fragment cDNA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--max-spacer</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: left;">Maximum spacer length between concatenated fragments</td>
+<td style="text-align: left;">Adjust if your data has inter-fragment cDNA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--max-trunc-5p</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Max 5’ truncation (bp)</td>
+<td style="text-align: left;">Enable to test truncated read handling</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--max-trunc-3p</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Max 3’ truncation (bp)</td>
+<td style="text-align: left;">Enable to test truncated read handling</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--threads</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">CPU threads</td>
+<td style="text-align: left;">Increase for faster simulation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--resume</code> / <code>--no-resume</code></td>
+<td style="text-align: center;">FLAG</td>
+<td style="text-align: center;"><code>--resume</code></td>
+<td style="text-align: left;">Skip completed stages on re-run</td>
+<td style="text-align: left;">Disable to force full re-run</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--gpu-mem</code></td>
+<td style="text-align: center;">TEXT</td>
+<td style="text-align: center;">None (12 GB)</td>
+<td style="text-align: left;">GPU memory budget</td>
+<td style="text-align: left;">Set to your actual VRAM</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--target-tokens</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">1,200,000</td>
+<td style="text-align: left;">Token budget per GPU</td>
+<td style="text-align: left;">See <a href="../../webpages/resource_requirements.html">Resource Requirements</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--vram-headroom</code></td>
 <td style="text-align: center;">FLOAT</td>
-<td style="text-align: center;">0.3</td>
-<td style="text-align: left;">Fraction of reads generated as structurally invalid artifacts</td>
-<td style="text-align: left;">Increase if your data has many malformed reads</td>
+<td style="text-align: center;">0.35</td>
+<td style="text-align: left;">VRAM headroom fraction</td>
+<td style="text-align: left;">Increase if OOM during assessment</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--min-batch-size</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Minimum batch size</td>
+<td style="text-align: left;">Rarely needs changing</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--max-batch-size</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">2,000</td>
+<td style="text-align: left;">Maximum batch size</td>
+<td style="text-align: left;">Rarely needs changing</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--bin-size</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: left;">Bin width for length-binning assessment reads</td>
+<td style="text-align: left;">Rarely needs changing</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--token-cap-above</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Two-tier batching threshold</td>
+<td style="text-align: left;">See <a href="../../webpages/resource_requirements.html">Resource Requirements</a></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="example-usage" class="level1">
 <h1>Example Usage</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> simulate-data <span class="dt">\</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    10x3p_sc_ont <span class="dt">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    training_out <span class="dt">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--num-reads</span> 50000 <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mismatch-rate</span> 0.05 <span class="dt">\</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--insertion-rate</span> 0.05 <span class="dt">\</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--deletion-rate</span> 0.06 <span class="dt">\</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min-cdna</span> 100 <span class="dt">\</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-cdna</span> 500 <span class="dt">\</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--polyt-error-rate</span> 0.02 <span class="dt">\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-insertions</span> 1 <span class="dt">\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--invalid-fraction</span> 0.3 <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--rc</span> <span class="dt">\</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 2 <span class="dt">\</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--transcriptome</span> gencode.v44.transcripts.fa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> assess-model <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    models/ <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    assessment_output/ <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--num-reads</span> 500 <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mismatch-rate</span> 0.05 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--insertion-rate</span> 0.05 <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--deletion-rate</span> 0.06 <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min-cDNA</span> 100 <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-cDNA</span> 500 <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--rc</span> <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--transcriptome</span> gencode.v44.transcripts.fa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="interpreting-results" class="level1">
+<h1>Interpreting Results</h1>
+<section id="what-to-look-for" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-look-for">What to Look For</h2>
+<ul>
+<li><strong>Architecture accuracy near 100%</strong> for single-fragment reads — the model should correctly validate most well-formed reads.</li>
+<li><strong>High fragment recovery rate</strong> for concatenated reads — ideally close to 1.0, meaning the model correctly identifies and splits all concatenated fragments.</li>
+<li><strong>Low edit distances</strong> for fixed-sequence segments (adapters, primers) — these have known sequences, so boundaries should be precise. Variable-length segments (barcodes, UMIs) may have slightly higher distances due to sequencing errors.</li>
+<li><strong>F1 scores above 0.95</strong> for most segments — values below this may indicate the model struggles with a particular segment type.</li>
+</ul>
+</section>
+<section id="comparing-model-variants" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-model-variants">Comparing Model Variants</h2>
+<p>When comparing models trained with different hyperparameters, focus on:</p>
+<ol type="1">
+<li><strong>Segment edit distances</strong> — the most sensitive metric for boundary quality</li>
+<li><strong>Architecture accuracy on concatenated reads</strong> — tests the model’s ability to handle complex read structures</li>
+<li><strong>F1 for low-abundance segments</strong> (e.g., UMIs, short adapters) — these are often the hardest to label correctly</li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -821,14 +1089,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../webpages/model_training/read_simulation.html" class="pagination-link" aria-label="Read Simulation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Read Simulation</span>
+      <a href="../../webpages/model_training/train_model_cli.html" class="pagination-link" aria-label="train-model CLI">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">train-model CLI</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../webpages/model_training/train_model.html" class="pagination-link" aria-label="Model Training">
-        <span class="nav-page-text">Model Training</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

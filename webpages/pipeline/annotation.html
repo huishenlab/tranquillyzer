@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stage 2: Sequencing Error Modeling – Tranquillyzer Documentation</title>
+<title>Annotation – Tranquillyzer Documentation</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -20,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,19 +67,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../webpages/model_training/simulate_data_cli.html" rel="next">
-<link href="../../webpages/model_training/read_simulation.html" rel="prev">
+<link href="../../webpages/pipeline/barcode_demux.html" rel="next">
+<link href="../../webpages/pipeline/preprocessing.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-18d5af81e08cd2e9d850838f73c9a692.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +141,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../webpages/model_training.html" aria-current="page"> 
+    <a class="nav-link active" href="../../webpages/pipeline_guide.html" aria-current="page"> 
+<span class="menu-text">Pipeline Guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../webpages/model_training.html"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
@@ -113,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../webpages/usage.html"> 
-<span class="menu-text">Usage</span></a>
+<span class="menu-text">CLI Reference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../webpages/releases.html"> 
@@ -141,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/model_training/intro_errors.html">2. Introduce Errors</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/pipeline/annotation.html">Annotation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -155,38 +196,56 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training.html" class="sidebar-item-text sidebar-link">
+  <a href="../../webpages/pipeline_guide.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/read_simulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Read Simulation</span></a>
+  <a href="../../webpages/pipeline/preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preprocessing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/intro_errors.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">2. Introduce Errors</span></a>
+  <a href="../../webpages/pipeline/annotation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Annotation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/simulate_data_cli.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">simulate-data CLI</span></a>
+  <a href="../../webpages/pipeline/barcode_demux.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barcode Correction &amp; Demux</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/train_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3./4. Model Training</span></a>
+  <a href="../../webpages/pipeline/align_dedup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alignment &amp; Deduplication</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../webpages/model_training/train_model_cli.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">train-model CLI</span></a>
+  <a href="../../webpages/pipeline/split_bam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BAM Splitting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gene Quantification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/qc_metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QC Metrics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
   </div>
 </li>
     </ul>
@@ -199,9 +258,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#context-aware-noise-introduction" id="toc-context-aware-noise-introduction" class="nav-link active" data-scroll-target="#context-aware-noise-introduction">Context-aware Noise Introduction</a></li>
-  <li><a href="#orientation-augmentation" id="toc-orientation-augmentation" class="nav-link" data-scroll-target="#orientation-augmentation">Orientation Augmentation</a></li>
-  <li><a href="#artifact-simulation" id="toc-artifact-simulation" class="nav-link" data-scroll-target="#artifact-simulation">Artifact Simulation</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#execution-modes" id="toc-execution-modes" class="nav-link" data-scroll-target="#execution-modes">Execution Modes</a>
+  <ul class="collapse">
+  <li><a href="#annotation-only" id="toc-annotation-only" class="nav-link" data-scroll-target="#annotation-only">Annotation Only</a></li>
+  <li><a href="#integrated-annotation-barcode-correction-and-demultiplexing" id="toc-integrated-annotation-barcode-correction-and-demultiplexing" class="nav-link" data-scroll-target="#integrated-annotation-barcode-correction-and-demultiplexing">Integrated Annotation, Barcode Correction, and Demultiplexing</a></li>
+  </ul></li>
+  <li><a href="#concatenated-read-splitting" id="toc-concatenated-read-splitting" class="nav-link" data-scroll-target="#concatenated-read-splitting">Concatenated Read Splitting</a></li>
+  <li><a href="#checkpoint-and-resumability" id="toc-checkpoint-and-resumability" class="nav-link" data-scroll-target="#checkpoint-and-resumability">Checkpoint and Resumability</a></li>
+  <li><a href="#command-line-options" id="toc-command-line-options" class="nav-link" data-scroll-target="#command-line-options">Command Line Options</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
   </ul>
 </nav>
     </div>
@@ -210,7 +276,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stage 2: Sequencing Error Modeling</h1>
+<h1 class="title">Annotation</h1>
 </div>
 
 
@@ -227,23 +293,202 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="context-aware-noise-introduction" class="level1">
-<h1>Context-aware Noise Introduction</h1>
-<p>After generating a clean read and label vector, the simulator introduces base-level errors to approximate ONT/PacBio characteristics. Error operators include:</p>
+<p>The <code>annotate-reads</code> command is the core of <em>Tranquillyzer</em>. It runs the trained deep learning model on preprocessed reads to label every base identifying adapters, barcodes, UMIs, cDNA, polyA/T tails, and other structural elements. It can also perform barcode correction and demultiplexing within the same pass.</p>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>For each read, the model produces a per-base label sequence. <em>Tranquillyzer</em> then:</p>
+<ol type="1">
+<li>Extracts segment boundaries (where each structural element starts and ends)</li>
+<li>Classifies each read as <strong>valid</strong> (matches an expected structure) or <strong>invalid</strong> (malformed/artifact)</li>
+<li>Extracts barcode, UMI, and cDNA sequences from their predicted positions</li>
+<li>Optionally corrects barcodes against a whitelist and assigns cell IDs</li>
+<li>Optionally exports demultiplexed FASTA/FASTQ files</li>
+</ol>
+</section>
+<section id="execution-modes" class="level1">
+<h1>Execution Modes</h1>
+<section id="annotation-only" class="level2">
+<h2 class="anchored" data-anchor-id="annotation-only">Annotation Only</h2>
+<p>Use this when you do not have a whitelist, or want to run barcode correction as a separate step later (e.g., in a whitelist-free workflow):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="integrated-annotation-barcode-correction-and-demultiplexing" class="level2">
+<h2 class="anchored" data-anchor-id="integrated-annotation-barcode-correction-and-demultiplexing">Integrated Annotation, Barcode Correction, and Demultiplexing</h2>
+<p>Use this when you have a whitelist and want the fastest path to demultiplexed reads:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> annotate-reads <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model-name</span> 10x3p_sc_ont_013 <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gpu-mem</span> 48 <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 12 <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-barcode-correction</span> <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--run-demux</span> <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-fmt</span> fasta <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    WHITELIST_FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This runs annotation, barcode correction, and demultiplexing in a single pass. Barcode correction and demux happen in the post-processing workers concurrently with GPU inference on the next batch.</p>
+</section>
+</section>
+<section id="concatenated-read-splitting" class="level1">
+<h1>Concatenated Read Splitting</h1>
+<p>Nanopore sequencing can produce reads where multiple cDNA molecules are concatenated together. The <code>--split-concatenated</code> flag tells <em>Tranquillyzer</em> to detect these and split them into separate valid entries, each with its own barcode and demux record. This is used internally by <code>assess-model</code> and can be useful for datasets with high concatenation rates.</p>
+</section>
+<section id="checkpoint-and-resumability" class="level1">
+<h1>Checkpoint and Resumability</h1>
+<p>Annotation is chunk-based and fully resumable. If a run is interrupted, restarting with the same command will automatically pick up from the last completed chunk. Progress is tracked in a checkpoint file under <code>checkpoints/</code>.</p>
+</section>
+<section id="command-line-options" class="level1">
+<h1>Command Line Options</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th style="text-align: center;">Default</th>
+<th>Description</th>
+<th>When to change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>OUTPUT_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Base output directory</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>WHITELIST_FILE</code></td>
+<td style="text-align: center;">optional</td>
+<td>Barcode whitelist TSV</td>
+<td>Required if using <code>--run-barcode-correction</code></td>
+</tr>
+<tr class="odd">
+<td><code>--model-name</code></td>
+<td style="text-align: center;"><code>10x3p_sc_ont_013</code></td>
+<td>Model to use for inference</td>
+<td>Set to match your protocol</td>
+</tr>
+<tr class="even">
+<td><code>--seq-order-file</code></td>
+<td style="text-align: center;"><code>utils/seq_orders.yaml</code></td>
+<td>Library definition file</td>
+<td>Only if using a custom file</td>
+</tr>
+<tr class="odd">
+<td><code>--gpu-mem</code></td>
+<td style="text-align: center;">12 GB</td>
+<td>GPU memory budget</td>
+<td>Always set to your actual VRAM</td>
+</tr>
+<tr class="even">
+<td><code>--target-tokens</code></td>
+<td style="text-align: center;">1,200,000</td>
+<td>Token budget per GPU</td>
+<td>See <a href="resource_requirements.qmd">Resource Requirements</a></td>
+</tr>
+<tr class="odd">
+<td><code>--vram-headroom</code></td>
+<td style="text-align: center;">0.35</td>
+<td>VRAM safety buffer fraction</td>
+<td>Increase if hitting OOM</td>
+</tr>
+<tr class="even">
+<td><code>--token-cap-above</code></td>
+<td style="text-align: center;">0</td>
+<td>Two-tier batching threshold</td>
+<td>See <a href="resource_requirements.qmd">Resource Requirements</a></td>
+</tr>
+<tr class="odd">
+<td><code>--min-batch-size</code></td>
+<td style="text-align: center;">1</td>
+<td>Batch size floor per GPU</td>
+<td>Rarely needs changing</td>
+</tr>
+<tr class="even">
+<td><code>--max-batch-size</code></td>
+<td style="text-align: center;">8,192</td>
+<td>Batch size ceiling per GPU</td>
+<td>Increase on high-VRAM GPUs</td>
+</tr>
+<tr class="odd">
+<td><code>--run-barcode-correction</code></td>
+<td style="text-align: center;">off</td>
+<td>Enable integrated barcode correction</td>
+<td>Enable for whitelist-based workflows</td>
+</tr>
+<tr class="even">
+<td><code>--bc-lv-threshold</code></td>
+<td style="text-align: center;">2</td>
+<td>Levenshtein distance for fuzzy matching</td>
+<td>Increase if barcodes are very noisy</td>
+</tr>
+<tr class="odd">
+<td><code>--run-demux</code></td>
+<td style="text-align: center;">off</td>
+<td>Enable integrated demultiplexing</td>
+<td>Enable to get demuxed FASTA/FASTQ</td>
+</tr>
+<tr class="even">
+<td><code>--output-fmt</code></td>
+<td style="text-align: center;"><code>fasta</code></td>
+<td>Demux output format</td>
+<td>Use <code>fastq</code> if you need quality scores</td>
+</tr>
+<tr class="odd">
+<td><code>--include-barcode-quals</code></td>
+<td style="text-align: center;">off</td>
+<td>Append barcode quality scores to headers</td>
+<td>Enable for downstream QC</td>
+</tr>
+<tr class="even">
+<td><code>--include-polya</code></td>
+<td style="text-align: center;">off</td>
+<td>Append polyA/T tail to demuxed reads</td>
+<td>Enable if polyA is needed downstream</td>
+</tr>
+<tr class="odd">
+<td><code>--split-concatenated</code></td>
+<td style="text-align: center;">off</td>
+<td>Split concatenated reads into fragments</td>
+<td>Enable for high-concatenation datasets</td>
+</tr>
+<tr class="even">
+<td><code>--chunk-size</code></td>
+<td style="text-align: center;">100,000</td>
+<td>Rows per processing chunk</td>
+<td>Rarely needs changing</td>
+</tr>
+<tr class="odd">
+<td><code>--threads</code></td>
+<td style="text-align: center;">12</td>
+<td>CPU threads for post-processing</td>
+<td>Match your available cores</td>
+</tr>
+<tr class="even">
+<td><code>--max-queue-size</code></td>
+<td style="text-align: center;">3</td>
+<td>Max chunks buffered for workers</td>
+<td>Rarely needs changing</td>
+</tr>
+<tr class="odd">
+<td><code>--resume</code> / <code>--no-resume</code></td>
+<td style="text-align: center;"><code>--resume</code></td>
+<td>Resume from checkpoint</td>
+<td>Disable to force full re-run</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="output" class="level1">
+<h1>Output</h1>
 <ul>
-<li>mismatches (<code>--mismatch-rate</code>)</li>
-<li>insertions (<code>--insertion-rate</code>, bounded by <code>--max-insertions</code>)</li>
-<li>deletions (<code>--deletion-rate</code>)</li>
+<li><strong><code>annotation_metadata/annotations_valid.parquet</code></strong>:valid reads with segment coordinates and sequences</li>
+<li><strong><code>annotation_metadata/annotations_invalid.parquet</code></strong>:reads that did not match any valid structure</li>
+<li><strong><code>demuxed_fasta/demuxed.fasta.gz</code></strong>:demultiplexed reads (if <code>--run-demux</code>)</li>
+<li><strong><code>demuxed_fasta/ambiguous.fasta.gz</code></strong>:reads with ambiguous barcode matches (if <code>--run-demux</code>)</li>
+<li><strong><code>annotation_metadata/annotations_valid_bc_corrected.parquet</code></strong>:barcode-corrected annotations (if <code>--run-barcode-correction</code>)</li>
 </ul>
-<p>Error rates are applied in a label-dependent manner. In the default implementation, polyA/polyT segments use a distinct error rate (<code>--polyt-error-rate</code>) that reflects homopolymer instability, while other segments use the provided global rates. This allows protocol-induced homopolymers to exhibit distinct noise properties without corrupting structured motifs beyond what is intended by the simulation.</p>
-</section>
-<section id="orientation-augmentation" class="level1">
-<h1>Orientation Augmentation</h1>
-<p>Optionally, the reverse complement of each read can be generated (<code>--rc</code>), with labels reversed accordingly. This augmentation improves robustness to strand orientation and is particularly useful for datasets with mixed orientation or uncertain strand assignment.</p>
-</section>
-<section id="artifact-simulation" class="level1">
-<h1>Artifact Simulation</h1>
-<p>To increase robustness to real-world failure modes, a user-controlled fraction of reads (<code>--invalid-fraction</code>) are simulated as structurally invalid or artifactual. Supported artifact modes include read concatenation, repeated adapter blocks at the 5′ (or 3′) end, and truncations from either end. Optionally, strand inversions or reverse complements may be included during concatenation. Invalid reads in the simulated dataset reduces overconfident labeling of malformed inputs and improves downstream filtering and diagnostics.</p>
 
 
 </section>
@@ -651,13 +896,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../webpages/model_training/read_simulation.html" class="pagination-link" aria-label="1. Read Simulation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. Read Simulation</span>
+      <a href="../../webpages/pipeline/preprocessing.html" class="pagination-link" aria-label="Preprocessing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preprocessing</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../webpages/model_training/simulate_data_cli.html" class="pagination-link" aria-label="simulate-data CLI">
-        <span class="nav-page-text">simulate-data CLI</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../webpages/pipeline/barcode_demux.html" class="pagination-link" aria-label="Barcode Correction &amp; Demux">
+        <span class="nav-page-text">Barcode Correction &amp; Demux</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

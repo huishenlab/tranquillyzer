@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tranquillyzer Overview – Tranquillyzer Documentation</title>
+<title>Gene Quantification – Tranquillyzer Documentation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,25 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../webpages/pipeline/qc_metrics.html" rel="next">
+<link href="../../webpages/pipeline/split_bam.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,17 +108,17 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tranquillyzer Documentation</span>
     </a>
   </div>
@@ -92,39 +129,39 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/install.html"> 
+    <a class="nav-link" href="../../webpages/install.html"> 
 <span class="menu-text">Install</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/quick_start.html"> 
+    <a class="nav-link" href="../../webpages/quick_start.html"> 
 <span class="menu-text">Quick Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/pipeline_guide.html"> 
+    <a class="nav-link active" href="../../webpages/pipeline_guide.html" aria-current="page"> 
 <span class="menu-text">Pipeline Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/model_training.html"> 
+    <a class="nav-link" href="../../webpages/model_training.html"> 
 <span class="menu-text">Model Training</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/resource_requirements.html"> 
+    <a class="nav-link" href="../../webpages/resource_requirements.html"> 
 <span class="menu-text">Resource Requirements</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/usage.html"> 
+    <a class="nav-link" href="../../webpages/usage.html"> 
 <span class="menu-text">CLI Reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/releases.html"> 
+    <a class="nav-link" href="../../webpages/releases.html"> 
 <span class="menu-text">Releases</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./webpages/contributing.html"> 
+    <a class="nav-link" href="../../webpages/contributing.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
@@ -140,32 +177,92 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../webpages/pipeline/featurecounts.html">Gene Quantification</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/preprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preprocessing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/barcode_demux.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barcode Correction &amp; Demux</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/align_dedup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Alignment &amp; Deduplication</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/split_bam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BAM Splitting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/featurecounts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Gene Quantification</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/qc_metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QC Metrics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../webpages/pipeline/visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualization</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#citation" id="toc-citation" class="nav-link active" data-scroll-target="#citation">Citation</a>
-  <ul class="collapse">
-  <li><a href="#biorxiv" id="toc-biorxiv" class="nav-link" data-scroll-target="#biorxiv">bioRxiv</a></li>
-  </ul></li>
-  <li><a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start">Quick Start</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#overview-of-tranquillyzer" id="toc-overview-of-tranquillyzer" class="nav-link" data-scroll-target="#overview-of-tranquillyzer">Overview of Tranquillyzer</a>
-  <ul class="collapse">
-  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a></li>
-  <li><a href="#read-annotation-and-demultiplexing" id="toc-read-annotation-and-demultiplexing" class="nav-link" data-scroll-target="#read-annotation-and-demultiplexing">Read Annotation and Demultiplexing</a></li>
-  <li><a href="#duplicate-marking" id="toc-duplicate-marking" class="nav-link" data-scroll-target="#duplicate-marking">Duplicate Marking</a></li>
-  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
-  </ul></li>
-  <li><a href="#issues" id="toc-issues" class="nav-link" data-scroll-target="#issues">Issues</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#disclosure-of-ai-assisted-development" id="toc-disclosure-of-ai-assisted-development" class="nav-link" data-scroll-target="#disclosure-of-ai-assisted-development">Disclosure of AI-Assisted Development</a></li>
+  <li><a href="#featurecounts-availability" id="toc-featurecounts-availability" class="nav-link active" data-scroll-target="#featurecounts-availability">featureCounts Availability</a></li>
+  <li><a href="#batched-execution" id="toc-batched-execution" class="nav-link" data-scroll-target="#batched-execution">Batched Execution</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#command-line-options" id="toc-command-line-options" class="nav-link" data-scroll-target="#command-line-options">Command Line Options</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
   </ul>
 </nav>
     </div>
@@ -174,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tranquillyzer Overview</h1>
+<h1 class="title">Gene Quantification</h1>
 </div>
 
 
@@ -191,66 +288,131 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><b>PLEASE BE AWARE THAT THIS WEBSITE IS UNDER ACTIVE DEVELOPMENT AND MAY CHANGE DRASTICALLY FROM DAY TO DAY. IF YOU NEED A MORE STABLE VERSION PLEASE CHECK BACK IN A MONTH.</b></p>
-<p>Tranquillyzer (<b>TRAN</b>script <b>QU</b>antification <b>I</b>n <b>L</b>ong reads-ana<b>LYZER</b>) is a flexible, architecture-aware deep learning framework for processing long-read single-cell RNA-seq (scRNA-seq) data. It employs a hybrid neural network architecture and a global, context-aware design that enables the precise identification of structural elements. In addition to supporting established single-cell protocols (e.g., the 10x Chromium Single Cell 3’ Gene Expression protocol), Tranquillyzer accommodates custom library formats through rapid, one-time model training on user-defined label schemas. Model training for both established and custom protocols can be typically completed within a few hours on standard GPUs.</p>
-<p>For a detailed description of the framework, benchmarking results, and application to real datasets, please refer to the <a href="https://www.biorxiv.org/content/10.1101/2025.07.25.666829v1">preprint</a>.</p>
-<section id="citation" class="level1">
-<h1>Citation</h1>
-<section id="biorxiv" class="level3">
-<h3 class="anchored" data-anchor-id="biorxiv">bioRxiv</h3>
-<pre><code>Tranquillyzer: A Flexible Neural Network Framework for Structural Annotation and
-Demultiplexing of Long-Read Transcriptomes. Ayush Semwal, Jacob Morrison, Ian
-Beddows, Theron Palmer, Mary F. Majewski, H. Josh Jang, Benjamin K. Johnson, Hui
-Shen. bioRxiv 2025.07.25.666829; doi: https://doi.org/10.1101/2025.07.25.666829.</code></pre>
+<p>The <code>featurecounts</code> command runs <a href="http://subread.sourceforge.net/">featureCounts</a> (from the Subread package) over per-cell BAM files produced by <code>split-bam</code> and merges the results into a single gene-by-cell counts matrix. Its primary purpose is to provide a quick, lightweight QC on relevant metrics — the counts matrix feeds directly into <a href="../../webpages/pipeline/qc_metrics.html"><code>qc-metrics</code></a> for per-cell gene detection counts, mitochondrial/ribosomal fractions, library complexity plots, and featureCounts assignment summaries, without requiring a separate quantification pipeline.</p>
+<section id="featurecounts-availability" class="level1">
+<h1>featureCounts Availability</h1>
+<p>featureCounts (Subread v2.0.6) is bundled with <em>Tranquillyzer</em> — no additional installation or container setup is needed. This version is pinned because certain other featureCounts releases exhibit unexpected behavior during quantification.</p>
+<p>When <em>Tranquillyzer</em> detects that <code>featureCounts</code> is already available on <code>$PATH</code> (as it will be in both conda-based and container-based installations), it runs the binary directly without any container overhead. If <code>featureCounts</code> is not found on <code>$PATH</code>, <em>Tranquillyzer</em> falls back to pulling a container image (<code>varishenlab/featurecounts:subread2.0.6_py3.10.12</code> from <a href="https://hub.docker.com/r/varishenlab/featurecounts">Docker Hub</a>) via the first available container runtime (Apptainer, Singularity, or Docker). This fallback exists for edge cases where Subread was not installed alongside <em>Tranquillyzer</em>.</p>
+<p>For advanced use cases requiring a different featureCounts version, the <code>--container-runtime</code> and <code>--container-image</code> options allow running an alternative image explicitly.</p>
 </section>
+<section id="batched-execution" class="level1">
+<h1>Batched Execution</h1>
+<p>Large single-cell experiments can produce thousands of per-cell BAM files. Running featureCounts on all of them in a single invocation can fail or become unwieldy, so <em>Tranquillyzer</em> splits the BAMs into batches (default 200 BAMs per batch, configurable with <code>--batch-size</code>). If a batch fails, it is automatically bisected and retried with progressively smaller groups until the failing BAMs are isolated. After all batches complete, the per-batch count tables are merged into a single gene-by-cell counts matrix.</p>
 </section>
-<section id="quick-start" class="level1">
-<h1>Quick Start</h1>
-<p>For a guide to getting started with Tranquillyzer, see the <a href="./webpages/quick_start.html">Quick Start guide</a>.</p>
+<section id="usage" class="level1">
+<h1>Usage</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tranquillyzer</span> featurecounts <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 8 <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    SPLIT_BAM_DIR <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ANNOTATION.gtf <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    OUTPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="installation" class="level1">
-<h1>Installation</h1>
-<p>Tranquillyzer is available through a variety of methods. See the <a href="./webpages/install.html">Installation</a> page for details.</p>
+<section id="command-line-options" class="level1">
+<h1>Command Line Options</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th style="text-align: center;">Default</th>
+<th>Description</th>
+<th>When to change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>BAM_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Directory containing per-cell BAMs (output of <code>split-bam</code>)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>GTF</code></td>
+<td style="text-align: center;">required</td>
+<td>GTF annotation file passed to featureCounts (<code>-a</code>)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>OUT_DIR</code></td>
+<td style="text-align: center;">required</td>
+<td>Output directory for batch results and merged matrix</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>--container-runtime</code></td>
+<td style="text-align: center;"><code>auto</code></td>
+<td>Container runtime: <code>auto</code>, <code>apptainer</code>, <code>singularity</code>, <code>docker</code>, or <code>native</code></td>
+<td>Normally not needed — auto-detects the bundled binary. Set to force a specific runtime.</td>
+</tr>
+<tr class="odd">
+<td><code>--container-image</code></td>
+<td style="text-align: center;"><code>varishenlab/featurecounts:subread2.0.6_py3.10.12</code></td>
+<td>Container image (used only when running via a container runtime)</td>
+<td>Override to use a different featureCounts version</td>
+</tr>
+<tr class="even">
+<td><code>--image-cache</code></td>
+<td style="text-align: center;"><code>&lt;package_dir&gt;/container_images/</code></td>
+<td>Directory to cache pulled SIF images</td>
+<td>Set to a writable path if the default location is read-only</td>
+</tr>
+<tr class="odd">
+<td><code>--bind</code></td>
+<td style="text-align: center;">None</td>
+<td>Comma-separated extra bind paths for the container</td>
+<td>Add paths the container needs beyond the input/output directories</td>
+</tr>
+<tr class="even">
+<td><code>--batch-size</code></td>
+<td style="text-align: center;">200</td>
+<td>Number of BAMs per featureCounts call</td>
+<td>Decrease if featureCounts runs out of memory</td>
+</tr>
+<tr class="odd">
+<td><code>--threads</code></td>
+<td style="text-align: center;">8</td>
+<td>Total threads (split across workers)</td>
+<td>Match your available cores</td>
+</tr>
+<tr class="even">
+<td><code>--workers</code></td>
+<td style="text-align: center;">1</td>
+<td>Parallel featureCounts batches</td>
+<td>Increase to run multiple batches concurrently</td>
+</tr>
+<tr class="odd">
+<td><code>--extra</code></td>
+<td style="text-align: center;"><code>-t exon -g gene_id -O</code></td>
+<td>Extra arguments passed to featureCounts</td>
+<td>Add <code>-s 1</code> or <code>-s 2</code> for stranded libraries</td>
+</tr>
+<tr class="even">
+<td><code>--matrix-name</code></td>
+<td style="text-align: center;"><code>counts_matrix.tsv</code></td>
+<td>Filename for the merged counts matrix</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>--no-run</code></td>
+<td style="text-align: center;">off</td>
+<td>Skip running featureCounts; merge existing batch outputs only</td>
+<td>Use to re-merge after manual batch fixes</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="overview-of-tranquillyzer" class="level1">
-<h1>Overview of Tranquillyzer</h1>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="tranquillyzer_schema.png" class="img-fluid figure-img"></p>
-<figcaption>Tranquillyzer Overview</figcaption>
-</figure>
-</div>
-<section id="preprocessing" class="level2">
-<h2 class="anchored" data-anchor-id="preprocessing">Preprocessing</h2>
-<p>Tranquillyzer implements a parallelized binning strategy that sorts reads into discrete bins based on their length (e.g., 0-499 bp, 500-999 bp, and so on) and then writes each bin to its own Parquet file. For long reads (above a configurable threshold), bin widths automatically widen to coarser tiers, and optionally, adjacent sparsely populated bins can be merged to reduce processing overhead. This strategy ensures that reads of similar lengths are grouped together, minimizing unnecessary padding and optimizing GPU memory consumption. In parallel, Tranquillyzer generates a lightweight index that maps each read to its corresponding bin. This index enables rapid retrieval of individual reads for targeted visualization or debugging via the <code>visualize</code> subcommand and eliminates reloading the full dataset.</p>
-</section>
-<section id="read-annotation-and-demultiplexing" class="level2">
-<h2 class="anchored" data-anchor-id="read-annotation-and-demultiplexing">Read Annotation and Demultiplexing</h2>
-<p>Reads are annotated in batches pulled from the Parquet files of similarly-sized reads generated during preprocessing. For each file, the batch size is dynamically scaled based on the average read length to balance memory usage and throughput. Once batched and encoded (i.e., converting A/C/G/T/N bases into numeric values), reads are passed through the trained model to infer base-wise label sequences to enable the identification of key structural components such as adapters, cell barcodes (CBCs), unique molecular identifiers (UMIs), cDNA regions, and polyA/T tails.</p>
-<p>Model inference is distributed across all available GPU cores to process batches concurrently across devices. As each batch completes the inference phase, its predictions are offloaded to a pool of CPU threads, configured via a user-defined threads parameter, for postprocessing. This stage includes label decoding, structural validation, barcode correction, and demultiplexing. From the per-base annotations, continguous regions are aggregated to identify structural components within each read (e.g., adapters, CBCs/UMIs, or RNA inserts). The structural validity of each read is assessed by comparing the predicted order against a protocol-specific label sequence defined in a tab-delimited text file. Reads that conform to the expected structure are marked as valid; those that do not are flagged as invalid.</p>
-<p>For structurally valid reads, annotated barcodes are compared against a provided whitelist using the Levenshtein edit distance (ED). Reads with a unique match within a user-defined threshold (default: ED &lt;= 2) are assigned the corresponding barcode, while those that fail to match or yield multiple equally close matches are labeled as ambiguous. In parallel, RNA insert sequences from structurally valid reads with successfully assigned barcodes are written <code>demuxed.fasta</code> file, with the corrected CBC embedded in the FASTA header for compatibility with downstream alignment and quantification pipelines. Reads with a valid structural layout but no confidently assigned barcode are instead saved to <code>ambiguous.fasta</code> for further inspection and/or potential rescue.</p>
-</section>
-<section id="duplicate-marking" class="level2">
-<h2 class="anchored" data-anchor-id="duplicate-marking">Duplicate Marking</h2>
-<p>The successfully demultiplexed reads (i.e., those in <code>demuxed.fasta</code>) are next aligned to a user-specified reference genome using <code>minimap2</code> with spliced alignment settings. Mapped reads are coordinate-sorted into an output BAM file, while unmapped reads are discarded. To perform duplicate marking, reads with similar start and end genomic positions and identical strand orientation and cell barcode are compared for UMI similarity. Reads with similar UMIs (have an ED &lt;= a user-defined threshold) are defined as duplicates. One read is retained as the “original” read, and the other reads are marked as duplicate reads by setting standard SAM auxiliary tags and applying the “read is PCR or optical duplicate” flag. The filters used to define duplicates are configurable so users may relax or tighten these constraints depending on their experimental design or tolerance for false positives.</p>
-<p>Deduplication is done in parallel across genomic regions. Temporary BAM files are generated for each genomic region and then merged into final duplicate-marked output BAM once each region has been processed. The output file can then be post-processed using tools such as <code>samtools</code> for downstream filtering and analysis.</p>
-</section>
-<section id="visualization" class="level2">
-<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
-<p>Tranquillyzer produces detailed, color-coded visualizations of read annotations. These figures label individual structural elements such as adapter sequences, polyA/T tails, cell barcodes, UMIs, and cDNA regions to quickly explore a read’s architecture.</p>
-</section>
-</section>
-<section id="issues" class="level1">
-<h1>Issues</h1>
-<p>Issues can be opened on GitHub: <a href="https://github.com/huishenlab/tranquillyzer/issues" class="uri">https://github.com/huishenlab/tranquillyzer/issues</a>.</p>
-</section>
-<section id="acknowledgements" class="level1">
-<h1>Acknowledgements</h1>
-<p>This work was supported by Van Andel Research Institute start-up funding and National Institutes of Health [UM1DA058219] to Hui Shen. Computation for the work described in this paper was supported by the High-Performance Cluster and Cloud Computing (HPC3) Resource at the Van Andel Research Institute.</p>
-</section>
-<section id="disclosure-of-ai-assisted-development" class="level1">
-<h1>Disclosure of AI-Assisted Development</h1>
-<p>During the preparation of this work the authors used ChatGPT (OpenAI) and AI-based software development tools to assist with language refinement and code debugging. The authors developed and verified all scientific content, interpretation and conclusions.</p>
+<section id="output" class="level1">
+<h1>Output</h1>
+<ul>
+<li><strong><code>&lt;OUT_DIR&gt;/counts_matrix.tsv</code></strong>: merged gene-by-cell counts matrix (rows = genes, columns = cells)</li>
+<li><strong><code>&lt;OUT_DIR&gt;/batches/featurecounts_batch*.txt</code></strong>: individual batch outputs from featureCounts</li>
+</ul>
+<p>The counts matrix can be passed directly to <a href="../../webpages/pipeline/qc_metrics.html"><code>qc-metrics --counts-matrix</code></a> for gene-level QC plots.</p>
 
 
 </section>
@@ -656,6 +818,18 @@ Shen. bioRxiv 2025.07.25.666829; doi: https://doi.org/10.1101/2025.07.25.666829.
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../webpages/pipeline/split_bam.html" class="pagination-link" aria-label="BAM Splitting">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">BAM Splitting</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../webpages/pipeline/qc_metrics.html" class="pagination-link" aria-label="QC Metrics">
+        <span class="nav-page-text">QC Metrics</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
