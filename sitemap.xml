@@ -2,94 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/index.html</loc>
-    <lastmod>2026-04-17T14:38:22.519Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.276Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/assess_model.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/simulate_data_cli.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/install.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/contributing.html</loc>
-    <lastmod>2026-04-17T14:38:22.520Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.276Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/resource_requirements.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/split_bam.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/visualization.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/align_dedup.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/preprocessing.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/barcode_demux.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/featurecounts.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/qc_metrics.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline/annotation.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/quick_start.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/usage.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/pipeline_guide.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/read_simulation.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/train_model_cli.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/model_training/train_model.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.278Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/webpages/releases.html</loc>
-    <lastmod>2026-04-17T14:38:22.522Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.279Z</lastmod>
   </url>
   <url>
     <loc>https://huishenlab.github.io/tranquillyzer/about.html</loc>
-    <lastmod>2026-04-17T14:38:22.519Z</lastmod>
+    <lastmod>2026-04-17T18:22:32.276Z</lastmod>
   </url>
 </urlset>
