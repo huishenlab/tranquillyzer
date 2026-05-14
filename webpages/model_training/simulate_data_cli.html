@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-e38d1d364fb80883e1849668129220ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -393,6 +393,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: center;">0.3</td>
 <td style="text-align: left;">Fraction of reads generated as structurally invalid artifacts</td>
 <td style="text-align: left;">Increase if your data has many malformed reads</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--min-spacer</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Minimum length of random cDNA spacer between concatenated fragments</td>
+<td style="text-align: left;">Rarely changed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--max-spacer</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: left;">Maximum length of random cDNA spacer between concatenated fragments</td>
+<td style="text-align: left;">Raise to cover longer real chimeric junctions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--min-flank</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Minimum length of random cDNA flank at each terminal end of a read</td>
+<td style="text-align: left;">Rarely changed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--max-flank</code></td>
+<td style="text-align: center;">INT</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: left;">Maximum length of random cDNA flank at each terminal end of a read</td>
+<td style="text-align: left;">Raise (e.g.&nbsp;200–300) to cover real ONT adapter-flank lengths and reduce edge false positives</td>
 </tr>
 </tbody>
 </table>

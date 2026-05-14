@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e38d1d364fb80883e1849668129220ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -218,7 +218,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#what-if-my-gpu-is-not-listed" id="toc-what-if-my-gpu-is-not-listed" class="nav-link" data-scroll-target="#what-if-my-gpu-is-not-listed">What if my GPU is not listed?</a></li>
   </ul></li>
-  <li><a href="#how-tranquillyzer-uses-gpu" id="toc-how-tranquillyzer-uses-gpu" class="nav-link" data-scroll-target="#how-tranquillyzer-uses-gpu">How <em>Tranquillyzer</em> Uses GPU</a>
+  <li><a href="#how-tranquillyzer-uses-gpu" id="toc-how-tranquillyzer-uses-gpu" class="nav-link" data-scroll-target="#how-tranquillyzer-uses-gpu">How Tranquillyzer Uses GPU</a>
   <ul class="collapse">
   <li><a href="#grouping-reads-by-length" id="toc-grouping-reads-by-length" class="nav-link" data-scroll-target="#grouping-reads-by-length">Grouping Reads by Length</a>
   <ul class="collapse">
@@ -242,6 +242,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#resolving-out-of-memory-errors" id="toc-resolving-out-of-memory-errors" class="nav-link" data-scroll-target="#resolving-out-of-memory-errors">Resolving Out-of-Memory Errors</a></li>
   <li><a href="#maximizing-throughput" id="toc-maximizing-throughput" class="nav-link" data-scroll-target="#maximizing-throughput">Maximizing Throughput</a></li>
+  <li><a href="#tuning---max-batch-size" id="toc-tuning---max-batch-size" class="nav-link" data-scroll-target="#tuning---max-batch-size">Tuning <code>--max-batch-size</code></a></li>
   <li><a href="#heterogeneous-multi-gpu-setups" id="toc-heterogeneous-multi-gpu-setups" class="nav-link" data-scroll-target="#heterogeneous-multi-gpu-setups">Heterogeneous Multi-GPU Setups</a></li>
   </ul></li>
   </ul></li>
@@ -250,7 +251,7 @@ window.Quarto = {
   <li><a href="#model-configuration-used-for-estimates" id="toc-model-configuration-used-for-estimates" class="nav-link" data-scroll-target="#model-configuration-used-for-estimates">Model Configuration Used for Estimates</a></li>
   <li><a href="#how-feasibility-limits-are-computed" id="toc-how-feasibility-limits-are-computed" class="nav-link" data-scroll-target="#how-feasibility-limits-are-computed">How Feasibility Limits Are Computed</a>
   <ul class="collapse">
-  <li><a href="#empirical-anchor" id="toc-empirical-anchor" class="nav-link" data-scroll-target="#empirical-anchor">Empirical anchor</a></li>
+  <li><a href="#empirical-anchor-10x3p_sc_ont_016" id="toc-empirical-anchor-10x3p_sc_ont_016" class="nav-link" data-scroll-target="#empirical-anchor-10x3p_sc_ont_016">Empirical anchor (<code>10x3p_sc_ont_016</code>)</a></li>
   <li><a href="#scaling-to-other-gpus" id="toc-scaling-to-other-gpus" class="nav-link" data-scroll-target="#scaling-to-other-gpus">Scaling to other GPUs</a></li>
   <li><a href="#why-empirical-scaling-rather-than-analytical-calculation" id="toc-why-empirical-scaling-rather-than-analytical-calculation" class="nav-link" data-scroll-target="#why-empirical-scaling-rather-than-analytical-calculation">Why empirical scaling rather than analytical calculation?</a></li>
   </ul></li>
@@ -287,8 +288,21 @@ window.Quarto = {
 <section id="gpu-memory-requirement" class="level1">
 <h1>GPU Memory Requirement?</h1>
 <p>The main factor is <strong>read length</strong>: longer reads require more GPU memory. The table below shows the longest read each GPU can handle. If the longest reads in your dataset are shorter than the limit listed for your GPU, you are good to go.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Tentative figures — pending per-GPU benchmarking
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The numbers below are based on a single empirical run on 4× NVIDIA L40S using <code>10x3p_sc_ont_016</code>. The L40S entry is directly measured; all other entries are theoretical scalings using the model’s per-token memory cost. Per-GPU empirical recommendations will be added as we benchmark each architecture; if you have results from your own runs, please open an issue.</p>
+</div>
+</div>
 <table class="table">
-<caption>These limits assume XLA is enabled, <code>--vram-headroom 0.35</code> (the default), and the default model architecture (<code>10x3p_sc_ont_012</code>). <strong>Empirically tested</strong> means the model was directly observed to run at that read length. <strong>Theoretical</strong> values are extrapolated from the empirical measurement (see <a href="#how-feasibility-limits-are-computed">How feasibility limits are computed</a>).</caption>
+<caption>These limits assume <code>--vram-headroom 0.35</code> (the default) and the architecture of <code>10x3p_sc_ont_016</code> (the current default model). <strong>Empirically tested</strong> corresponds to the largest read length directly observed in a production run on that GPU; the actual ceiling is likely higher. <strong>Theoretical</strong> values are extrapolated from the empirical anchor using the model’s per-token memory cost (see <a href="#how-feasibility-limits-are-computed">How feasibility limits are computed</a>).</caption>
 <thead>
 <tr class="header">
 <th>GPU</th>
@@ -301,55 +315,55 @@ window.Quarto = {
 <tr class="odd">
 <td>NVIDIA T4</td>
 <td style="text-align: center;">16</td>
-<td style="text-align: center;">~142,000</td>
+<td style="text-align: center;">~323,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="even">
 <td>NVIDIA L4</td>
 <td style="text-align: center;">24</td>
-<td style="text-align: center;">~212,000</td>
+<td style="text-align: center;">~484,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
 <td>NVIDIA A10</td>
 <td style="text-align: center;">24</td>
-<td style="text-align: center;">~212,000</td>
+<td style="text-align: center;">~484,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="even">
 <td>RTX 3090</td>
 <td style="text-align: center;">24</td>
-<td style="text-align: center;">~212,000</td>
+<td style="text-align: center;">~484,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
 <td>RTX 4090</td>
 <td style="text-align: center;">24</td>
-<td style="text-align: center;">~212,000</td>
+<td style="text-align: center;">~484,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="even">
 <td>NVIDIA A100</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">~354,000</td>
+<td style="text-align: center;">~807,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
 <td><strong>NVIDIA L40S</strong></td>
 <td style="text-align: center;"><strong>48</strong></td>
-<td style="text-align: center;"><strong>~425,000</strong></td>
+<td style="text-align: center;"><strong>~525,000</strong></td>
 <td style="text-align: center;"><strong>Empirically tested</strong></td>
 </tr>
 <tr class="even">
 <td>NVIDIA A100</td>
 <td style="text-align: center;">80</td>
-<td style="text-align: center;">~708,000</td>
+<td style="text-align: center;">~1,615,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 <tr class="odd">
 <td>NVIDIA H100</td>
 <td style="text-align: center;">80</td>
-<td style="text-align: center;">~708,000</td>
+<td style="text-align: center;">~1,615,000</td>
 <td style="text-align: center;">Theoretical</td>
 </tr>
 </tbody>
@@ -364,14 +378,14 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="what-if-my-gpu-is-not-listed">What if my GPU is not listed?</h2>
 <p>You can estimate the maximum read length for any GPU using this rule of thumb:</p>
 <p><span class="math display">\[
-L_{\max} \approx \frac{\text{VRAM (GB)} \times 0.65}{73.4~\text{KB}}
+L_{\max} \approx \frac{\text{VRAM (GB)} \times 0.65}{32.2~\text{KB}}
 \]</span></p>
-<p>For example, a GPU with 32 GB of VRAM: <span class="math inline">\(L_{\max} \approx \frac{32 \times 0.65}{0.0000734} \approx 283{,}000~\text{bp}\)</span>.</p>
-<p>The 0.65 factor comes from the default <code>--vram-headroom</code> of 0.35 (only ~65% of memory is used, the rest is kept as a safety buffer). The 73.4 KB/bp constant is derived from empirical testing on NVIDIA L40S GPUs — see <a href="#how-feasibility-limits-are-computed">Technical Details</a> for the full derivation.</p>
+<p>For example, a GPU with 32 GB of VRAM: <span class="math inline">\(L_{\max} \approx \frac{32 \times 0.65}{0.0000322} \approx 646{,}000~\text{bp}\)</span>.</p>
+<p>The 0.65 factor comes from the default <code>--vram-headroom</code> of 0.35 (only ~65% of memory is used, the rest is kept as a safety buffer). The 32.2 KB/bp constant is derived by scaling an L40S empirical measurement by the per-token memory cost of <code>10x3p_sc_ont_016</code> — see <a href="#how-feasibility-limits-are-computed">Technical Details</a> for the full derivation.</p>
 </section>
 </section>
 <section id="how-tranquillyzer-uses-gpu" class="level1">
-<h1>How <em>Tranquillyzer</em> Uses GPU</h1>
+<h1>How Tranquillyzer Uses GPU</h1>
 <p>You generally do not need to configure GPU settings manually. <em>Tranquillyzer</em> automatically:</p>
 <ol type="1">
 <li>Groups reads by length, so reads in each batch are a similar size</li>
@@ -391,7 +405,7 @@ L = B + 1 + P_{\text{conv}}
 <p><span class="math display">\[
 P_{\text{conv}} = \left\lfloor \frac{\max_i\bigl((k_i - 1) \times d_i\bigr)}{2} \right\rfloor
 \]</span></p>
-<p>For the default model (<code>conv_kernel_sizes = [25, 25, 25]</code>, <code>dilation_rates = [1, 3, 5]</code>), this works out to <span class="math inline">\(P_{\text{conv}} = 60\)</span>. This padding ensures the model can see enough context to correctly label bases near the end of each read.</p>
+<p>For the current default model <code>10x3p_sc_ont_016</code> (<code>conv_kernel_sizes = [25, 25, 25]</code>, <code>dilation_rates = [1, 1, 1]</code>), this works out to <span class="math inline">\(P_{\text{conv}} = 12\)</span>. This padding ensures the model can see enough context to correctly label bases near the end of each read.</p>
 </section>
 <section id="chunks" class="level3">
 <h3 class="anchored" data-anchor-id="chunks">Chunks</h3>
@@ -427,13 +441,13 @@ B_{\text{tokens}} = \left\lfloor \frac{T}{L} \right\rfloor
 <ul>
 <li><strong>Input</strong> (4 bytes): the encoded DNA base (stored as an integer).</li>
 <li><strong>Embedding</strong> (<span class="math inline">\(d_e \times 4\)</span>): the learned vector representation of each base (<span class="math inline">\(d_e\)</span> = 128 by default).</li>
-<li><strong>Conv activations</strong> (<span class="math inline">\(C_f \times 4\)</span>): outputs from the convolutional layers. <span class="math inline">\(C_f\)</span> is the total filter count across all conv layers (128 filters <span class="math inline">\(\times\)</span> 3 layers = 384 for the default model).</li>
-<li><strong>LSTM outputs</strong> (<span class="math inline">\(l_u \times d_{\text{bi}} \times 4\)</span>): outputs from the recurrent layer (<span class="math inline">\(l_u\)</span> = 96 units, <span class="math inline">\(d_{\text{bi}}\)</span> = 2 for bidirectional).</li>
+<li><strong>Conv activations</strong> (<span class="math inline">\(C_f \times 4\)</span>): outputs from the convolutional layers. <span class="math inline">\(C_f\)</span> is the total filter count across all conv layers (64 filters <span class="math inline">\(\times\)</span> 3 layers = 192 for the default model).</li>
+<li><strong>LSTM outputs</strong> (<span class="math inline">\(l_u \times d_{\text{bi}} \times 4\)</span>): outputs from the recurrent layer (<span class="math inline">\(l_u\)</span> = 32 units, <span class="math inline">\(d_{\text{bi}}\)</span> = 2 for bidirectional).</li>
 <li><strong>LSTM gates</strong> (<span class="math inline">\(l_u \times 4 \times d_{\text{bi}} \times 4\)</span>): internal memory used by the four LSTM gates (input, forget, cell, output).</li>
 <li><strong>CRF / output</strong> (<span class="math inline">\(n_l \times 4\)</span>): the final prediction scores for each label (<span class="math inline">\(n_l \approx\)</span> 10 labels).</li>
 <li><strong>Overhead</strong> (<span class="math inline">\(\alpha\)</span> = 1.12): a 12% multiplier to account for TensorFlow’s internal bookkeeping.</li>
 </ul>
-<p>For the default model, this works out to approximately <strong>6,644 bytes per token</strong> (see <a href="#bytes-per-token-estimation-formula">worked example</a>).</p>
+<p>For the default model, this works out to approximately <strong>2,916 bytes per token</strong> (see <a href="#bytes-per-token-estimation-formula">worked example</a>).</p>
 <p>The batch size from the memory check is then:</p>
 <p><span class="math display">\[
 B_{\text{mem}} = \left\lfloor \frac{U}{\text{bpt} \times L} \right\rfloor
@@ -570,12 +584,59 @@ B_{\text{global}} = B_{\text{per GPU}} \times \text{number of GPUs}
 <li><strong>Lower <code>--vram-headroom</code></strong> from 0.35 to 0.20 if you are not seeing any OOM errors. This lets <em>Tranquillyzer</em> use more of your GPU memory for larger batches.</li>
 <li><strong>Set <code>--token-cap-above</code></strong> to a threshold like 5,000. This tells <em>Tranquillyzer</em> to use full GPU capacity (without the token budget constraint) for all bins with reads shorter than 5,000 bp — where OOM is unlikely. Longer bins still use the safer, dual-constraint approach.</li>
 <li><strong>Increase <code>--target-tokens</code></strong> on high-VRAM GPUs (e.g., 1,500,000 or higher on A100/H100) to allow larger batches for longer reads.</li>
+<li><strong>Raise <code>--max-batch-size</code></strong> above the default 8,192 on high-VRAM GPUs (e.g., 20,000 on 48 GB, up to ~32,000 on 80 GB) to unlock larger batches on short-read bins. See <a href="#tuning-max-batch-size">Tuning <code>--max-batch-size</code></a> for guidelines.</li>
 </ul>
+</section>
+<section id="tuning---max-batch-size" class="level3">
+<h3 class="anchored" data-anchor-id="tuning---max-batch-size">Tuning <code>--max-batch-size</code></h3>
+<p><code>--max-batch-size</code> is the per-GPU ceiling on batch size after the token-budget and memory checks have run. On <strong>short-read bins</strong>, GPU memory rarely binds and batch size is determined by either the token budget (default behavior) or <code>--max-batch-size</code> (when <code>--token-cap-above</code> is set). With the default <code>--max-batch-size = 8,192</code>, short bins on high-VRAM GPUs can leave a large portion of GPU compute idle.</p>
+<p>Raising <code>--max-batch-size</code> lets short-read bins use more of the GPU at once. The safe pattern is to combine a higher cap with <code>--token-cap-above</code>, so the cap only takes effect on bins below the threshold:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--max-batch-size</span> 20000 <span class="at">--token-cap-above</span> 10000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Tentative starting points</strong> (subject to per-GPU benchmarking):</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">VRAM</th>
+<th style="text-align: center;">Suggested <code>--max-batch-size</code> (with <code>--token-cap-above 10000</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">16 GB</td>
+<td style="text-align: center;">4,000 – 8,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">24 GB</td>
+<td style="text-align: center;">8,000 – 12,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">40–48 GB</td>
+<td style="text-align: center;">16,000 – 20,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">80 GB</td>
+<td style="text-align: center;">24,000 – 32,000</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These are starting points derived from a single empirical run on 4× L40S (48 GB) — not exhaustive testing. If a chunk contains an outlier long read, an aggressive <code>--max-batch-size</code> can trigger an OOM recovery cycle that is slow. Per-GPU recommendations will be refined as we benchmark each architecture.</p>
+</div>
+</div>
 </section>
 <section id="heterogeneous-multi-gpu-setups" class="level3">
 <h3 class="anchored" data-anchor-id="heterogeneous-multi-gpu-setups">Heterogeneous Multi-GPU Setups</h3>
 <p>Use <code>--gpu-mem</code> with a comma-separated list matching your GPUs. For example, if you have two 48 GB GPUs and one 24 GB GPU:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--gpu-mem</span> 48,48,24</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--gpu-mem</span> 48,48,24</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>Tranquillyzer</em> will compute the per-GPU batch size based on the smallest GPU (24 GB in this case), so all GPUs can handle their share of the work.</p>
 </section>
 </section>
@@ -585,7 +646,7 @@ B_{\text{global}} = B_{\text{per GPU}} \times \text{number of GPUs}
 <p>This section provides the mathematical derivations behind the estimates and algorithms described above. It is optional reading — you do not need to understand these details to use <em>Tranquillyzer</em> effectively.</p>
 <section id="model-configuration-used-for-estimates" class="level2">
 <h2 class="anchored" data-anchor-id="model-configuration-used-for-estimates">Model Configuration Used for Estimates</h2>
-<p>All estimates on this page correspond to the default <strong><em>Tranquillyzer</em> CNN-BiLSTM-CRF</strong> annotation model (<code>10x3p_sc_ont_012</code>) with the following architecture:</p>
+<p>All estimates on this page correspond to the <strong>CNN-BiLSTM-CRF</strong> annotation model <code>10x3p_sc_ont_016</code>, the current default. Its architecture is:</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -604,7 +665,7 @@ B_{\text{global}} = B_{\text{per GPU}} \times \text{number of GPUs}
 </tr>
 <tr class="odd">
 <td><code>conv_filters</code></td>
-<td style="text-align: center;">128</td>
+<td style="text-align: center;">64</td>
 </tr>
 <tr class="even">
 <td><code>conv_kernel_sizes</code></td>
@@ -612,7 +673,7 @@ B_{\text{global}} = B_{\text{per GPU}} \times \text{number of GPUs}
 </tr>
 <tr class="odd">
 <td><code>dilation_rates</code></td>
-<td style="text-align: center;">[1, 3, 5]</td>
+<td style="text-align: center;">[1, 1, 1]</td>
 </tr>
 <tr class="even">
 <td><code>lstm_layers</code></td>
@@ -620,7 +681,7 @@ B_{\text{global}} = B_{\text{per GPU}} \times \text{number of GPUs}
 </tr>
 <tr class="odd">
 <td><code>lstm_units</code></td>
-<td style="text-align: center;">96</td>
+<td style="text-align: center;">32</td>
 </tr>
 <tr class="even">
 <td><code>bidirectional</code></td>
@@ -639,32 +700,25 @@ B_{\text{global}} = B_{\text{per GPU}} \times \text{number of GPUs}
 </section>
 <section id="how-feasibility-limits-are-computed" class="level2">
 <h2 class="anchored" data-anchor-id="how-feasibility-limits-are-computed">How Feasibility Limits Are Computed</h2>
-<p>The GPU feasibility limits in the <a href="#how-much-gpu-memory-do-you-need">table above</a> are derived from a single empirical measurement and then scaled to other GPUs.</p>
-<section id="empirical-anchor" class="level3">
-<h3 class="anchored" data-anchor-id="empirical-anchor">Empirical anchor</h3>
+<p>The GPU feasibility limits in the <a href="#how-much-gpu-memory-do-you-need">table above</a> combine an empirical anchor on the L40S with a theoretical scaling to other GPUs.</p>
+<section id="empirical-anchor-10x3p_sc_ont_016" class="level3">
+<h3 class="anchored" data-anchor-id="empirical-anchor-10x3p_sc_ont_016">Empirical anchor (<code>10x3p_sc_ont_016</code>)</h3>
 <blockquote class="blockquote">
-<p>On a system with <strong>4x NVIDIA L40S GPUs (48 GB VRAM each)</strong> and XLA enabled, <em>Tranquillyzer</em> (model <code>10x3p_sc_ont_012</code>) successfully processed reads of approximately <strong>425 kb</strong> at a per-GPU batch size of 1.</p>
+<p>On a system with <strong>4× NVIDIA L40S GPUs (48 GB VRAM each)</strong>, <em>Tranquillyzer</em> (model <code>10x3p_sc_ont_016</code>) successfully processed reads up to <strong>~525 kb</strong> in a real annotation pipeline run. This is the largest read length directly observed in that run; the actual ceiling on the L40S is likely higher.</p>
 </blockquote>
+<p>The run used <code>--vram-headroom 0.45</code>, <code>--target-tokens 1,100,000</code>, <code>--max-batch-size 20000</code>, and <code>--token-cap-above 10000</code>. With more aggressive settings (lower headroom, larger token budget), capacity can be pushed further.</p>
 </section>
 <section id="scaling-to-other-gpus" class="level3">
 <h3 class="anchored" data-anchor-id="scaling-to-other-gpus">Scaling to other GPUs</h3>
-<p>With the default headroom of 0.35, the usable memory on the L40S is:</p>
+<p><code>10x3p_sc_ont_016</code> has roughly <strong>44%</strong> of the per-token memory cost of its predecessor <code>10x3p_sc_ont_012</code> (see <a href="#bytes-per-token-estimation-formula">bpt table</a>). The 73.4 KB/bp empirical constant derived from a batch-size-1 measurement of <code>10x3p_sc_ont_012</code> on the L40S scales to approximately <strong>32.2 KB/bp</strong> for the current default model:</p>
 <p><span class="math display">\[
-U \approx 48~\text{GB} \times (1 - 0.35) \approx 31.2~\text{GB}
+L_{\max} \approx \frac{\text{VRAM} \times (1 - H)}{32.2~\text{KB}}
 \]</span></p>
-<p>Dividing by the maximum read length gives an effective memory cost per base:</p>
-<p><span class="math display">\[
-k \approx \frac{31.2~\text{GB}}{425{,}000~\text{bp}} \approx 73.4~\text{KB/bp}
-\]</span></p>
-<p>For any GPU, the maximum read length is then approximately:</p>
-<p><span class="math display">\[
-L_{\max} \approx \frac{\text{VRAM} \times (1 - H)}{k}
-\]</span></p>
-<p>where <span class="math inline">\(H\)</span> is the headroom fraction (default 0.35).</p>
+<p>where <span class="math inline">\(H\)</span> is the headroom fraction (default 0.35). This constant assumes overhead scales proportionally with theoretical per-token memory; direct per-GPU empirical confirmation is pending.</p>
 </section>
 <section id="why-empirical-scaling-rather-than-analytical-calculation" class="level3">
 <h3 class="anchored" data-anchor-id="why-empirical-scaling-rather-than-analytical-calculation">Why empirical scaling rather than analytical calculation?</h3>
-<p>GPU memory usage during inference is not just the model activations. It also includes TensorFlow/XLA compilation buffers, memory allocator fragmentation, LSTM internal state, CRF decoding workspace, and other overhead that is difficult to predict analytically. Anchoring to a real measurement captures all of these factors, giving more reliable estimates — especially for ultra-long reads where these overheads become significant.</p>
+<p>GPU memory usage during inference is not just the model activations. It also includes TensorFlow’s cuDNN workspace allocations, memory allocator fragmentation, LSTM internal state, CRF decoding workspace, and other overhead that is difficult to predict analytically. Anchoring to a real measurement captures all of these factors, giving more reliable estimates — especially for ultra-long reads where these overheads become significant.</p>
 </section>
 </section>
 <section id="bytes-per-token-estimation-formula" class="level2">
@@ -704,19 +758,19 @@ L_{\max} \approx \frac{\text{VRAM} \times (1 - H)}{k}
 <tr class="odd">
 <td>Conv</td>
 <td><span class="math inline">\(C_f \times 4\)</span></td>
-<td style="text-align: center;">1,536</td>
-<td>Conv filter outputs (<span class="math inline">\(C_f\)</span> = filters <span class="math inline">\(\times\)</span> layers = 128 <span class="math inline">\(\times\)</span> 3)</td>
+<td style="text-align: center;">768</td>
+<td>Conv filter outputs (<span class="math inline">\(C_f\)</span> = filters <span class="math inline">\(\times\)</span> layers = 64 <span class="math inline">\(\times\)</span> 3)</td>
 </tr>
 <tr class="even">
 <td>LSTM out</td>
 <td><span class="math inline">\(l_u \times d_{\text{bi}} \times 4\)</span></td>
-<td style="text-align: center;">768</td>
-<td>Recurrent layer outputs (96 units <span class="math inline">\(\times\)</span> 2 directions)</td>
+<td style="text-align: center;">256</td>
+<td>Recurrent layer outputs (32 units <span class="math inline">\(\times\)</span> 2 directions)</td>
 </tr>
 <tr class="odd">
 <td>LSTM gates</td>
 <td><span class="math inline">\(l_u \times 4 \times d_{\text{bi}} \times 4\)</span></td>
-<td style="text-align: center;">3,072</td>
+<td style="text-align: center;">1,024</td>
 <td>Four LSTM gates, both directions</td>
 </tr>
 <tr class="even">
@@ -728,7 +782,7 @@ L_{\max} \approx \frac{\text{VRAM} \times (1 - H)}{k}
 <tr class="odd">
 <td><strong>Subtotal</strong></td>
 <td></td>
-<td style="text-align: center;"><strong>5,932</strong></td>
+<td style="text-align: center;"><strong>2,604</strong></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -740,7 +794,7 @@ L_{\max} \approx \frac{\text{VRAM} \times (1 - H)}{k}
 <tr class="odd">
 <td><strong>Total bpt</strong></td>
 <td></td>
-<td style="text-align: center;"><strong>~6,644</strong></td>
+<td style="text-align: center;"><strong>~2,916</strong></td>
 <td><strong>bytes per token</strong></td>
 </tr>
 </tbody>

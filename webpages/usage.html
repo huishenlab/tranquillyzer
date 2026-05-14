@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e38d1d364fb80883e1849668129220ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#overview-2" id="toc-overview-2" class="nav-link" data-scroll-target="#overview-2">Overview</a></li>
   <li><a href="#usage-2" id="toc-usage-2" class="nav-link" data-scroll-target="#usage-2">Usage</a></li>
   <li><a href="#command-line-arguments-2" id="toc-command-line-arguments-2" class="nav-link" data-scroll-target="#command-line-arguments-2">Command Line Arguments</a></li>
-  <li><a href="#x3p-models-10x3p_sc_ont_012-vs-10x3p_sc_ont_013" id="toc-x3p-models-10x3p_sc_ont_012-vs-10x3p_sc_ont_013" class="nav-link" data-scroll-target="#x3p-models-10x3p_sc_ont_012-vs-10x3p_sc_ont_013">10x3p Models: <code>10x3p_sc_ont_012</code> vs <code>10x3p_sc_ont_013</code></a></li>
+  <li><a href="#x3p-models-10x3p_sc_ont_013-vs-10x3p_sc_ont_016" id="toc-x3p-models-10x3p_sc_ont_013-vs-10x3p_sc_ont_016" class="nav-link" data-scroll-target="#x3p-models-10x3p_sc_ont_013-vs-10x3p_sc_ont_016">10x3p Models: <code>10x3p_sc_ont_013</code> vs <code>10x3p_sc_ont_016</code></a></li>
   </ul></li>
   <li><a href="#available-gpus" id="toc-available-gpus" class="nav-link" data-scroll-target="#available-gpus">Available GPUs</a>
   <ul class="collapse">
@@ -380,8 +380,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>--help</code>: Print help message and exit</li>
 </ul>
 </section>
-<section id="x3p-models-10x3p_sc_ont_012-vs-10x3p_sc_ont_013" class="level2">
-<h2 class="anchored" data-anchor-id="x3p-models-10x3p_sc_ont_012-vs-10x3p_sc_ont_013">10x3p Models: <code>10x3p_sc_ont_012</code> vs <code>10x3p_sc_ont_013</code></h2>
+<section id="x3p-models-10x3p_sc_ont_013-vs-10x3p_sc_ont_016" class="level2">
+<h2 class="anchored" data-anchor-id="x3p-models-10x3p_sc_ont_013-vs-10x3p_sc_ont_016">10x3p Models: <code>10x3p_sc_ont_013</code> vs <code>10x3p_sc_ont_016</code></h2>
 <p>Two trained models are available for the 10x Genomics 3’ single-cell ONT protocol. Both are trained on the same library structure and produce the same set of segment labels; they differ only in architecture.</p>
 <table class="caption-top table">
 <colgroup>
@@ -400,27 +400,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>10x3p_sc_ont_012</code></td>
-<td>CNN-BiLSTM-CRF</td>
-<td style="text-align: center;">1 layer, 96 units</td>
-<td>Previous default — includes the BiLSTM for long-range context.</td>
-</tr>
-<tr class="even">
 <td><code>10x3p_sc_ont_013</code></td>
 <td>CNN-CRF (Conv + CRF)</td>
 <td style="text-align: center;">none</td>
-<td><strong>Current default.</strong> BiLSTM removed; annotation accuracy is comparable on typical 10x3p data.</td>
+<td>Previous default — BiLSTM removed for faster inference and easier scaling to very long reads.</td>
+</tr>
+<tr class="even">
+<td><code>10x3p_sc_ont_016</code></td>
+<td>CNN-BiLSTM-CRF</td>
+<td style="text-align: center;">1 layer, 32 units</td>
+<td><strong>Current default.</strong> A small BiLSTM is restored on top of the Conv stack; preferred annotation accuracy on typical 10x3p data.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Why <code>10x3p_sc_ont_013</code> is now the default:</strong></p>
+<p><strong>Why <code>10x3p_sc_ont_016</code> is now the default:</strong></p>
 <ul>
-<li><strong>Faster inference and training.</strong> Dropping the BiLSTM removes a sequential, non-parallelizable layer.</li>
-<li><strong>Lower GPU memory footprint.</strong> Allows larger batch sizes on the same GPU.</li>
-<li><strong>Better scaling to very long reads.</strong> BiLSTM memory grows with sequence length, so removing it makes multi-hundred-kb reads more tractable.</li>
-<li><strong>Comparable accuracy.</strong> For well-structured libraries like 10x3p, where Conv layers capture local motifs and the CRF enforces globally consistent labels, the BiLSTM contributes little in practice.</li>
+<li><strong>Improved annotation accuracy.</strong> The 1×32 BiLSTM adds back enough sequential context to disambiguate boundary cases that the pure Conv+CRF stack of <code>_013</code> sometimes labels inconsistently.</li>
+<li><strong>Minimal added cost.</strong> At only 32 hidden units, the BiLSTM is much smaller than the 96-unit variant in earlier models, so per-batch throughput on typical 10x3p reads stays close to the Conv-only <code>_013</code>.</li>
+<li><strong>Drop-in replacement.</strong> No changes to whitelists, <code>seq_orders.yaml</code>, or downstream steps — just bump <code>--model-name</code>.</li>
 </ul>
-<p><strong>When to prefer <code>10x3p_sc_ont_012</code>:</strong> if you encounter ambiguous motifs or non-standard library variants where long-range context might matter. Otherwise, the lighter <code>_013</code> model is recommended.</p>
 <p>Both models are available from the Dropbox link below and can be selected at runtime with <code>--model-name</code>.</p>
 </section>
 </section>
@@ -467,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <p><strong>Note:</strong> Before running the <code>annotate-reads</code> subcommand, ensure you select the appropriate model for your dataset. Tranquillyzer uses CNN-LSTM-CRF models for annotation.</p>
-<p>Model files follow the naming convention: <code>&lt;model_name&gt;.h5</code>, <code>&lt;model_name&gt;_lbl_bin.pkl</code>, <code>&lt;model_name&gt;_params.yaml</code> (e.g., <code>10x3p_sc_ont_013.h5</code>).</p>
+<p>Model files follow the naming convention: <code>&lt;model_name&gt;.h5</code>, <code>&lt;model_name&gt;_lbl_bin.pkl</code>, <code>&lt;model_name&gt;_params.yaml</code> (e.g., <code>10x3p_sc_ont_016.h5</code>).</p>
 <p>Currently available trained models can be downloaded from <a href="https://www.dropbox.com/scl/fo/3lms8n97bnufzqa4ausv9/AGkO3EVrL1ZgctwEwTK1mEA?rlkey=47m69a6smwsisdznbwu3jvjpu&amp;st=253al7s3&amp;dl=0">this Dropbox link</a> and should be placed in the <code>models/</code> directory within the cloned Tranquillyzer repository.</p>
 <p>If <code>--include-barcode-quals</code> is set with FASTQ output, headers gain a <code>|BQ:</code> tag containing <code>segment:quality</code> pairs for the barcode segments listed in <code>seq_orders.yaml</code>, plus UMI qualities when present (e.g., <code>|BQ:i7:&lt;quals&gt;;i5:&lt;quals&gt;;CBC:&lt;quals&gt;;UMI:&lt;quals&gt;</code>).</p>
 </section>
@@ -488,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Optional Arguments</p>
 <ul>
 <li><code>--output-fmt TEXT</code>: Output format for demultiplexed reads: <code>fasta</code> or <code>fastq</code> (default: <code>fasta</code>)</li>
-<li><code>--model-name TEXT:</code> Base model name (default: <code>10x3p_sc_ont_013</code>)</li>
+<li><code>--model-name TEXT:</code> Base model name (default: <code>10x3p_sc_ont_016</code>)</li>
 <li><code>--seq-order-file TEXT</code>: Path to the sequence orders file. If not provided, uses the default: <code>utils/seq_orders.yaml</code> (default: None)</li>
 <li><code>--chunk-size INTEGER</code>: Base chunk size for processing, dynamically adjusts based on read length (default: 100000)</li>
 <li><code>--gpu-mem TEXT</code>: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., <code>8,16,32</code>). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)</li>
@@ -640,7 +638,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Optional Arguments</p>
 <ul>
 <li><code>--output-file TEXT</code>: Prefix for output file name. <code>.pdf</code> will be added automatically (default: <code>full_read_annots</code>)</li>
-<li><code>--model-name TEXT:</code> Base model name (default: <code>10x3p_sc_ont_013</code>)</li>
+<li><code>--model-name TEXT:</code> Base model name (default: <code>10x3p_sc_ont_016</code>)</li>
 <li><code>--seq-order-file TEXT</code>: Path to the sequence orders file. If not provided, uses the default: <code>utils/seq_orders.yaml</code> (default: None)</li>
 <li><code>--gpu-mem TEXT</code>: Total memory of the GPU in gigabytes (GB). For a single GPU or multiple GPUs with the same memory, specify one integer. If there are multiple GPUs with different memory allocations, specify a comma-separated list (e.g., <code>8,16,32</code>). If not specified and at least one GPU is available, 12 GB will be used by default (default: None)</li>
 <li><code>--target-tokens INTEGER</code>: Approximate token budget <em>per GPU</em> - used to pick a safe batch size. A “token” is one input position after padding (for cDNA: 1 base ~ 1 token). The number of effective tokens per GPU is approximately <code>batch size * padded sequence length</code>. For larger batch sizes (which require more memory), increase this value. If you hit an out-of-memory error, decrease this value. For those running on CPU, this will guide batch size heuristics even though it is not needed in the same way as on a GPU. (default: 1,200,000)</li>

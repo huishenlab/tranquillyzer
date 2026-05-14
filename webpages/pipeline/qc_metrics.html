@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a8881a7b8de13a9a67069009209546.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0ca4f20109337496d33b421e957a6aeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-e38d1d364fb80883e1849668129220ca.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -268,6 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#basic-annotation-only" id="toc-basic-annotation-only" class="nav-link" data-scroll-target="#basic-annotation-only">Basic (Annotation Only)</a></li>
   <li><a href="#with-bam-and-gene-counts" id="toc-with-bam-and-gene-counts" class="nav-link" data-scroll-target="#with-bam-and-gene-counts">With BAM and Gene Counts</a></li>
+  <li><a href="#gene-body-coverage" id="toc-gene-body-coverage" class="nav-link" data-scroll-target="#gene-body-coverage">Gene Body Coverage</a></li>
   </ul></li>
   <li><a href="#command-line-options" id="toc-command-line-options" class="nav-link" data-scroll-target="#command-line-options">Command Line Options</a></li>
   <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
@@ -324,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Unique UMIs per cell</strong></li>
 <li><strong>Mapping rate per cell</strong></li>
 <li><strong>Duplicate rate per cell</strong></li>
-<li><strong>Gene body coverage</strong> (also requires <code>--gtf</code>)</li>
+<li><strong>Gene body coverage</strong> (also requires <code>--gene-body-bed</code>)</li>
 </ul>
 </section>
 <section id="tier-3-gene-quantification-metrics-requires---counts-matrix-and---gtf" class="level2">
@@ -357,7 +358,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bam</span> aligned_files/dup_marked.bam <span class="dt">\</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--counts-matrix</span> counts_matrix.tsv <span class="dt">\</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gtf</span> gencode.v44.annotation.gtf <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gene-body-bed</span> hg38.HouseKeepingGenes.bed.gz <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    INPUT_DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="gene-body-coverage" class="level2">
+<h2 class="anchored" data-anchor-id="gene-body-coverage">Gene Body Coverage</h2>
+<p>The gene body coverage plot follows the <a href="https://rseqc.sourceforge.net/#genebody-coverage-py">RSeQC convention</a>: the user supplies a curated BED12 (one transcript per line) via <code>--gene-body-bed</code>, and each line is treated independently in the pileup. No transcript is auto-picked from the GTF — supplying a curated BED keeps the percentile axis aligned with the canonical mRNA species and avoids artifacts from extended-UTR or retained-intron isoforms. Both plain and gzipped BED12 are accepted.</p>
+<p>Common sources for the BED:</p>
+<ul>
+<li><strong>RSeQC housekeeping BEDs</strong> (<a href="https://sourceforge.net/projects/rseqc/files/BED/">SourceForge</a>) — pre-curated single-isoform-per-gene sets for hg38, hg19, mm10, etc. The fastest path to a clean curve.</li>
+<li><strong>MANE_Select export</strong> — for human, the ~19,000 MANE_Select transcripts converted to BED12 (e.g.&nbsp;via UCSC <code>gtfToGenePred</code> + <code>genePredToBed</code>).</li>
+<li><strong>Custom curated set</strong> — any BED12 the user trusts (e.g.&nbsp;APPRIS principal isoforms, project-specific genes of interest).</li>
+</ul>
+<p>Without <code>--gene-body-bed</code>, the gene body coverage plot is omitted from the report (other QC sections are unaffected).</p>
 </section>
 </section>
 <section id="command-line-options" class="level1">
@@ -430,9 +443,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>--gtf</code></td>
 <td style="text-align: center;">None</td>
 <td>GTF annotation file</td>
-<td>Required with <code>--counts-matrix</code>; also used for gene body coverage</td>
+<td>Required with <code>--counts-matrix</code></td>
 </tr>
 <tr class="even">
+<td><code>--gene-body-bed</code></td>
+<td style="text-align: center;">None</td>
+<td>BED12 file (plain or <code>.gz</code>) for gene body coverage, RSeQC-style</td>
+<td>Provide a curated single-transcript-per-gene BED (e.g.&nbsp;RSeQC <code>HouseKeepingGenes.bed.gz</code>, MANE_Select export) to enable the gene body coverage plot</td>
+</tr>
+<tr class="odd">
 <td><code>--read-len-bin-width</code></td>
 <td style="text-align: center;">100</td>
 <td>Bin width for read-length histograms</td>
